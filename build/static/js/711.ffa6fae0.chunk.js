@@ -1,2 +1,0 @@
-"use strict";(globalThis.webpackChunkfrontend||=[]).push([[711],{4711(r,e,n){n.r(e);var s=n(3362),t=n(579);const i=()=>{const{universityId:r}=(0,s.g)();return r?(0,t.jsx)(s.C5,{to:`/admin/university/${r}/programs`,replace:!0}):(0,t.jsx)(s.C5,{to:"/admin/UniversityAdmin",replace:!0})};n.d(e,["default",0,i])}}]);
-//# sourceMappingURL=711.ffa6fae0.chunk.js.map

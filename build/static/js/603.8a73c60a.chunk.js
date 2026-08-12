@@ -1,2 +1,0 @@
-"use strict";(globalThis.webpackChunkfrontend||=[]).push([[603],{3603(e,r,a){a.r(r);var s=a(5043),t=a(3362),c=a(2588),l=a(6602),n=a(579);const o=()=>{const[e]=(0,t.ok)(),r=(0,t.Zp)(),a=(e.get("q")||"").trim();return(0,s.useEffect)(()=>{(async()=>{if(a)try{const e=await(0,c.p)(a);r(e,{replace:!0,state:{searchQuery:a,fromNavbar:!0}})}catch{r("/Programs_List",{replace:!0,state:{searchQuery:a,fromNavbar:!0}})}else r("/Programs_List",{replace:!0})})()},[a,r]),(0,n.jsx)(l.A,{label:"Finding results..."})};a.d(r,["default",0,o])}}]);
-//# sourceMappingURL=603.8a73c60a.chunk.js.map
