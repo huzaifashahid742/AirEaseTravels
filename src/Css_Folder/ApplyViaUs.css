@@ -1,0 +1,227 @@
+.airease-user .apply-wizard-page {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0rem 0rem;
+}
+
+/* =========================
+   HEADER
+========================= */
+.airease-user .apply-wizard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.airease-user .apply-wizard-header h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0.35rem 0 0;
+}
+
+.airease-user .apply-back-link {
+  color: #1F3A5F;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.airease-user .apply-program-label {
+  color: #64748b;
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+.airease-user .apply-progress-ring {
+  background: #1F3A5F;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  min-width: 100px;
+}
+
+.airease-user .apply-progress-ring span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* =========================
+   STEPPER (FIXED WRAP)
+========================= */
+.airease-user .apply-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.airease-user .apply-step-pill {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #64748b;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.airease-user .apply-step-pill.active {
+  background: #1F3A5F;
+  border-color: #1F3A5F;
+  color: #fff;
+}
+
+.airease-user .apply-step-pill.done {
+  border-color: #1F3A5F;
+  color: #1F3A5F;
+}
+
+/* =========================
+   FORM CARD
+========================= */
+.airease-user .apply-form-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 28px rgba(31, 58, 95, 0.08);
+}
+
+/* =========================
+   GRID (FIXED RESPONSIVE)
+========================= */
+.airease-user .apply-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.airease-user .apply-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   FIELDS
+========================= */
+.airease-user .apply-field label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1F3A5F;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.airease-user .apply-req {
+  color: #dc2626;
+}
+
+/* =========================
+   FILE UPLOAD
+========================= */
+.airease-user .apply-file-ok {
+  font-size: 0.8rem;
+  color: #16a34a;
+  margin: 0.35rem 0 0;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.airease-user .apply-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.airease-user .apply-btn-primary {
+  background: #1F3A5F;
+  border-color: #1F3A5F;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+}
+
+.airease-user .apply-btn-primary:hover {
+  background: #17304a;
+}
+
+.airease-user .apply-btn-outline {
+  border: 1px solid #1F3A5F;
+  color: #1F3A5F;
+  background: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+/* =========================
+   REVIEW
+========================= */
+.airease-user .apply-review ul {
+  padding-left: 1.25rem;
+  color: #334155;
+  line-height: 1.8;
+}
+
+/* =========================
+   TABLET FIX
+========================= */
+@media (max-width: 768px) {
+  .airease-user .apply-wizard-page {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .airease-user .apply-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .airease-user .apply-wizard-header {
+    flex-direction: column;
+  }
+
+  .airease-user .apply-progress-ring {
+    width: 100%;
+  }
+}
+
+/* =========================
+   MOBILE FIX
+========================= */
+@media (max-width: 480px) {
+  .airease-user .apply-wizard-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .airease-user .apply-step-pill {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .airease-user .apply-form-card {
+    padding: 1rem;
+  }
+}
+
+/* =========================
+   VERY SMALL DEVICES
+========================= */
+@media (max-width: 360px) {
+  .airease-user .apply-progress-ring span {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,69 @@
+.airease-user .global-search-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.airease-user .global-search-card {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px solid #dbe4ef;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.airease-user .global-search-card h1,
+.airease-user .global-search-header h1 {
+  color: #1f3a5f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.airease-user .global-search-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.airease-user .global-search-header p {
+  color: #475569;
+  font-family: "Poppins", sans-serif;
+}
+
+.airease-user .global-search-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.airease-user .global-search-section {
+  margin-bottom: 48px;
+}
+
+.airease-user .global-search-section h2 {
+  color: #1f3a5f;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #dbe4ef;
+}
+
+.airease-user .global-search-see-all {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.airease-user .global-search-see-all:hover {
+  text-decoration: underline;
+}
+
+.airease-user .global-search-anchor {
+  scroll-margin-top: 80px;
+  height: 0;
+}

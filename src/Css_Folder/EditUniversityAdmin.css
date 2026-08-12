@@ -1,0 +1,56 @@
+.airease-admin .admin-page-wrapper {
+    background-color: #f8fafc;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.airease-admin .admin-header {
+    margin-bottom: 30px;
+}
+
+.airease-admin .admin-header h1 {
+    font-family: "Poppins", sans-serif;
+    color: #1F3A5F;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.airease-admin .edit-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.airease-admin .form-label {
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.airease-admin .form-control,
+.airease-admin .form-select {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.airease-admin .form-control:focus,
+.airease-admin .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.airease-admin .btn-primary {
+    background-color: #2563eb;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 600;
+}
+
+.airease-admin .btn-light {
+    border: 1px solid #cbd5e1;
+    font-weight: 600;
+}

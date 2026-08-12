@@ -1,0 +1,274 @@
+.airease-admin .Main-container {
+    display: flex;
+    width: 95%;
+    margin: 20px auto;
+    height: auto;
+}
+.airease-admin .v-line {
+    left: 41%;
+    position: absolute;
+    width: 3px;
+    height: 160px;
+    margin: 8px auto;
+    background-color: #e0e0e0;
+}
+.airease-admin .Detail-main {
+    position: relative;
+    width: 65%;
+    height: 180px;
+}
+.airease-admin .Detail-main p {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 10%;
+    left: 4%;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+.airease-admin .Detail-main .Name {
+    padding: 0;
+    border-radius: 5px;
+    position: absolute;
+    top: 35%;
+    left: 22.5%;
+    font-size: 26px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    line-height: 0.9;
+}
+.airease-admin .card-body {
+    display: flex;
+    width: 50%;
+    margin: 10px 0;
+}
+.airease-admin .Label {
+    display: flex;
+    height: 100%;
+    width: auto;
+    margin: 0;
+    margin-right: 20px;
+}
+.airease-admin .Label-Title {
+    margin: auto 0;
+    padding: 0;
+}
+.airease-admin .Label .Label-Title li {
+    padding: 0;
+    margin: 0;
+    width: 120px;
+    list-style: none;
+    font-size: 15px;
+    line-height: 2.7;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #050b16;
+}
+.airease-admin .Label .sub-Label {
+    padding: 0;
+    margin: auto 0;
+}
+.airease-admin .Label .sub-Label li {
+    padding-right: 10px;
+    list-style: none;
+    line-height: 2;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 550;
+    color: #1F3A5F;
+}
+.airease-admin .Detail-Section {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    height: auto;
+    padding: 0;
+    width: 100%;
+}
+.airease-admin .Container4 {
+    margin: auto;
+    height: auto;
+    padding: 0;
+    width: 95%;
+}
+.airease-admin .Personal-Info {
+    border-radius: 15px;
+    background-color: rgb(242, 242, 242);
+    width: 40%;
+    height: auto;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+.airease-admin .Info-Title p {
+    width: 70%;
+    height: auto;
+    font-size: 26px;
+    margin: 0 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Info-Title hr {
+    margin: 2px 15px;
+    margin-bottom: 30px;
+    border: 2px solid #1F3A5F;
+}
+.airease-admin .Education-Info {
+    border-radius: 15px;
+    background-color: rgb(242, 242, 242);
+    width: 55%;
+    height: auto;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+.airease-admin .Education-Title p {
+    width: 70%;
+    height: auto;
+    font-size: 26px;
+    margin: 0 25px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Education-Title hr {
+    margin: 2px 25px;
+    margin-bottom: 30px;
+    border: 2px solid #1F3A5F;
+}
+.airease-admin .Section {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    height: auto;
+}
+.airease-admin .Section .Left {
+    width: 40%;
+    height: auto;
+}
+.airease-admin .Left label {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #050b16;
+}
+.airease-admin .Left li {
+    list-style: none;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    font-size: 19px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Section .Right {
+    width: 40%;
+    height: auto;
+}
+.airease-admin .Right label {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #050b16;
+}
+.airease-admin .Right li {
+    list-style: none;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    font-size: 19px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Details table {
+    width: 93.5%;
+    height: auto;
+    margin: 0 26px;
+}
+.airease-admin .Details table ul {
+    padding: 0;
+    margin: 0;
+}
+.airease-admin .Details table td {
+    padding: 0;
+}
+.airease-admin .Details table tbody ul li {
+    list-style: none;
+    margin: 0;
+}
+.airease-admin #Edu-Title {
+    width: 70%;
+    height: auto;
+    font-size: 24px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #050b16;
+}
+.airease-admin #Uni-Title {
+    width: 90%;
+    height: auto;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    color: #1F3A5F;
+}
+.airease-admin #Grade {
+    width: 12%;
+    height: auto;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+    padding: 8px 0;
+}
+.airease-admin #Timeline {
+    padding: 8px 0;
+    width: 12%;
+    height: auto;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Documents-Info {
+    background-color: rgb(242, 242, 242);
+    border-radius: 15px;
+    width: auto;
+    height: auto;
+    margin: 0 10px;
+}
+.airease-admin .Documents-Title p {
+    width: 70%;
+    height: auto;
+    font-size: 26px;
+    margin: 0 25px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #1F3A5F;
+}
+.airease-admin .Documents-Title hr {
+    margin: 2px 25px;
+    margin-bottom: 30px;
+    border: 2px solid #1F3A5F;
+}
+.airease-admin .Card-Container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.airease-admin .Card-Container img {
+    width: 13rem;
+    height: 14rem;
+}

@@ -1,0 +1,69 @@
+@media (max-width: 900px) {
+  .airease-user .Hero_Section .hero-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .airease-user .Hero_Section .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .airease-user .Container {
+    flex-direction: column;
+    padding: 0 0.75rem 2rem;
+  }
+
+  .airease-user .program-detail-layout {
+    flex-direction: column;
+  }
+
+  .airease-user .program-detail-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .airease-user .universities-search-bar,
+  .airease-user .comparison-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .airease-user .universities-search-bar input,
+  .airease-user .comparison-search-row input {
+    width: 100% !important;
+  }
+
+  .airease-admin .admin-programs-page {
+    padding: 1rem !important;
+  }
+
+  .airease-admin .admin-page-hero {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .airease-admin .admin-stat-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem;
+  }
+
+  .airease-admin .admin-card-panel {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .airease-admin .admin-data-table {
+    min-width: 640px;
+  }
+
+  .airease-user footer .footer-grid,
+  .airease-user .footer-columns {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .airease-admin .admin-stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

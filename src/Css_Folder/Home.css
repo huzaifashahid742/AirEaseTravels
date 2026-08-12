@@ -1,0 +1,268 @@
+.airease-user {
+    font-family: "Poppins", sans-serif;
+}
+.Hero_Section{
+    position: relative;
+    width: 100%;
+    height: 617px;
+}
+.Hero_Section video{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.hero-content {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 8%;
+  color: #FFFFFF;
+}
+.hero-content h1{
+    text-align: left;
+    margin: 0 0;
+    padding-top: 0px;
+    font-size: 50px;
+    font-family: sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    color: #FFFFFF;
+}
+.hero-content p{
+    margin: 0 0;
+    text-align: left;
+    font-size: 20px;
+    font-family: "Poppins" , sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #FFFFFF;
+}
+.hero-content button{
+  display: block;
+    background-color  : #1F3A5F;
+    width: 45%;
+    height: 45px;
+    color: #FFFFFF;
+    border-radius: 25px;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+}
+#why-airease,
+#how-it-works {
+  scroll-margin-top: 72px;
+}
+
+.highlights {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+.highlights .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.airease-user .card {
+  background: #FFFFFF;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px #E5E7EB;
+  max-width: 300px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.airease-user .card img {
+  width: 60px;
+  margin-bottom: 20px;
+}
+.airease-user .card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #2B2B2B;
+}
+.airease-user .card p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #2B2B2B;
+}
+.airease-user .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.consultation {
+  padding: 60px 20px;
+  text-align: center;
+}
+.consultation .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.consultation h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 45px;
+  color: #2B2B2B;
+}
+.consultation p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
+  color: #2B2B2B;
+}
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+}
+.step-card {
+  background: #FFFFFF;
+  padding: 30px 20px;
+  border-radius: 12px;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.step-icon {
+  position: relative;
+  margin-bottom: 20px;
+}
+.step-icon img {
+  width: 60px;
+}
+.step-number {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #3A7CA5;
+  color: white;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.step-card p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #2B2B2B;
+}
+.hero-content h1, .hero-content p {
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+.hero-content button:hover {
+  background-color: #17304A;
+  transform: translateY(-2px);
+}
+.airease-user .highlights .card i {
+  font-size: 40px;
+  color: #1F3A5F;
+  margin-bottom: 15px;
+}
+.step-card i {
+  font-size: 40px;
+  color: #1F3A5F;
+  margin-bottom: 15px;
+}
+.modal-content,
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-top: 3px solid #1F3A5F;
+}
+.airease-user .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-top: 3px solid #1F3A5F;
+}
+.contact-options a:hover {
+  color: #1F3A5F;
+}
+.marquee span {
+  display: inline-block;
+  animation: slide-left 15s linear infinite;
+}
+.airease-user button,
+.airease-user .open-contact {
+    cursor: pointer;
+}
+.Unordered_List li:hover {
+    color: #1F3A5F;
+    font-weight: 600;
+    cursor: pointer;
+}
+a{
+  text-decoration: none;
+}
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+}
+html {
+  scroll-behavior: smooth;
+}
+.highlights .container {
+  row-gap: 40px;
+}
+.airease-user .Unordered_List li a {
+    color: #1F3A5F;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.airease-user .Unordered_List li a:hover {
+    color: #17304A;
+}
+.Footer_Links li a,
+.Footer_Programs li a, .Footer_Contact li a, .Footer_Icons li a, .Footer_Bottom li a{
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.Footer_Links li a:hover,
+.Footer_Programs li a:hover {
+    color: #FFFFFF;
+}
+
+@keyframes slide-left {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes fadeInScale {
+  from {opacity: 0; transform: scale(0.8);}
+  to {opacity: 1; transform: scale(1);}
+}
+.modal-content {
+  animation: fadeInScale 0.3s ease-out;
+}
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

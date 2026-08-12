@@ -1,0 +1,43 @@
+.marquee-container {
+    width: 100%;
+    background: #e5f2ff; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.marquee-content {
+    display: flex;
+    width: max-content;
+    position: relative;
+}
+.marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100%;
+    animation: scrollMarquee 45s linear infinite;
+}
+.marquee-content:hover .marquee-track {
+    animation-play-state: paused;
+}
+.marquee-track span {
+    color: #1f3a5f; 
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 0 20px;
+    white-space: nowrap;
+}
+@keyframes scrollMarquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

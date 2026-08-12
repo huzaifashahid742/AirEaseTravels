@@ -1,0 +1,30 @@
+@media (max-width: 900px) {
+  .airease-user .container-with-filters {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .airease-user .Filter_Section {
+    width: 100%;
+    flex: none;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .airease-user .Programs_Card {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .airease-user .container-with-filters .Filter_Section {
+    flex: 0 0 20%;
+    min-width: 220px;
+  }
+
+  .airease-user .container-with-filters .Programs_Card {
+    flex: 1;
+    width: auto;
+  }
+}

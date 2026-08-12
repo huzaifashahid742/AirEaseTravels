@@ -1,0 +1,381 @@
+.airease-user .student-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Student account shell — shared nav for dashboard, profile, applications, apply */
+.airease-user .sd-account-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.airease-user .sd-account-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(31, 58, 95, 0.06);
+}
+
+.airease-user .sd-account-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.airease-user .sd-account-nav-link:hover {
+  background: #f1f5f9;
+  color: #1f3a5f;
+}
+
+.airease-user .sd-account-nav-link--active {
+  background: #1f3a5f;
+  color: #fff;
+}
+
+.airease-user .sd-account-nav-link--active i {
+  color: #93c5fd;
+}
+
+.airease-user .sd-account-nav-static {
+  cursor: default;
+}
+
+.airease-user .sd-account-content {
+  min-height: 200px;
+}
+
+.airease-user .sd-apply-program-list {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 0 1rem;
+}
+
+.airease-user .sd-welcome-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 1.75rem;
+}
+
+.airease-user .sd-welcome-row h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0 0 0.35rem;
+}
+
+.airease-user .sd-welcome-row p {
+  color: #64748b;
+  margin: 0;
+}
+
+.airease-user .sd-profile-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 6px 24px rgba(31, 58, 95, 0.06);
+  min-width: 260px;
+}
+
+.airease-user .sd-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1F3A5F;
+  margin-bottom: 0.5rem;
+}
+
+.airease-user .sd-progress-bar {
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.airease-user .sd-progress-fill {
+  height: 100%;
+  background: #1F3A5F;
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+.airease-user .sd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.airease-user .sd-stat-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  border-left: 4px solid #1F3A5F;
+}
+
+.airease-user .sd-stat-card h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+}
+
+.airease-user .sd-stat-card p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0;
+}
+
+.airease-user .sd-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+}
+
+.airease-user .sd-sidebar {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.airease-user .sd-sidebar h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0 0 1rem;
+}
+
+.airease-user .sd-checklist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.88rem;
+  color: #334155;
+}
+
+.airease-user .sd-badge-done {
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.airease-user .sd-badge-pending {
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.airease-user .sd-main-panel {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+}
+
+.airease-user .sd-app-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.airease-user .sd-app-row:last-child {
+  border-bottom: none;
+}
+
+.airease-user .sd-app-row h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1F3A5F;
+  margin: 0 0 0.2rem;
+}
+
+.airease-user .sd-app-row p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.airease-user .sd-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.airease-user .sd-quick-actions a,
+.airease-user .sd-quick-actions button {
+  text-align: left;
+  font-size: 0.88rem;
+  color: #1F3A5F;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0.35rem 0;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+
+.airease-user .sd-app-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.airease-user .sd-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.airease-user .sd-view-header h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0.35rem 0;
+}
+
+.airease-user .sd-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: #64748b;
+  text-decoration: none;
+  margin-bottom: 0.25rem;
+}
+
+.airease-user .sd-back-link:hover {
+  color: #1F3A5F;
+}
+
+.airease-user .sd-detail-section {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.airease-user .sd-detail-section h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin: 0 0 1rem;
+}
+
+.airease-user .sd-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.airease-user .sd-detail-item label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #64748b;
+  margin-bottom: 0.2rem;
+}
+
+.airease-user .sd-detail-item span {
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.airease-user .sd-doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.airease-user .sd-doc-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.airease-user .sd-doc-card h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1F3A5F;
+  margin: 0 0 0.4rem;
+}
+
+.airease-user .sd-doc-link {
+  font-size: 0.85rem;
+  color: #1F3A5F;
+}
+
+.airease-user .sd-school-card {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.airease-user .sd-school-card:last-child {
+  border-bottom: none;
+}
+
+.airease-user .sd-school-card p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .airease-user .sd-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .airease-user .sd-layout {
+    grid-template-columns: 1fr;
+  }
+  .airease-user .sd-welcome-row {
+    grid-template-columns: 1fr;
+  }
+  .airease-user .sd-account-nav {
+    flex-direction: column;
+  }
+  .airease-user .sd-account-nav-link {
+    width: 100%;
+  }
+}

@@ -1,0 +1,157 @@
+.airease-admin .program-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 700px;
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* HEADER */
+.airease-admin .program-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.airease-admin .program-card .card-header h3 {
+  margin: 0;
+  color: #1f3a5f;
+  font-weight: 700;
+}
+
+.airease-admin .program-card .card-header p {
+  color: #64748b;
+  margin: 0;
+}
+
+/* STATUS BADGE */
+.airease-admin .status-badge {
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* CONTENT GRID */
+.airease-admin .program-card .card-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 30px;
+}
+
+/* DETAIL ITEM */
+.airease-admin .detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* LABEL */
+.airease-admin .label {
+  color: #64748b;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+/* VALUE */
+.airease-admin .value {
+  background: #f8fafc;
+  color: #1f3a5f;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+  flex: 1;
+  min-width: 120px;
+  word-break: break-word;
+}
+
+/* FOOTER */
+.airease-admin .program-card .card-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+
+/* BUTTONS */
+.airease-admin .btn-edit,
+.airease-admin .btn-delete {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.airease-admin .btn-edit {
+  background-color: #2563eb;
+  color: white;
+}
+
+.airease-admin .btn-delete {
+  background-color: #e11d48;
+  color: white;
+}
+
+.airease-admin .btn-edit:hover,
+.airease-admin .btn-delete:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   RESPONSIVE FIXES
+   ========================= */
+
+@media (max-width: 768px) {
+  .airease-admin .program-card {
+    padding: 18px;
+  }
+
+  .airease-admin .program-card .card-content {
+    grid-template-columns: 1fr;
+  }
+
+  .airease-admin .program-card .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .airease-admin .btn-edit,
+  .airease-admin .btn-delete {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .airease-admin .program-card {
+    padding: 14px;
+  }
+
+  .airease-admin .label {
+    min-width: 70px;
+    font-size: 0.85rem;
+  }
+
+  .airease-admin .value {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}

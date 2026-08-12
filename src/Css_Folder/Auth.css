@@ -1,0 +1,277 @@
+/* /* =========================
+   AUTH PAGE WRAPPER (Split Screen Layout)
+========================= */
+.auth-page-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #f8fafc;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* =========================
+   LEFT VISUAL PANEL
+========================= */
+.auth-visual-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  background-image: url("/public/Images_Folder/Crousel_Study.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.visual-panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 58, 95, 0.4) 0%,
+    rgba(15, 23, 42, 0.85) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 60px;
+}
+
+.visual-panel-content {
+  color: #fff;
+  max-width: 500px;
+}
+
+.visual-panel-content h2 {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.visual-panel-content p {
+  font-size: 16px;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+/* =========================
+   RIGHT FORM PANEL
+========================= */
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 40px; */
+  background: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* =========================
+   CARD STYLING & SCROLLING LOGIC
+========================= */
+.auth-card-box {
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+  transition: max-width 0.3s ease;
+}
+
+.auth-card-box.wide-card {
+  max-width: 760px;
+  max-height: 90vh; /* Keeps registration card contained nicely within viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card-box.wide-card .auth-form-element {
+  overflow-y: auto; /* Enables internal clean scrolling for extended registration inputs */
+  padding-right: 6px;
+  max-height: calc(90vh - 150px);
+}
+
+/* =========================
+   HEADER
+========================= */
+.auth-header {
+  margin-bottom: 22px;
+}
+
+.auth-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1F3A5F;
+  margin-bottom: 6px;
+}
+
+.auth-header p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* =========================
+   INPUTS & GRIDS
+========================= */
+.auth-form-element {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.registration-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .registration-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-input-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-input-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1F3A5F;
+  text-transform: uppercase;
+}
+
+.form-input-group input,
+.form-input-group select,
+.form-input-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.form-input-group input:focus,
+.form-input-group select:focus,
+.form-input-group textarea:focus {
+  outline: none;
+  border-color: #1F3A5F;
+  box-shadow: 0 0 0 3px rgba(31, 58, 95, 0.1);
+}
+
+.form-input-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.auth-primary-btn {
+  width: 100%;
+  height: 46px;
+  background: #1F3A5F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 6px;
+}
+
+.auth-primary-btn:hover:not(:disabled) {
+  background: #152842;
+}
+
+.auth-primary-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* =========================
+   FOOTER TOGGLE
+========================= */
+.auth-toggle-footer {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.toggle-mode-btn {
+  background: none;
+  border: none;
+  color: #1F3A5F;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggle-mode-btn:hover {
+  text-decoration: underline;
+}
+
+.auth-alert-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1px solid #fecaca;
+  margin-bottom: 16px;
+}
+
+/* Custom internal scrollbar track styling */
+.auth-card-box.wide-card .auth-form-element::-webkit-scrollbar {
+  width: 5px;
+}
+
+.auth-card-box.wide-card .auth-form-element::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.auth-card-box.wide-card .auth-form-element::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* =========================
+   RESPONSIVE BREAKPOINT
+========================= */
+@media (max-width: 968px) {
+  .auth-visual-panel {
+    display: none;
+  }
+
+  .auth-form-panel {
+    padding: 20px;
+    width: 100%;
+  }
+}

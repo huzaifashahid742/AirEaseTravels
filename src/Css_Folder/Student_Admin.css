@@ -1,0 +1,37 @@
+.airease-admin .University_List {
+    width: 90%;
+    height: auto;
+    margin: 70px auto;
+    margin-bottom: 0;
+}
+.airease-admin .University_Title h2 {
+    width: auto;
+    padding-top: 10px;
+    height: 50px;
+    font-size: 50px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #1F3A5F;
+    text-align: center;
+}
+.airease-admin .table {
+    max-width: 100%;
+    height: auto;
+    margin: 60px auto;
+    text-align: center;
+    table-layout: fixed;
+}
+.airease-admin table tr {
+    color: #1F3A5F;
+}
+.airease-admin table tr td {
+    line-height: 3;
+    font-size: 17px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+.airease-admin .table th,
+.airease-admin .table td {
+    white-space: nowrap;
+}

@@ -1,0 +1,528 @@
+.Hero_Section{
+    position: relative;
+    width: 100%;
+    height: 617px;
+    filter: brightness(98%);
+    background-image: url("/public/Images_Folder/Program_Hero.jpg");
+    background-size: cover;      
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.hero-content {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 10%;
+  color: #FFFFFF;
+}
+.hero-content h1{
+    width: 60%;
+    margin: 0 0;
+    padding-top: 0px;
+    font-size: 55px;
+    font-family: sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    color: #FFFFFF;
+}
+.hero-content p{
+    margin: 0 0;
+    font-size: 20px;
+    font-family: "Poppins" , sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #FFFFFF;
+}
+.hero-content button{
+    background-color: #1F3A5F;
+    width: 25%;
+    height: 45px;
+    color: #FFFFFF;
+    border-radius: 25px;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.airease-user button,
+.airease-user .open-contact {
+    cursor: pointer;
+}
+
+.airease-user .programs-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem 2rem;
+}
+
+.airease-user .program-list-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(31, 58, 95, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.airease-user .program-list-card:hover {
+    box-shadow: 0 12px 36px rgba(31, 58, 95, 0.12);
+    transform: translateY(-2px);
+}
+
+.airease-user .program-list-card__media {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.airease-user .program-list-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.airease-user .program-list-card__degree {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #1F3A5F;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+}
+
+.airease-user .program-list-card__body {
+    padding: 1.15rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.airease-user .program-list-card__uni {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0 0 0.25rem;
+    font-weight: 500;
+}
+
+.airease-user .program-list-card__body h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1F3A5F;
+    margin: 0 0 0.75rem;
+    line-height: 1.35;
+}
+
+.airease-user .program-list-card__meta {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.airease-user .program-list-card__meta li {
+    margin-bottom: 0.35rem;
+}
+
+.airease-user .program-list-card__meta i {
+    width: 18px;
+    color: #1F3A5F;
+    margin-right: 0.35rem;
+}
+
+.airease-user .program-list-card__deadline {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0 0 1rem;
+}
+
+.airease-user .program-list-card__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.airease-user .program-btn-primary {
+    flex: 1;
+    background: #1F3A5F;
+    border-color: #1F3A5F;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 0.88rem;
+}
+
+.airease-user .program-btn-primary:hover {
+    background: #17304a;
+    color: #fff;
+}
+
+.airease-user .program-btn-outline {
+    flex: 1;
+    border: 1px solid #1F3A5F;
+    color: #1F3A5F;
+    background: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.airease-user .program-btn-outline:hover {
+    background: #f1f5f9;
+    color: #1F3A5F;
+}
+.hero-content button:hover {
+  background-color: #17304A;
+  transform: translateY(-2px);
+}
+.Container{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 0px;
+    margin-bottom: 0;
+}
+.Filter_Section{
+    text-align: left;
+    height: auto;
+    flex: 0 0 20%;
+    border: 1px solid #1F3A5F;
+}
+.Filter_Section .Filter h2{
+    display: block;
+    width: 100%;
+    height: 50px;
+    font-size: 38px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.4;
+    text-align: center;
+    color: #1F3A5F;
+    margin: 0 0;
+}
+.Filter_Section hr{
+    margin: 30px 40px;
+    border: 2px solid #1F3A5F;
+}
+.Program_Level h3{
+    width: auto;
+    height: 30px;
+    margin: 0 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1F3A5F;
+}
+.Program_Level label {
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    color: #1F3A5F;
+    margin-left: 45px;
+    margin-right: 0;
+    margin-bottom:0px;   
+    color: #1F3A5F;
+}
+.Program_Level input[type="radio"] {
+    border: 1px solid #1F3A5F;
+}
+.Program_Level i{
+    margin-left: 5px;
+    margin-right: 0;
+}
+.Programs_Card{
+    width: 80%;
+    height: auto;
+}
+.Title h2{
+    width: 100%;
+    height: 60px;
+    margin:0 0;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    line-height: 1.5;
+    color: #1F3A5F;
+}
+.Show h5{
+    width: 100%;    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    color: #1F3A5F;
+}
+
+.programs-results-anchor {
+    scroll-margin-top: 80px;
+    height: 0;
+    width: 100%;
+}
+
+.programs-active-search {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #475569;
+    margin: 0 0 12px;
+}
+
+.programs-active-search strong {
+    color: #1f3a5f;
+}
+
+.programs-active-search .btn-link {
+    margin-left: 8px;
+    text-decoration: none;
+    color: #2563eb;
+}
+
+.programs-search-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    max-width: 560px;
+    margin: 0 auto 24px;
+    padding: 0 16px;
+}
+
+.programs-search-bar .form-control {
+    flex: 1;
+}
+
+.programs-search-bar .form-control {
+    border: 1px solid #1F3A5F;
+    border-radius: 8px;
+}
+
+.programs-page-info {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.programs-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0 48px;
+    flex-wrap: wrap;
+}
+
+.programs-pagination .Show-more-btn {
+    min-width: 140px;
+    font-weight: 600;
+}
+
+.Filter_Section .filter-actions {
+    display: block;
+    padding: 0 24px 16px;
+}
+
+.Filter_Section .filter-actions .btn {
+    font-family: "Poppins", sans-serif;
+}
+
+.Filter_Section .filter-enter-hint {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+.Program_Level {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Program_Level label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* =========================
+   TABLET (≤1024px)
+========================= */
+@media (max-width: 1024px) {
+
+  .Container {
+    flex-direction: column;
+  }
+
+  .Filter_Section {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .Programs_Card {
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+    width: 80%;
+  }
+
+  .hero-content button {
+    width: 40%;
+  }
+}
+
+
+/* =========================
+   MOBILE (≤768px)
+========================= */
+@media (max-width: 768px) {
+
+  /* HERO */
+  .Hero_Section {
+    height: 420px;
+  }
+
+  .hero-content {
+    left: 5%;
+    top: 45%;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+    width: 100%;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .hero-content button {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  /* LAYOUT STACK */
+  .Container {
+    flex-direction: column;
+  }
+
+  .Filter_Section {
+    width: 100%;
+    flex: 0 0 100%;
+    border: none;
+    border-bottom: 2px solid #1F3A5F;
+  }
+
+  .Programs_Card {
+    width: 100%;
+  }
+
+  /* FILTER TEXT */
+  .Filter_Section .Filter h2 {
+    font-size: 26px;
+  }
+
+  .Program_Level h3 {
+    font-size: 18px;
+  }
+
+  .Program_Level label {
+    font-size: 14px;
+    margin-left: 20px;
+  }
+
+  /* GRID */
+  .airease-user .programs-card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .Title h2 {
+    font-size: 26px;
+  }
+
+  /* PAGINATION */
+  .programs-pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE (≤480px)
+========================= */
+@media (max-width: 480px) {
+
+  .hero-content h1 {
+    font-size: 22px;
+  }
+
+  .hero-content button {
+    width: 90%;
+  }
+
+  .Filter_Section {
+    padding: 10px;
+  }
+
+  .Program_Level label {
+    font-size: 13px;
+  }
+
+  .program-list-card__body h3 {
+    font-size: 1rem;
+  }
+
+  .program-list-card__meta {
+    font-size: 0.8rem;
+  }
+}
+.programs-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Force buttons in one row */
+.programs-pagination button {
+  min-width: 120px;
+}
+@media (max-width: 768px) {
+
+  .Filter_Section {
+    display: none;
+  }
+
+  .Programs_Card {
+    width: 100%;
+  }
+
+  .Container {
+    flex-direction: column;
+  }
+}
