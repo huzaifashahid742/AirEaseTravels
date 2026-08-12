@@ -1,7 +1,14 @@
-// Inside your frontend api.js file
 const resolveApiBase = () => {
-  const raw = process.env.REACT_APP_API_URL || 'http://localhost:7000/api';
-  const trimmed = String(raw).replace(/\/$/, '');
+  let raw = String(process.env.REACT_APP_API_URL || 'http://localhost:7000/api').trim();
+  if (!raw) raw = 'http://localhost:7000/api';
+
+  // Host-only values (e.g. "myapp.up.railway.app") must become absolute URLs or
+  // fetch treats them as same-origin paths and static hosts return 405 on POST.
+  if (!/^https?:\/\//i.test(raw)) {
+    raw = `https://${raw.replace(/^\/+/, '')}`;
+  }
+
+  const trimmed = raw.replace(/\/$/, '');
   if (trimmed.endsWith('/api')) return trimmed;
   return `${trimmed}/api`;
 };
