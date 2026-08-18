@@ -98,9 +98,15 @@ export const universitiesAPI = {
   },
   getById: (id) => apiRequest(`/universities/${id}`),
   create: (payload) =>
-    apiRequest('/universities', { method: 'POST', body: JSON.stringify(payload) }),
+    apiRequest('/universities', { 
+      method: 'POST', 
+      body: payload // Pass FormData directly without JSON.stringify
+    }),
   update: (id, payload) =>
-    apiRequest(`/universities/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
+    apiRequest(`/universities/${id}`, { 
+      method: 'PUT', 
+      body: payload // Pass FormData directly without JSON.stringify
+    }),
   delete: (id) => apiRequest(`/universities/${id}`, { method: 'DELETE' }),
 };
 

@@ -227,7 +227,7 @@ const EditUniversityAdmin = () => {
               />
             </div>
             <div className="col-12 mt-4 pt-3 border-top">
-              <div className="d-flex justify-content-end gap-3">
+              <div className="d-flex justify- -end gap-3">
                 <button type="button" className="btn btn-light px-4" onClick={() => navigate('/admin/UniversityAdmin')}>
                   Cancel
                 </button>
