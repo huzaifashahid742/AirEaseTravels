@@ -1,4 +1,4 @@
-/** Resize and compress an image file to a JPEG data URL for MongoDB storage */
+/** Resize and compress an image file to a JPEG data URL for previews or lightweight storage */
 export const fileToDataUrl = (file, maxWidth = 280) =>
   new Promise((resolve, reject) => {
     if (!file?.type?.startsWith('image/')) {
@@ -33,7 +33,12 @@ export const fileToDataUrl = (file, maxWidth = 280) =>
     reader.readAsDataURL(file);
   });
 
+/** Safely resolve stored image URLs, fallback images, or uploaded Cloudinary paths */
 export const resolveStoredImage = (value, fallback = '/Images_Folder/Logo_transparent.png') => {
   if (!value || value === 'default-logo.png') return fallback;
+  // If it's a full URL (like Cloudinary) or a relative path, return it directly
+  if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) {
+    return value;
+  }
   return value;
 };

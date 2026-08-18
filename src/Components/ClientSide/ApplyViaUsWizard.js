@@ -197,80 +197,81 @@ const ApplyViaUsWizard = () => {
 
     return data;
   };
-const saveDraft = async (nextStep = step) => {
-  setSaving(true);
-  setError('');
-  try {
-    const formData = buildFormDataPayload(nextStep);
-    const res = await visaApplicationsAPI.saveDraft(formData);
 
-    const parsedApiForm = applicationFromApi(res.data);
+  const saveDraft = async (nextStep = step) => {
+    setSaving(true);
+    setError('');
+    try {
+      const formData = buildFormDataPayload(nextStep);
+      const res = await visaApplicationsAPI.saveDraft(formData);
 
-    setForm((prev) => ({
-      ...prev,
-      ...parsedApiForm,
-      applicationId: parsedApiForm.applicationId || prev.applicationId,
-      personalInfo: {
-        ...prev.personalInfo,
-        ...parsedApiForm.personalInfo,
-        cnic: parsedApiForm.personalInfo?.cnic || prev.personalInfo.cnic || '',
-      },
-      academicBackground: {
-        ...prev.academicBackground,
-        ...parsedApiForm.academicBackground,
-        transcriptUpload:
-          parsedApiForm.academicBackground?.transcriptUpload ||
-          prev.academicBackground?.transcriptUpload ||
-          '',
-        schools: (parsedApiForm.academicBackground?.schools || prev.academicBackground?.schools || []).map(
-          (school, index) => ({
-            ...(prev.academicBackground?.schools?.[index] || {}),
-            ...school,
-            resultUpload:
-              school.resultUpload ||
-              prev.academicBackground?.schools?.[index]?.resultUpload ||
-              '',
-          })
-        ),
-      },
-      languageProficiency: {
-        ...prev.languageProficiency,
-        ...parsedApiForm.languageProficiency,
-        IELTSresult:
-          parsedApiForm.languageProficiency?.IELTSresult ||
-          prev.languageProficiency?.IELTSresult ||
-          '',
-      },
-      programInterest: {
-        ...prev.programInterest,
-        ...parsedApiForm.programInterest,
-        interestedCountry:
-          parsedApiForm.programInterest?.interestedCountry ||
-          prev.programInterest?.interestedCountry ||
-          '',
-      },
-      attachments: {
-        ...prev.attachments,
-        ...parsedApiForm.attachments,
-        resumeCv: parsedApiForm.attachments?.resumeCv || prev.attachments?.resumeCv || '',
-        statementOfPurpose:
-          parsedApiForm.attachments?.statementOfPurpose || prev.attachments?.statementOfPurpose || '',
-        passportCopyUpload:
-          parsedApiForm.attachments?.passportCopyUpload || prev.attachments?.passportCopyUpload || '',
-        nationalIdProof:
-          parsedApiForm.attachments?.nationalIdProof || prev.attachments?.nationalIdProof || '',
-      },
-    }));
+      const parsedApiForm = applicationFromApi(res.data);
 
-    setMessage('Progress saved. You can continue anytime from your dashboard.');
-    return res.data;
-  } catch (err) {
-    setError(err.message || 'Failed to save');
-    throw err;
-  } finally {
-    setSaving(false);
-  }
-};
+      setForm((prev) => ({
+        ...prev,
+        ...parsedApiForm,
+        applicationId: parsedApiForm.applicationId || prev.applicationId,
+        personalInfo: {
+          ...prev.personalInfo,
+          ...parsedApiForm.personalInfo,
+          cnic: parsedApiForm.personalInfo?.cnic || prev.personalInfo.cnic || '',
+        },
+        academicBackground: {
+          ...prev.academicBackground,
+          ...parsedApiForm.academicBackground,
+          transcriptUpload:
+            parsedApiForm.academicBackground?.transcriptUpload ||
+            prev.academicBackground?.transcriptUpload ||
+            '',
+          schools: (parsedApiForm.academicBackground?.schools || prev.academicBackground?.schools || []).map(
+            (school, index) => ({
+              ...(prev.academicBackground?.schools?.[index] || {}),
+              ...school,
+              resultUpload:
+                school.resultUpload ||
+                prev.academicBackground?.schools?.[index]?.resultUpload ||
+                '',
+            })
+          ),
+        },
+        languageProficiency: {
+          ...prev.languageProficiency,
+          ...parsedApiForm.languageProficiency,
+          IELTSresult:
+            parsedApiForm.languageProficiency?.IELTSresult ||
+            prev.languageProficiency?.IELTSresult ||
+            '',
+        },
+        programInterest: {
+          ...prev.programInterest,
+          ...parsedApiForm.programInterest,
+          interestedCountry:
+            parsedApiForm.programInterest?.interestedCountry ||
+            prev.programInterest?.interestedCountry ||
+            '',
+        },
+        attachments: {
+          ...prev.attachments,
+          ...parsedApiForm.attachments,
+          resumeCv: parsedApiForm.attachments?.resumeCv || prev.attachments?.resumeCv || '',
+          statementOfPurpose:
+            parsedApiForm.attachments?.statementOfPurpose || prev.attachments?.statementOfPurpose || '',
+          passportCopyUpload:
+            parsedApiForm.attachments?.passportCopyUpload || prev.attachments?.passportCopyUpload || '',
+          nationalIdProof:
+            parsedApiForm.attachments?.nationalIdProof || prev.attachments?.nationalIdProof || '',
+        },
+      }));
+
+      setMessage('Progress saved. You can continue anytime from your dashboard.');
+      return res.data;
+    } catch (err) {
+      setError(err.message || 'Failed to save');
+      throw err;
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleSaveAndNext = async () => {
     if (step === 1) {
@@ -419,189 +420,184 @@ const saveDraft = async (nextStep = step) => {
         )}
 
         {step === 2 && (
-  <div className="apply-academic-section">
-    {/* Section Header - Expanded Full Width */}
-    <div className="border-bottom pb-3 mb-4 w-100">
-      <h4 className="mb-1 text-dark fw-bold">Academic Background</h4>
-      <p className="text-muted small mb-0">
-        Please provide your academic achievements starting with your highest/most recent qualification.
-      </p>
-    </div>
+          <div className="apply-academic-section">
+            <div className="border-bottom pb-3 mb-4 w-100">
+              <h4 className="mb-1 text-dark fw-bold">Academic Background</h4>
+              <p className="text-muted small mb-0">
+                Please provide your academic achievements starting with your highest/most recent qualification.
+              </p>
+            </div>
 
-    {/* Section 1: Latest Education (Required Primary Block) - Spans 100% */}
-    <div className="card shadow-sm border mb-4 w-100">
-      <div className="card-header bg-light py-3 border-bottom-0 w-100">
-        <span className="text-dark small fw-bold text-uppercase tracking-wider">
-          <i className="fa-solid fa-graduation-cap text-primary me-2" />
-          Latest Education
-        </span>
-      </div>
-      <div className="card-body p-4 pt-2 w-100">
-        <div className="row g-3 w-100 mx-0">
-          <div className="col-md-6 px-2">
-            <Field label="Institution / School Name" required>
-              <input 
-                className="form-control w-100" 
-                placeholder="e.g. Stanford University"
-                value={form.academicBackground.highSchoolName} 
-                onChange={(e) => patch('academicBackground', 'highSchoolName', e.target.value)} 
-                required 
-              />
-            </Field>
-          </div>
-          <div className="col-md-6 px-2">
-            <Field label="Board / University / Awarding Body" required>
-              <input 
-                className="form-control w-100" 
-                placeholder="e.g. State Board / University"
-                value={form.academicBackground.boardOrUniversity} 
-                onChange={(e) => patch('academicBackground', 'boardOrUniversity', e.target.value)} 
-                required 
-              />
-            </Field>
-          </div>
-          <div className="col-md-6 px-2">
-            <Field label="Year of Completion" required>
-              <input 
-                type="number" 
-                className="form-control w-100" 
-                placeholder="YYYY"
-                min={1950}
-                max={new Date().getFullYear()}
-                value={form.academicBackground.yearOfGraduation} 
-                onChange={(e) => {
-                  patch('academicBackground', 'yearOfGraduation', e.target.value);
-                  const err = validateGraduationYear(e.target.value);
-                  setYearErrors((prev) => ({ ...prev, primary: err }));
-                }}
-                required 
-              />
-              {yearErrors.primary && <small className="text-danger">{yearErrors.primary}</small>}
-            </Field>
-          </div>
-          <div className="col-md-6 px-2">
-            <Field label="GPA / Percentage" required>
-              <input 
-                className="form-control w-100" 
-                placeholder="e.g. 3.8/4.0 or 85%"
-                value={form.academicBackground.gpaOrPercentage} 
-                onChange={(e) => patch('academicBackground', 'gpaOrPercentage', e.target.value)} 
-                required 
-              />
-            </Field>
-          </div>
-          
-          {/* Document Upload - Full Width of its card container */}
-          <div className="col-12 px-2 mt-4 pt-3 border-top w-100">
-            <FileField 
-              label="Upload Transcript / Marksheet (Latest Education)" 
-              required 
-              value={form.academicBackground.transcriptUpload} 
-              onChange={(v) => patch('academicBackground', 'transcriptUpload', v)} 
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+            <div className="card shadow-sm border mb-4 w-100">
+              <div className="card-header bg-light py-3 border-bottom-0 w-100">
+                <span className="text-dark small fw-bold text-uppercase tracking-wider">
+                  <i className="fa-solid fa-graduation-cap text-primary me-2" />
+                  Latest Education
+                </span>
+              </div>
+              <div className="card-body p-4 pt-2 w-100">
+                <div className="row g-3 w-100 mx-0">
+                  <div className="col-md-6 px-2">
+                    <Field label="Institution / School Name" required>
+                      <input 
+                        className="form-control w-100" 
+                        placeholder="e.g. Stanford University"
+                        value={form.academicBackground.highSchoolName} 
+                        onChange={(e) => patch('academicBackground', 'highSchoolName', e.target.value)} 
+                        required 
+                      />
+                    </Field>
+                  </div>
+                  <div className="col-md-6 px-2">
+                    <Field label="Board / University / Awarding Body" required>
+                      <input 
+                        className="form-control w-100" 
+                        placeholder="e.g. State Board / University"
+                        value={form.academicBackground.boardOrUniversity} 
+                        onChange={(e) => patch('academicBackground', 'boardOrUniversity', e.target.value)} 
+                        required 
+                      />
+                    </Field>
+                  </div>
+                  <div className="col-md-6 px-2">
+                    <Field label="Year of Completion" required>
+                      <input 
+                        type="number" 
+                        className="form-control w-100" 
+                        placeholder="YYYY"
+                        min={1950}
+                        max={new Date().getFullYear()}
+                        value={form.academicBackground.yearOfGraduation} 
+                        onChange={(e) => {
+                          patch('academicBackground', 'yearOfGraduation', e.target.value);
+                          const err = validateGraduationYear(e.target.value);
+                          setYearErrors((prev) => ({ ...prev, primary: err }));
+                        }}
+                        required 
+                      />
+                      {yearErrors.primary && <small className="text-danger">{yearErrors.primary}</small>}
+                    </Field>
+                  </div>
+                  <div className="col-md-6 px-2">
+                    <Field label="GPA / Percentage" required>
+                      <input 
+                        className="form-control w-100" 
+                        placeholder="e.g. 3.8/4.0 or 85%"
+                        value={form.academicBackground.gpaOrPercentage} 
+                        onChange={(e) => patch('academicBackground', 'gpaOrPercentage', e.target.value)} 
+                        required 
+                      />
+                    </Field>
+                  </div>
+                  
+                  <div className="col-12 px-2 mt-4 pt-3 border-top w-100">
+                    <FileField 
+                      label="Upload Transcript / Marksheet (Latest Education)" 
+                      required 
+                      value={form.academicBackground.transcriptUpload} 
+                      onChange={(v) => patch('academicBackground', 'transcriptUpload', v)} 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    {/* Section 2: Dynamic Additional Educational Tracks */}
-    {form.academicBackground.schools?.map((sch, index) => (
-      <div key={index} className="card shadow-sm border mb-4 w-100 animate-fade-in">
-        <div className="card-header bg-white d-flex justify-content-between align-items-center py-3 border-bottom-0 w-100">
-          <span className="text-secondary small fw-bold text-uppercase">
-            <i className="fa-solid fa-clock-rotate-left me-2 text-secondary" />
-            Additional Academic Track #{index + 1}
-          </span>
-          <button 
-            type="button" 
-            className="btn btn-sm btn-outline-danger d-flex align-items-center gap-1 py-1 px-3" 
-            onClick={() => removeSchoolRow(index)}
-          >
-            <i className="fa-solid fa-trash-can small" /> 
-            <span>Remove</span>
-          </button>
-        </div>
-        
-        <div className="card-body p-4 pt-2 w-100">
-          <div className="row g-3 w-100 mx-0">
-            <div className="col-md-6 px-2">
-              <Field label="School / Institution Name" required>
-                <input 
-                  className="form-control w-100" 
-                  value={sch.schoolName} 
-                  onChange={(e) => updateSchoolRow(index, 'schoolName', e.target.value)} 
-                  required 
-                />
-              </Field>
-            </div>
-            <div className="col-md-6 px-2">
-              <Field label="Board / University" required>
-                <input 
-                  className="form-control w-100" 
-                  value={sch.boardOrUniversity} 
-                  onChange={(e) => updateSchoolRow(index, 'boardOrUniversity', e.target.value)} 
-                  required 
-                />
-              </Field>
-            </div>
-            <div className="col-md-6 px-2">
-              <Field label="Year of Completion" required>
-                <input 
-                  type="number" 
-                  className="form-control w-100"
-                  placeholder="YYYY"
-                  min={1950}
-                  max={new Date().getFullYear()}
-                  value={sch.graduationYear} 
-                  onChange={(e) => {
-                    updateSchoolRow(index, 'graduationYear', e.target.value);
-                    const err = validateGraduationYear(e.target.value, `Record ${index + 1} year`);
-                    setYearErrors((prev) => ({ ...prev, [`school_${index}`]: err }));
-                  }}
-                  required 
-                />
-                {yearErrors[`school_${index}`] && (
-                  <small className="text-danger">{yearErrors[`school_${index}`]}</small>
-                )}
-              </Field>
-            </div>
-            <div className="col-md-6 px-2">
-              <Field label="GPA / Percentage" required>
-                <input 
-                  className="form-control w-100" 
-                  value={sch.gpaOrPercentage} 
-                  onChange={(e) => updateSchoolRow(index, 'gpaOrPercentage', e.target.value)} 
-                  required 
-                />
-              </Field>
-            </div>
-            <div className="col-12 px-2 mt-3 pt-3 border-top w-100">
-              <FileField
-                label="Upload Result / Transcript (This Qualification)"
-                required
-                value={sch.resultUpload}
-                onChange={(v) => updateSchoolRow(index, 'resultUpload', v)}
-              />
+            {form.academicBackground.schools?.map((sch, index) => (
+              <div key={index} className="card shadow-sm border mb-4 w-100 animate-fade-in">
+                <div className="card-header bg-white d-flex justify-content-between align-items-center py-3 border-bottom-0 w-100">
+                  <span className="text-secondary small fw-bold text-uppercase">
+                    <i className="fa-solid fa-clock-rotate-left me-2 text-secondary" />
+                    Additional Academic Track #{index + 1}
+                  </span>
+                  <button 
+                    type="button" 
+                    className="btn btn-sm btn-outline-danger d-flex align-items-center gap-1 py-1 px-3" 
+                    onClick={() => removeSchoolRow(index)}
+                  >
+                    <i className="fa-solid fa-trash-can small" /> 
+                    <span>Remove</span>
+                  </button>
+                </div>
+                
+                <div className="card-body p-4 pt-2 w-100">
+                  <div className="row g-3 w-100 mx-0">
+                    <div className="col-md-6 px-2">
+                      <Field label="School / Institution Name" required>
+                        <input 
+                          className="form-control w-100" 
+                          value={sch.schoolName} 
+                          onChange={(e) => updateSchoolRow(index, 'schoolName', e.target.value)} 
+                          required 
+                        />
+                      </Field>
+                    </div>
+                    <div className="col-md-6 px-2">
+                      <Field label="Board / University" required>
+                        <input 
+                          className="form-control w-100" 
+                          value={sch.boardOrUniversity} 
+                          onChange={(e) => updateSchoolRow(index, 'boardOrUniversity', e.target.value)} 
+                          required 
+                        />
+                      </Field>
+                    </div>
+                    <div className="col-md-6 px-2">
+                      <Field label="Year of Completion" required>
+                        <input 
+                          type="number" 
+                          className="form-control w-100"
+                          placeholder="YYYY"
+                          min={1950}
+                          max={new Date().getFullYear()}
+                          value={sch.graduationYear} 
+                          onChange={(e) => {
+                            updateSchoolRow(index, 'graduationYear', e.target.value);
+                            const err = validateGraduationYear(e.target.value, `Record ${index + 1} year`);
+                            setYearErrors((prev) => ({ ...prev, [`school_${index}`]: err }));
+                          }}
+                          required 
+                        />
+                        {yearErrors[`school_${index}`] && (
+                          <small className="text-danger">{yearErrors[`school_${index}`]}</small>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="col-md-6 px-2">
+                      <Field label="GPA / Percentage" required>
+                        <input 
+                          className="form-control w-100" 
+                          value={sch.gpaOrPercentage} 
+                          onChange={(e) => updateSchoolRow(index, 'gpaOrPercentage', e.target.value)} 
+                          required 
+                        />
+                      </Field>
+                    </div>
+                    <div className="col-12 px-2 mt-3 pt-3 border-top w-100">
+                      <FileField
+                        label="Upload Result / Transcript (This Qualification)"
+                        required
+                        value={sch.resultUpload}
+                        onChange={(v) => updateSchoolRow(index, 'resultUpload', v)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <div className="text-center my-4 py-3 bg-light border border-dashed rounded-3 w-100">
+              <button 
+                type="button" 
+                className="btn btn-outline-primary fw-bold d-inline-flex align-items-center gap-2 px-4" 
+                onClick={addSchoolRow}
+              >
+                <i className="fa-solid fa-plus-circle" />
+                <span>Add Prior Education / Qualification</span>
+              </button>
+              <p className="text-muted small mt-2 mb-0">Click to add secondary, high school, or other historic qualifications.</p>
             </div>
           </div>
-        </div>
-      </div>
-    ))}
-
-    {/* Section 3: Add Prior Education Button - Expanded Full Width */}
-    <div className="text-center my-4 py-3 bg-light border border-dashed rounded-3 w-100">
-      <button 
-        type="button" 
-        className="btn btn-outline-primary fw-bold d-inline-flex align-items-center gap-2 px-4" 
-        onClick={addSchoolRow}
-      >
-        <i className="fa-solid fa-plus-circle" />
-        <span>Add Prior Education / Qualification</span>
-      </button>
-      <p className="text-muted small mt-2 mb-0">Click to add secondary, high school, or other historic qualifications.</p>
-    </div>
-  </div>
-)}
+        )}
 
         {step === 3 && (
           <div className="apply-grid">
@@ -731,27 +727,53 @@ const saveDraft = async (nextStep = step) => {
               <li><strong>Field:</strong> {form.programInterest.fieldOfStudy}</li>
               <li><strong>Interested Country:</strong> {form.programInterest.interestedCountry || '—'}</li>
               <li><strong>English Test:</strong> {form.languageProficiency.examType}</li>
-              <li><strong>Schools Count Linked:</strong> {1 + (form.academicBackground.schools?.length || 0)} Recorded Tracks</li>
+              <li><strong>Additional Academic Records:</strong> {form.academicBackground.schools?.length || 0} track(s) added</li>
             </ul>
           </div>
         )}
 
-        <div className="apply-form-actions">
+        <div className="apply-wizard-actions">
           {step > 1 && (
-            <button type="button" className="btn apply-btn-outline" onClick={() => setStep((s) => s - 1)} disabled={saving}>
-              Previous
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                setError('');
+                setStep((prev) => Math.max(prev - 1, 1));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              disabled={saving}
+            >
+              Back
             </button>
           )}
-          <button type="button" className="btn apply-btn-outline" onClick={() => saveDraft(step)} disabled={saving}>
-            {saving ? 'Saving...' : 'Save progress'}
+
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={() => saveDraft(step)}
+            disabled={saving}
+          >
+            {saving ? 'Saving...' : 'Save Draft'}
           </button>
+
           {step < APPLICATION_STEPS.length ? (
-            <button type="button" className="btn apply-btn-primary" onClick={handleSaveAndNext} disabled={saving}>
-              Save &amp; Next
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSaveAndNext}
+              disabled={saving}
+            >
+              {saving ? 'Processing...' : 'Save & Next'}
             </button>
           ) : (
-            <button type="button" className="btn apply-btn-primary" onClick={handleSubmit} disabled={saving}>
-              {saving ? 'Submitting...' : 'Submit application'}
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleSubmit}
+              disabled={saving}
+            >
+              {saving ? 'Submitting...' : 'Submit Application'}
             </button>
           )}
         </div>

@@ -27,44 +27,38 @@ const Admin_Panel = () => {
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        const tasks = [];
-        if (canViewApplications) {
-          tasks.push(visaApplicationsAPI.getAllAdmin());
-          tasks.push(studentsAPI.getAll()); 
-        }
-        if (canViewContent) {
-          tasks.push(programsAPI.getAll({ limit: 100 }));
-          tasks.push(universitiesAPI.getAll({ limit: 100 }));
-        }
-
-        const results = await Promise.all(tasks);
-        
         let apps = [];
-        let students = [];
+        let studentsData = [];
         let programs = [];
         let universities = [];
 
-        if (canViewApplications && canViewContent) {
-          apps = Array.isArray(results[0]) ? results[0] : (results[0]?.applications || results[0]?.data || []);
-          students = Array.isArray(results[1]) ? results[1] : (results[1]?.students || results[1]?.data || []);
-          programs = Array.isArray(results[2]) ? results[2] : (results[2]?.programs || results[2]?.data || []);
-          universities = Array.isArray(results[3]) ? results[3] : (results[3]?.universities || results[3]?.data || []);
-        } else if (canViewApplications) {
-          apps = Array.isArray(results[0]) ? results[0] : (results[0]?.applications || results[0]?.data || []);
-          students = Array.isArray(results[1]) ? results[1] : (results[1]?.students || results[1]?.data || []);
-        } else if (canViewContent) {
-          programs = Array.isArray(results[0]) ? results[0] : (results[0]?.programs || results[0]?.data || []);
-          universities = Array.isArray(results[1]) ? results[1] : (results[1]?.universities || results[1]?.data || []);
-        }
+        // Fetch concurrently using independent conditional promises to avoid index mismatch bugs
+        const [appRes, studentRes, progRes, uniRes] = await Promise.all([
+          canViewApplications ? visaApplicationsAPI.getAllAdmin().catch(() => []) : Promise.resolve([]),
+          canViewApplications ? studentsAPI.getAll().catch(() => []) : Promise.resolve([]),
+          canViewContent ? programsAPI.getAll({ limit: 100 }).catch(() => []) : Promise.resolve([]),
+          canViewContent ? universitiesAPI.getAll({ limit: 100 }).catch(() => []) : Promise.resolve([]),
+        ]);
 
-        const verifiedUniversities = universities.filter(uni => uni && (uni._id || uni.name));
-        const verifiedPrograms = programs.filter(prog => prog && (prog.universityId || prog.university));
+        // Parse Apps safely
+        apps = Array.isArray(appRes) ? appRes : (appRes?.applications || appRes?.data || []);
+        
+        // Parse Students safely
+        studentsData = Array.isArray(studentRes) ? studentRes : (studentRes?.students || studentRes?.data || []);
+        
+        // Parse Programs safely & filter verified ones
+        const rawPrograms = Array.isArray(progRes) ? progRes : (progRes?.programs || progRes?.data || []);
+        programs = rawPrograms.filter(prog => prog && (prog.universityId || prog.university));
+
+        // Parse Universities safely & filter verified ones
+        const rawUniversities = Array.isArray(uniRes) ? uniRes : (uniRes?.universities || uniRes?.data || []);
+        universities = rawUniversities.filter(uni => uni && (uni._id || uni.name));
 
         setApplications(apps);
         setStats({
-          students: Array.isArray(students) ? students.length : 0, 
-          programs: verifiedPrograms.length,
-          universities: verifiedUniversities.length, 
+          students: studentsData.length,
+          programs: programs.length,
+          universities: universities.length,
           completed: apps.filter((a) => a?.applicationStatus === 'Approved').length,
         });
 
@@ -131,7 +125,7 @@ const Admin_Panel = () => {
           {hasPermission(user, 'manageTeam') && (
             <Link to="/admin/team" className="btn admin-btn-outline">
               <i className="fa-solid fa-users-gear me-2" />
-              Team & roles
+              Team &amp; roles
             </Link>
           )}
         </div>
@@ -174,7 +168,7 @@ const Admin_Panel = () => {
             View registered students
           </Link>
         </div>
-        <div className='admin-table-wrapper'>
+        <div className="admin-table-wrapper">
         <table className="admin-data-table">
           <thead>
             <tr>
@@ -199,7 +193,6 @@ const Admin_Panel = () => {
                 <tr key={app._id}>
                   <td>{index + 1}</td>
                   <td className="cell-name">{app.personalInfo?.fullName || '—'}</td>
-                  {/* 🟢 ADDED EXTRA DETAILED FALLBACKS FOR APPLICATION LOOKUPS */}
                   <td>{app.personalInfo?.contactNumber || app.phone || app.contactNumber || '—'}</td>
                   <td>{app.personalInfo?.emailAddress || app.email || '—'}</td>
                   <td>
