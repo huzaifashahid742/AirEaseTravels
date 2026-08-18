@@ -141,7 +141,6 @@ const UserApplicationView = () => {
               : new Date(application.updatedAt).toLocaleDateString()}
           </p>
         </div>
-        <span className="sd-badge-done">{formatApplicationStatus(application.applicationStatus)}</span>
       </div>
 
       <DetailGrid title="Personal information" fields={personalFields} />
