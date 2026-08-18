@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../../Css_Folder/EditUniversityAdmin.css';  
 import '../../Css_Folder/AdminPrograms.css';
 import { universitiesAPI } from '../../services/api';
-import { fileToDataUrl, resolveStoredImage } from '../../utils/imageUpload';
+import { resolveStoredImage } from '../../utils/imageUpload';
 import PageLoader from './PageLoader';
 
 const emptyForm = {
@@ -14,7 +14,7 @@ const emptyForm = {
   universityType: 'Public',
   status: 'Open',
   link: '',
-  logo: '',
+  logo: '', // Can be a URL string (from DB) or a File object (new upload)
 };
 
 const EditUniversityAdmin = () => {
@@ -23,6 +23,7 @@ const EditUniversityAdmin = () => {
   const isEdit = Boolean(id);
 
   const [form, setForm] = useState(emptyForm);
+  const [logoFile, setLogoFile] = useState(null); // Keep track of actual File object for FormData
   const [loading, setLoading] = useState(isEdit);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -64,20 +65,25 @@ const EditUniversityAdmin = () => {
     }));
   };
 
-  const handleLogoChange = async (e) => {
+  const handleLogoChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setLogoError('');
-    try {
-      const dataUrl = await fileToDataUrl(file);
-      setForm((prev) => ({ ...prev, logo: dataUrl }));
-    } catch (err) {
-      setLogoError(err.message || 'Invalid image');
+
+    if (file.size > 5 * 1024 * 1024) {
+      setLogoError('File size exceeds 5MB limit');
+      return;
     }
+
+    // Save actual file object for FormData and create a local preview URL
+    setLogoFile(file);
+    const previewUrl = URL.createObjectURL(file);
+    setForm((prev) => ({ ...prev, logo: previewUrl }));
     e.target.value = '';
   };
 
   const clearLogo = () => {
+    setLogoFile(null);
     setForm((prev) => ({ ...prev, logo: '' }));
   };
 
@@ -88,19 +94,27 @@ const EditUniversityAdmin = () => {
     setMessage('');
 
     try {
-      const payload = {
-        ...form,
-        link: form.link?.trim() || 'https://airease.com',
-        programCount: Number(form.programCount) || 0,
-        logo: form.logo || '',
-      };
+      // Use FormData so Multer and Cloudinary receive the file correctly
+      const formData = new FormData();
+      formData.append('universityName', form.universityName);
+      formData.append('country', form.country);
+      formData.append('city', form.city);
+      formData.append('programCount', Number(form.programCount) || 0);
+      formData.append('universityType', form.universityType);
+      formData.append('status', form.status);
+      formData.append('link', form.link?.trim() || 'https://airease.com');
+
+      // Append logo file ONLY if a new file was chosen
+      if (logoFile) {
+        formData.append('logo', logoFile);
+      }
 
       if (isEdit) {
-        await universitiesAPI.update(id, payload);
+        await universitiesAPI.update(id, formData);
         setMessage('University updated successfully');
         setTimeout(() => navigate('/admin/UniversityAdmin'), 800);
       } else {
-        await universitiesAPI.create(payload);
+        await universitiesAPI.create(formData);
         navigate('/admin/UniversityAdmin');
       }
     } catch (err) {
