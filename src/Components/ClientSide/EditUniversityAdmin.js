@@ -14,7 +14,7 @@ const emptyForm = {
   universityType: 'Public',
   status: 'Open',
   link: '',
-  logo: '', // Can be a URL string (from DB) or a File object (new upload)
+  logo: '', // Holds either the existing database URL or a local preview object URL
 };
 
 const EditUniversityAdmin = () => {
@@ -23,7 +23,7 @@ const EditUniversityAdmin = () => {
   const isEdit = Boolean(id);
 
   const [form, setForm] = useState(emptyForm);
-  const [logoFile, setLogoFile] = useState(null); // Keep track of actual File object for FormData
+  const [logoFile, setLogoFile] = useState(null); // Dedicated raw file state for FormData upload
   const [loading, setLoading] = useState(isEdit);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -75,7 +75,7 @@ const EditUniversityAdmin = () => {
       return;
     }
 
-    // Save actual file object for FormData and create a local preview URL
+    // Save the raw file object for multipart/form-data upload and generate a local preview
     setLogoFile(file);
     const previewUrl = URL.createObjectURL(file);
     setForm((prev) => ({ ...prev, logo: previewUrl }));
@@ -94,7 +94,7 @@ const EditUniversityAdmin = () => {
     setMessage('');
 
     try {
-      // Use FormData so Multer and Cloudinary receive the file correctly
+      // Build FormData payload to ensure multer handles binary file streaming correctly
       const formData = new FormData();
       formData.append('universityName', form.universityName);
       formData.append('country', form.country);
@@ -104,7 +104,7 @@ const EditUniversityAdmin = () => {
       formData.append('status', form.status);
       formData.append('link', form.link?.trim() || 'https://airease.com');
 
-      // Append logo file ONLY if a new file was chosen
+      // Append raw logo file only if a new file has been explicitly chosen
       if (logoFile) {
         formData.append('logo', logoFile);
       }
