@@ -225,7 +225,6 @@ const UnifiedApplicationView = () => {
             <div className="candidate-core-data">
               <div className="name-row-ent">
                 <h2>{student.name}</h2>
-                <span className="verified-badge-ent">Verified Record</span>
               </div>
               <p className="sub-data-ent">{student.occupation} &mdash; {student.currentEducation}</p>
               <div className="micro-tags">
@@ -238,10 +237,6 @@ const UnifiedApplicationView = () => {
               <div className="metric-unit">
                 <span className="m-label">Age</span>
                 <span className="m-val">{student.age}</span>
-              </div>
-              <div className="metric-unit">
-                <span className="m-label">System State</span>
-                <span className="m-val active-status">Active</span>
               </div>
             </div>
           </div>
