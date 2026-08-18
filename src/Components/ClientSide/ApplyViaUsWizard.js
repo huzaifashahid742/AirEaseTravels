@@ -369,7 +369,6 @@ const ApplyViaUsWizard = () => {
           </button>
         ))}
       </div>
-
       {error && <div className="alert alert-danger">{error}</div>}
       {message && <div className="alert alert-success">{message}</div>}
 
@@ -732,11 +731,11 @@ const ApplyViaUsWizard = () => {
           </div>
         )}
 
-        <div className="apply-wizard-actions">
+        <div className="apply-wizard-actions d-flex gap-2 align-items-center">
           {step > 1 && (
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-secondary me-2"
               onClick={() => {
                 setError('');
                 setStep((prev) => Math.max(prev - 1, 1));
@@ -750,7 +749,7 @@ const ApplyViaUsWizard = () => {
 
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary me-auto"
             onClick={() => saveDraft(step)}
             disabled={saving}
           >
