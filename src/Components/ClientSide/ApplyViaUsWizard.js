@@ -731,11 +731,11 @@ const ApplyViaUsWizard = () => {
           </div>
         )}
 
-        <div className="apply-wizard-actions d-flex gap-2 align-items-center">
+        <div className="apply-wizard-actions d-flex gap-2 align-items-center mt-4 pt-3 border-top">
           {step > 1 && (
             <button
               type="button"
-              className="btn btn-secondary me-2"
+              className="btn btn-secondary"
               onClick={() => {
                 setError('');
                 setStep((prev) => Math.max(prev - 1, 1));
