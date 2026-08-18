@@ -731,7 +731,7 @@ const ApplyViaUsWizard = () => {
           </div>
         )}
 
-        <div className="apply-wizard-actions d-flex gap-2 align-items-center mt-4 pt-3 border-top">
+        <div className="apply-wizard-actions d-flex gap-2 align-items-center mt-5 pt-3 border-top">
           {step > 1 && (
             <button
               type="button"
