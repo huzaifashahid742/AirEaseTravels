@@ -17,7 +17,9 @@ const API_BASE = resolveApiBase();
 
 // --- ADD THIS NEW EXPORT RIGHT HERE ---
 // This safely strips '/api' off the end to get the raw root server URL (http://localhost:7000)
-export const FILE_BASE_URL = API_BASE.replace(/\/api$/, '');  
+export const FILE_BASE_URL = 
+  process.env.REACT_APP_FILE_BASE_URL || 
+  'https://aireasetravels-backend-production.up.railway.app';  
 
 export const getToken = () => localStorage.getItem('token');
 

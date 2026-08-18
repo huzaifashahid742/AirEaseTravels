@@ -70,6 +70,33 @@ const Universities_Comparisons = ({ onContactClick }) => {
       return () => window.clearTimeout(timer);
     }
   }, [loading, countries]);
+  // Helper function to format flag URLs safely
+const getFormattedFlagUrl = (flagImage) => {
+  if (!flagImage) return '/images/flags/default-flag.png';
+
+  let url = flagImage.trim();
+
+  // Fix nested Cloudinary URLs (e.g. "http://localhost:7000/https://res.cloudinary...")
+  if (url.includes('https://res.cloudinary.com')) {
+    const cloudinaryIdx = url.indexOf('https://res.cloudinary.com');
+    return url.substring(cloudinaryIdx);
+  }
+
+  // Replace hardcoded localhost base URLs with production backend
+  const PRODUCTION_BACKEND_URL = 'https://aireasetravels-backend-production.up.railway.app';
+  if (url.startsWith('http://localhost:7000')) {
+    return url.replace('http://localhost:7000', PRODUCTION_BACKEND_URL);
+  }
+
+  // Handle absolute HTTP/HTTPS links
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+
+  // Handle relative paths from Railway backend
+  const cleanPath = url.startsWith('/') ? url : `/${url}`;
+  return `${FILE_BASE_URL || PRODUCTION_BACKEND_URL}${cleanPath}`;
+};
 
   return (
     <div>
@@ -155,15 +182,11 @@ const Universities_Comparisons = ({ onContactClick }) => {
               <div className="Card" key={country._id}>
                 <div className="country-card-header">
   <div className="country-icon">
-    <img 
-  src={
-    country.flagImage?.startsWith('http') 
-      ? country.flagImage 
-      : `${FILE_BASE_URL}/${country.flagImage}`
-  } 
-  alt={`${country.countryName} flag`} 
-  onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
-/>
+   <img 
+    src={getFormattedFlagUrl(country.flagImage)} 
+    alt={`${country.countryName} flag`} 
+    onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
+  />
   </div>
   <h3 className="country-title">{country.countryName}</h3>
 </div>
