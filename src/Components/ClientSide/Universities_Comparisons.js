@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../Css_Folder/Universities_Comparisons.css';
-import { countryDetailsAPI } from '../../services/api';
+import { countryDetailsAPI , FILE_BASE_URL } from '../../services/api';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import PageLoader from './PageLoader';
 
@@ -156,10 +156,14 @@ const Universities_Comparisons = ({ onContactClick }) => {
                 <div className="country-card-header">
   <div className="country-icon">
     <img 
-      src={`http://localhost:7000/${country.flagImage}`} 
-      alt={`${country.countryName} flag`} 
-      onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
-    />
+  src={
+    country.flagImage?.startsWith('http') 
+      ? country.flagImage 
+      : `${FILE_BASE_URL}/${country.flagImage}`
+  } 
+  alt={`${country.countryName} flag`} 
+  onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
+/>
   </div>
   <h3 className="country-title">{country.countryName}</h3>
 </div>
