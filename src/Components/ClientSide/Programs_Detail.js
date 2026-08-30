@@ -184,10 +184,6 @@ const Programs_Detail = () => {
                 <span>Apply Instantly</span>
                 <i className="fa-solid fa-arrow-right"></i>
               </button>
-
-              <div className="elite-security-note">
-                <i className="fa-solid fa-shield-halved"></i> Verified Direct Application Channel
-              </div>
             </div>
           </div>
 
