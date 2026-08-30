@@ -4,6 +4,7 @@ import '../../Css_Folder/Universities_Comparisons.css';
 import { countryDetailsAPI , FILE_BASE_URL } from '../../services/api';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import PageLoader from './PageLoader';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Universities_Comparisons = ({ onContactClick }) => {
   const location = useLocation();
@@ -22,6 +23,18 @@ const Universities_Comparisons = ({ onContactClick }) => {
 
   const resultsRef = useRef(null);
   const pendingScrollRef = useRef(false);
+
+  // --- ADDED: Force initialize Bootstrap Carousel via JS ---
+  useEffect(() => {
+    const carouselElement = document.getElementById('carouselExampleSlidesOnly');
+    if (carouselElement) {
+      new bootstrap.Carousel(carouselElement, {
+        interval: 2500,
+        ride: 'carousel',
+        pause: 'hover'
+      });
+    }
+  }, []);
 
   const fetchCountries = useCallback(async (searchTerm) => {
     setLoading(true);
@@ -70,37 +83,38 @@ const Universities_Comparisons = ({ onContactClick }) => {
       return () => window.clearTimeout(timer);
     }
   }, [loading, countries]);
+
   // Helper function to format flag URLs safely
-const getFormattedFlagUrl = (flagImage) => {
-  if (!flagImage) return '/images/flags/default-flag.png';
+  const getFormattedFlagUrl = (flagImage) => {
+    if (!flagImage) return '/images/flags/default-flag.png';
 
-  let url = flagImage.trim();
+    let url = flagImage.trim();
 
-  // Fix nested Cloudinary URLs (e.g. "http://localhost:7000/https://res.cloudinary...")
-  if (url.includes('https://res.cloudinary.com')) {
-    const cloudinaryIdx = url.indexOf('https://res.cloudinary.com');
-    return url.substring(cloudinaryIdx);
-  }
+    // Fix nested Cloudinary URLs (e.g. "http://localhost:7000/https://res.cloudinary...")
+    if (url.includes('https://res.cloudinary.com')) {
+      const cloudinaryIdx = url.indexOf('https://res.cloudinary.com');
+      return url.substring(cloudinaryIdx);
+    }
 
-  // Replace hardcoded localhost base URLs with production backend
-  const PRODUCTION_BACKEND_URL = 'https://aireasetravels-backend-production.up.railway.app';
-  if (url.startsWith('http://localhost:7000')) {
-    return url.replace('http://localhost:7000', PRODUCTION_BACKEND_URL);
-  }
+    // Replace hardcoded localhost base URLs with production backend
+    const PRODUCTION_BACKEND_URL = 'https://aireasetravels-backend-production.up.railway.app';
+    if (url.startsWith('http://localhost:7000')) {
+      return url.replace('http://localhost:7000', PRODUCTION_BACKEND_URL);
+    }
 
-  // Handle absolute HTTP/HTTPS links
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    return url;
-  }
+    // Handle absolute HTTP/HTTPS links
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
 
-  // Handle relative paths from Railway backend
-  const cleanPath = url.startsWith('/') ? url : `/${url}`;
-  return `${FILE_BASE_URL || PRODUCTION_BACKEND_URL}${cleanPath}`;
-};
+    // Handle relative paths from Railway backend
+    const cleanPath = url.startsWith('/') ? url : `/${url}`;
+    return `${FILE_BASE_URL || PRODUCTION_BACKEND_URL}${cleanPath}`;
+  };
 
   return (
     <div>
-      {/* <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2500}>
+      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2500}>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="/Images_Folder/Crousel_Study.jpg" className="d-block w-100" alt="Why Study in Europe" />
@@ -127,7 +141,7 @@ const getFormattedFlagUrl = (flagImage) => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className="Comparison_Section">
         {navbarFilter && !pageQuery.trim() && (
@@ -139,7 +153,6 @@ const getFormattedFlagUrl = (flagImage) => {
           </p>
         )}
 
-        {/* Added 10px margin-top inline styling */}
         <div className="comparisons-search-bar" style={{ padding: '20px' }}>
           <input
             type="search"
@@ -177,15 +190,15 @@ const getFormattedFlagUrl = (flagImage) => {
             countries.map((country) => (
               <div className="Card" key={country._id}>
                 <div className="country-card-header">
-  <div className="country-icon">
-   <img 
-    src={getFormattedFlagUrl(country.flagImage)} 
-    alt={`${country.countryName} flag`} 
-    onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
-  />
-  </div>
-  <h3 className="country-title">{country.countryName}</h3>
-</div>
+                  <div className="country-icon">
+                    <img 
+                      src={getFormattedFlagUrl(country.flagImage)} 
+                      alt={`${country.countryName} flag`} 
+                      onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
+                    />
+                  </div>
+                  <h3 className="country-title">{country.countryName}</h3>
+                </div>
 
                 <div className="country-info">
                   <div className="info-item">
@@ -219,7 +232,6 @@ const getFormattedFlagUrl = (flagImage) => {
 
                   <div className="info-item">
                     <span className="label">Intakes</span>
-                    {/* Fixed: Join array values cleanly with commas */}
                     <span className="value">
                       {Array.isArray(country.intakeSeasons) 
                         ? country.intakeSeasons.join(', ') 
