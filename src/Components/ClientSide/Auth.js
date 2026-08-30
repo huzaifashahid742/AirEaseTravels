@@ -239,7 +239,7 @@ const AuthPage = () => {
   onClick={() => {
     const backendURL = process.env.NODE_ENV === 'production' 
       ? 'https://your-backend-app.railway.app' 
-      : 'http://localhost:5000';
+      : 'http://localhost:7000';
 
     window.location.href = `${backendURL}/api/auth/google`;
   }}
