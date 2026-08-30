@@ -105,7 +105,7 @@ const getFormattedFlagUrl = (flagImage) => {
           <div className="carousel-item active">
             <img src="/Images_Folder/Crousel_Study.jpg" className="d-block w-100" alt="Why Study in Europe" />
             <div className="carousel-caption-custom">
-              <h1>Why Choose Europe?</h1>
+              <h1>Why Choose International Studies?</h1>
               <p>Affordable education. World-class universities.</p>
               <button type="button" className="open-contact" onClick={onContactClick}>Talk to an Advisor</button>
             </div>

@@ -53,7 +53,7 @@ const Programs_Detail = () => {
   };
 
   if (loading) {
-    return <PageLoader label="Loading immersive layout..." />;
+    return <PageLoader label="Loading Page..." />;
   }
 
   if (error || !program) {
