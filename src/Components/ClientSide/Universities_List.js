@@ -92,8 +92,7 @@ const Universities_List = () => {
       <header className="uni-list-hero">
         <h1>Offering Universities</h1>
         <p>
-          Explore accredited institutions across Globe. View programs, tuition, and apply with
-          AirEase guidance.
+          Explore accredited institutions across Globe and apply with AirEase guidance.
         </p>
       </header>
 
