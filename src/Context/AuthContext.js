@@ -15,7 +15,7 @@ export default function AuthSuccess() {
       // 1. Save token temporarily so API requests work
       localStorage.setItem('token', token);
       
-      // 2. Fetch the user profile from the backend right away
+      // 2. Fetch the user profile from the backend right away  
       authAPI.me()
         .then((res) => {
           const userData = res.data || res;
