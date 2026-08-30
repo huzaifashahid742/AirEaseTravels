@@ -230,6 +230,9 @@
   margin: 20px auto 30px auto;
   padding: 0 16px;
 }
+.form-control{
+  padding-top: 15px;
+}
 
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
