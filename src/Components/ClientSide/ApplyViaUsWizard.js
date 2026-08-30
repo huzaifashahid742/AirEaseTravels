@@ -696,7 +696,7 @@ const ApplyViaUsWizard = () => {
               <select className="form-select" value={form.financialAndVisa.fundingSource} onChange={(e) => patch('financialAndVisa', 'fundingSource', e.target.value)} required>
                 <option value="">Select</option>
                 <option value="Self-funded">Self-funded</option>
-                <option value="Scholarship">Scholarship</option>
+                <option value="Scholarship">Sponser</option>
                 <option value="Educational Loan">Educational Loan</option>
               </select>
             </Field>
