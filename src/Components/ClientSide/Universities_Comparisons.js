@@ -114,7 +114,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
 
   return (
     <div>
-      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2500}>
+      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2000}>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="/Images_Folder/Crousel_Study.jpg" className="d-block w-100" alt="Why Study in Europe" />
@@ -153,7 +153,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
           </p>
         )}
 
-        <div className="comparisons-search-bar" style={{ padding: '20px' }}>
+        <div className="comparisons-search-bar" style={{ padding: '20px' , margin: '10px' }}>
           <input
             type="search"
             className="form-control"
