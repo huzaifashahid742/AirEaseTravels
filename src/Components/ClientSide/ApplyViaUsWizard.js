@@ -276,7 +276,7 @@ const ApplyViaUsWizard = () => {
   const handleSaveAndNext = async () => {
     if (step === 1) {
       if (!form.personalInfo.cnic) {
-        setError('CNIC mapping value is mandatory before passing onward.');
+        setError('CNIC is mandatory.');
         return;
       }
     }

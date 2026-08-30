@@ -130,10 +130,6 @@ const getFormattedFlagUrl = (flagImage) => {
       </div>
 
       <div className="Comparison_Section">
-        <div className="Comparison_Title">
-          <h1>Affordable Education in Europe</h1>
-        </div>
-
         {navbarFilter && !pageQuery.trim() && (
           <p className="comparisons-active-search text-center">
             Showing results for: <strong>{navbarFilter}</strong>
