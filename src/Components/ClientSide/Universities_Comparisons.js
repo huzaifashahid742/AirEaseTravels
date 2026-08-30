@@ -197,7 +197,6 @@ const Universities_Comparisons = ({ onContactClick }) => {
                       onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
                     />
                   </div>
-                  <h3 className="country-title">{country.countryName}</h3>
                 </div>
 
                 <div className="country-info">
