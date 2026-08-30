@@ -117,13 +117,13 @@ const Admin_Panel = () => {
             </Link>
           )}
           {canViewApplications && (
-            <Link to="/admin/StudentAdmin" className="btn admin-btn-outline">
+            <Link to="/admin/StudentAdmin" className="btn admin-btn-primary">
               <i className="fa-solid fa-user-graduate me-2" />
               Registered students
             </Link>
           )}
           {hasPermission(user, 'manageTeam') && (
-            <Link to="/admin/team" className="btn admin-btn-outline">
+            <Link to="/admin/team" className="btn admin-btn-primary">
               <i className="fa-solid fa-users-gear me-2" />
               Team &amp; roles
             </Link>
