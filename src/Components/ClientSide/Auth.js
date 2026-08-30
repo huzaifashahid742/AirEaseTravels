@@ -244,6 +244,36 @@ const AuthPage = () => {
             >
               {isLogin ? 'Create an account' : 'Sign in here'}
             </button>
+            <div className="google-auth-container">
+  <button 
+    onClick={() => {
+      // Points directly to your backend Google auth route
+      // Use localhost for local dev, or your live Railway backend URL in production
+      window.location.href = "http://localhost:5000/api/auth/google";
+    }}
+    style={{
+      display: "flex",
+      alignItem: "center",
+      justifyContent: "center",
+      gap: "10px",
+      padding: "10px 20px",
+      backgroundColor: "#fff",
+      color: "#444",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontWeight: "500",
+      width: "100%"
+    }}
+  >
+    <img 
+      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+      alt="Google logo" 
+      style={{ width: "18px", height: "18px" }}
+    />
+    Continue with Google
+  </button>
+</div>
           </div>
         </div>
       </div>
