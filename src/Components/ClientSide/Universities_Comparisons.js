@@ -153,21 +153,21 @@ const Universities_Comparisons = ({ onContactClick }) => {
           </p>
         )}
 
-        <div className="comparisons-search-bar" style={{ padding: '20px' , margin: '10px' }}>
-          <input
-            type="search"
-            className="form-control"
-            placeholder="Type to filter..."
-            value={pageQuery}
-            onChange={(e) => setPageQuery(e.target.value)}
-            aria-label="Filter countries"
-          />
-          {pageQuery.trim() && (
-            <button type="button" className="btn btn-outline-secondary" onClick={() => setPageQuery('')}>
-              Clear
-            </button>
-          )}
-        </div>
+    <div className="comparisons-search-bar">
+  <input
+    type="search"
+    className="form-control"
+    placeholder="Type to filter..."
+    value={pageQuery}
+    onChange={(e) => setPageQuery(e.target.value)}
+    aria-label="Filter countries"
+  />
+  {pageQuery.trim() && (
+    <button type="button" className="btn btn-outline-secondary" onClick={() => setPageQuery('')}>
+      Clear
+    </button>
+  )}
+</div>
 
         <div ref={resultsRef} className="comparisons-results-anchor" aria-hidden="true" />
 
