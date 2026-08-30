@@ -12,6 +12,7 @@ import UserLayout from './Components/ClientSide/UserLayout';
 import AdminLayout from './Components/ClientSide/AdminLayout';
 import UserAccountLayout from './Components/ClientSide/UserAccountLayout';
 import ContactModal from './Components/ClientSide/Contact_Us';
+import AuthSuccess from './path/to/AuthSuccess'; // Adjust path to where you saved AuthSuccess.jsx
 import StudentProfile from './Components/ClientSide/StudentProfile';
 
 const Home = lazy(() => import('./Components/ClientSide/Home'));
