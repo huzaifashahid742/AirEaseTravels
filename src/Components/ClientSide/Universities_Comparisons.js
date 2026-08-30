@@ -140,7 +140,7 @@ const getFormattedFlagUrl = (flagImage) => {
         )}
 
         {/* Added 10px margin-top inline styling */}
-        <div className="comparisons-search-bar" style={{ marginTop: '20px', padding: '20px' }}>
+        <div className="comparisons-search-bar" style={{ padding: '20px' }}>
           <input
             type="search"
             className="form-control"
