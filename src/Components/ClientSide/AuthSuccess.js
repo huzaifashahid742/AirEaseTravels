@@ -1,31 +1,27 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
 
 export default function AuthSuccess() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { login } = useAuth(); // Assuming your context has a login or fetchUser function
 
   useEffect(() => {
     const token = searchParams.get('token');
     
     if (token) {
+      // 1. Force save the token immediately
       localStorage.setItem('token', token);
       
-      // If your context has a method to initialize state or fetch profile with the new token:
-      if (login) {
-        login(token); // Or whatever method your AuthContext uses to load user data
-      }
-
-      // Small timeout to let state sync, then send them to the dashboard
-      setTimeout(() => {
+      // 2. Short delay to ensure localStorage is committed and context re-reads it before navigating
+      const timer = setTimeout(() => {
         navigate('/user/dashboard', { replace: true });
-      }, 100);
+      }, 200);
+
+      return () => clearTimeout(timer);
     } else {
       navigate('/login', { replace: true });
     }
-  }, [searchParams, navigate, login]);
+  }, [searchParams, navigate]);
 
   return (
     <div style={{ textAlign: "center", marginTop: "100px", fontFamily: "sans-serif" }}>
