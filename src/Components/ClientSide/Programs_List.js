@@ -218,8 +218,8 @@ const Programs_List = ({ onContactClick }) => {
       <div className="Hero_Section">
         <div className="hero-overlay" />
         <div className="hero-content">
-          <h1>Programs Offered (English-Taught)</h1>
-          <p>Undergraduate, Masters, Foundation; Specialized Programs</p>
+          <h1>Programs Offered</h1>
+          <p>Undergraduate, Masters, Foundation, Specialized Programs</p>
           <button type="button" className="open-contact" onClick={onContactClick}>
             Talk to an Advisor
           </button>

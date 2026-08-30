@@ -73,12 +73,12 @@ const Footer = ({ oncontactclick, onContactClick }) => {
           <ul className="Footer_Contact_List">
             <li>
               <i className="fa-solid fa-location-dot" aria-hidden />
-              <span>Lahore, Pakistan · Serving students worldwide</span>
+              <span>Lahore, Pakistan</span>
             </li>
             <li>
               <a href="https://wa.me/message/Y2LJ2VUONSEOF1" target="_blank" rel="noopener noreferrer">
                 <i className="fa-brands fa-whatsapp" aria-hidden />
-                WhatsApp
+                +92 325 9422154
               </a>
             </li>
             <li>
