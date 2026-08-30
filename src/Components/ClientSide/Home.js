@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   // Optional: You can pull this from an environment variable or use the direct Cloudinary URL
-  const heroVideoUrl = process.env.REACT_APP_CLOUDINARY_HERO_VIDEO_URL || "https://res.cloudinary.com/your_cloud_name/video/upload/v1/Images_Folder/Hero_Video.mp4";
+  const heroVideoUrl = process.env.REACT_APP_CLOUDINARY_HERO_VIDEO_URL || "https://res.cloudinary.com/rufmaegf/video/upload/v1788086540/Hero_Video.mp4";
 
   return (
     <div>
