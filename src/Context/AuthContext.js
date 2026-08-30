@@ -1,43 +1,57 @@
-import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { authAPI } from '../services/api'; // Adjust path to your api.js
-import { useAuth } from '../Context/AuthContext';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { authAPI } from '../services/api';
 
-export default function AuthSuccess() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const { login } = useAuth();
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+  }, []);
+
+  const login = useCallback((userData, token) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  }, []);
 
   useEffect(() => {
-    const token = searchParams.get('token');
-    
-    if (token) {
-      // 1. Save token temporarily so API requests work
-      localStorage.setItem('token', token);
-      
-      // 2. Fetch the user profile from the backend right away  
-      authAPI.me()
-        .then((res) => {
-          const userData = res.data || res;
-          // 3. Use your context's login method to save BOTH token and user data properly
-          login(userData, token);
-          
-          // 4. Redirect to dashboard
-          navigate('/user/dashboard', { replace: true });
-        })
-        .catch((err) => {
-          console.error("Failed to fetch user profile after Google login", err);
-          navigate('/login', { replace: true });
-        });
-    } else {
-      navigate('/login', { replace: true });
-    }
-  }, [searchParams, navigate, login]);
+    const bootstrapAuth = async () => {
+      const token = localStorage.getItem('token');
+      const savedUser = localStorage.getItem('user');
+
+      if (!token || !savedUser) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await authAPI.me();
+        if (response?.data) {
+          setUser(response.data);
+          localStorage.setItem('user', JSON.stringify(response.data));
+        } else {
+          logout();
+        }
+      } catch {
+        logout();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    bootstrapAuth();
+  }, [logout]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "100px", fontFamily: "sans-serif" }}>
-      <h2>Authenticating with Google...</h2>
-      <p>Please wait while we log you into AirEase Travels & Tours.</p>
-    </div>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-}
+};
+
+export const useAuth = () => useContext(AuthContext);
