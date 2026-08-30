@@ -1,3 +1,18 @@
+/* --- Carousel Layout Fixes --- */
+.carousel-item {
+  position: relative;
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
 .carousel-item img {
   height: 618px;
   width: 100%;
@@ -5,100 +20,59 @@
   filter: brightness(55%);
 }
 
-/* TABLET */
-@media (max-width: 992px) {
-  .carousel-item img {
-    height: 450px;
-  }
-
-  .carousel-caption-custom h1 {
-    font-size: 36px;
-  }
-
-  .carousel-caption-custom p {
-    font-size: 16px;
-  }
-
-  .carousel-caption-custom button {
-    width: 70%;
-    font-size: 16px;
-  }
-}
-
-/* MOBILE */
-@media (max-width: 576px) {
-  .carousel-item img {
-    height: 300px;
-  }
-
-  .carousel-caption-custom {
-    top: 30%;
-    left: 5%;
-    padding: 12px;
-  }
-
-  .carousel-caption-custom h1 {
-    font-size: 24px;
-    height: auto;
-  }
-
-  .carousel-caption-custom p {
-    font-size: 14px;
-  }
-
-  .carousel-caption-custom button {
-    width: 100%;
-    font-size: 14px;
-    height: 40px;
-  }
-}
-.carousel-item img {
-  height: 618px;
-  width: 100%;
-  filter: brightness(55%);
-}
-.carousel-caption-custom{
+.carousel-caption-custom {
   position: absolute;
   top: 40%;
   left: 5%;
   color: #fff;
-  max-width: auto;
+  max-width: 600px;
   padding: 20px;
+  z-index: 10;
 }
-.carousel-caption-custom h1{
+
+.carousel-caption-custom h1 {
   font-size: 50px;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   line-height: 1.2;
-  height: 65px;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
-.carousel-caption-custom p{
+
+.carousel-caption-custom p {
   font-size: 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 1.2;
-  margin: 0px 0;
+  margin: 0 0 15px 0;
   text-align: left;
 }
-.carousel-caption-custom button{
-    background-color: #1F3A5F;
-    border: solid 2px #17304A;
-    font-size: 20px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    line-height: 1.3;
-    color: #FFFFFF;
-    justify-content: flex-start;
-    width: 50%;
-    margin: 10px 0;
-    height: 45px;
-    border-radius: 50px;
-    padding-top: 8px;
-    display: flex;
-    flex-direction: column;
+
+.carousel-caption-custom button {
+  background-color: #1F3A5F;
+  border: solid 2px #17304A;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #FFFFFF;
+  width: auto;
+  min-width: 200px;
+  padding: 10px 24px;
+  height: 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  margin: 10px 0;
 }
-.Comparison_Section{
+
+.carousel-caption-custom button:hover {
+  background-color: #17304A;
+}
+
+/* --- Comparisons Section Styling --- */
+.Comparison_Section {
   background-color: #f9f9f9;
   width: calc(100% - 40px);
   margin: -100px auto 40px auto; 
@@ -107,13 +81,15 @@
   z-index: 10;     
   border-radius: 12px;  
 }
-.Comparison_Title{
+
+.Comparison_Title {
   margin-top: 60px;
   margin-bottom: 0;
   width: auto;
   height: 60px;
 }
-.Comparison_Title h1{
+
+.Comparison_Title h1 {
   padding-top: 20px;
   font-size: 40px;
   font-family: "Poppins", sans-serif;
@@ -124,14 +100,16 @@
   height: 60px;
   font-weight: bold;
 }
+
 .open-contact {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .comparisons-search-bar {
   display: flex;
-  gap: 12px;
+  margin: 20px auto;
   max-width: 560px;
-  margin: 0 auto 28px;
+  gap: 12px;
   padding: 0 16px;
 }
 
@@ -144,9 +122,7 @@
   scroll-margin-top: 80px;
   height: 0;
 }
-.comparisons-search-bar{
-  margin: 20px auto ;
-}
+
 .Programs_Cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -170,33 +146,34 @@
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
-.card-header {
-  text-align: center;
-  margin-bottom: 25px;
+.country-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
 }
 
 .country-icon {
-  width: 65px;
-  height: 65px;
-  margin: auto;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
   border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    #1F3A5F,
-    #3b82f6
-  );
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-header h3 {
-  margin-top: 15px;
-  font-size: 1.6rem;
-  color: #1f2937;
-  font-weight: 700;
+.country-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.country-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
 }
 
 .country-info {
@@ -233,11 +210,7 @@
   height: 48px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(
-    135deg,
-    #1F3A5F,
-    #2563eb
-  );
+  background: linear-gradient(135deg, #1F3A5F, #2563eb);
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -250,6 +223,7 @@
   box-shadow: 0 8px 20px rgba(37,99,235,0.35);
 }
 
+/* --- Responsive Media Queries --- */
 @media (max-width: 1024px) {
   .Programs_Cards {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -257,14 +231,49 @@
     padding: 20px;
   }
 }
+
+@media (max-width: 992px) {
+  .carousel-item img {
+    height: 450px;
+  }
+
+  .carousel-caption-custom h1 {
+    font-size: 36px;
+  }
+
+  .carousel-caption-custom p {
+    font-size: 16px;
+  }
+
+  .carousel-caption-custom button {
+    width: auto;
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .Programs_Cards {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 15px;
   }
+
+  .comparisons-search-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .Comparison_Title h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    padding-top: 10px;
+  }
 }
+
 @media (max-width: 576px) {
+  .carousel-item img {
+    height: 300px;
+  }
 
   .carousel-caption-custom {
     top: 28%;
@@ -275,7 +284,6 @@
 
   .carousel-caption-custom h1 {
     font-size: 22px;
-    height: auto;
   }
 
   .carousel-caption-custom p {
@@ -296,68 +304,5 @@
 
   .Card {
     padding: 18px;
-  }
-
-  .card-header h3 {
-    font-size: 1.3rem;
-  }
-}
-.country-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-}
-
-.country-icon {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden; /* Ensures the image respects the circular border */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds subtle depth */
-}
-
-.country-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.country-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2d3748;
-  margin: 0;
-}
-
-@media (max-width: 768px) {
-  .comparisons-search-bar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .comparisons-search-bar .form-control {
-    width: 100%;
-    margin-top: 20px;
-  }
-}
-
-.comparisons-search-bar {
-  display: flex;
-  margin: 0 auto 30px auto;
-  padding: 0 16px;
-}
-@media (max-width: 768px) {
-
-  .Comparison_Title {
-    height: auto;
-  }
-
-  .Comparison_Title h1 {
-    font-size: 28px;
-    line-height: 1.3;
-    padding-top: 10px;
   }
 }
