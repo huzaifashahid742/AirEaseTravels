@@ -154,9 +154,6 @@ const UserApplicationView = () => {
             <div key={index} className="sd-school-card">
               <strong>Record {index + 1}</strong>
               <p>{school.schoolName} · {school.boardOrUniversity} · {school.graduationYear} · {school.gpaOrPercentage}</p>
-              {school.resultUpload && (
-                <p className="mb-0 mt-1">{docLink(school.resultUpload)}</p>
-              )}
             </div>
           ))}
         </div>
