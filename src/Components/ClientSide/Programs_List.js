@@ -8,7 +8,7 @@ import PageLoader from './PageLoader';
 // 1. IMPORT YOUR IMAGE RESOLVER UTILITY HERE
 import { resolveStoredImage } from '../../utils/imageUpload'; 
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 6;
 
 const DEGREE_OPTIONS = [
   { label: 'Undergraduate', value: 'Bachelor' },
