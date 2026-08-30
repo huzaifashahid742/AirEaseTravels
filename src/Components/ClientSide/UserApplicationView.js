@@ -113,7 +113,7 @@ const UserApplicationView = () => {
 
   const documentItems = [
     { title: 'Resume / CV', value: docs.resumeCv },
-    { title: 'Statement of Purpose', value: docs.statementOfPurpose },
+    { title: 'Recommendation Letter', value: docs.statementOfPurpose },
     { title: 'Passport copy', value: docs.passportCopyUpload },
     { title: 'National ID proof', value: docs.nationalIdProof },
     { title: 'Academic transcript', value: a.transcriptUpload },

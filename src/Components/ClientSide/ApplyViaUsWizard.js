@@ -709,7 +709,7 @@ const ApplyViaUsWizard = () => {
         {step === 7 && (
           <div className="apply-grid apply-grid-full">
             <FileField label="Resume / CV" required value={form.attachments.resumeCv} onChange={(v) => patch('attachments', 'resumeCv', v)} />
-            <FileField label="Letter of Recommendation" required value={form.attachments.statementOfPurpose} onChange={(v) => patch('attachments', 'statementOfPurpose', v)} />
+            <FileField label="Letter of Recommendation" value={form.attachments.statementOfPurpose} onChange={(v) => patch('attachments', 'statementOfPurpose', v)} />
             <FileField label="Passport copy" required value={form.attachments.passportCopyUpload} onChange={(v) => patch('attachments', 'passportCopyUpload', v)} />
             <FileField label="National ID proof" required value={form.attachments.nationalIdProof} onChange={(v) => patch('attachments', 'nationalIdProof', v)} />
           </div>
