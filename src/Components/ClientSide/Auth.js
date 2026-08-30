@@ -237,12 +237,9 @@ const AuthPage = () => {
 <button 
   type="button"
   onClick={() => {
-    const backendURL = process.env.NODE_ENV === 'production' 
-      ? 'https://your-backend-app.railway.app' 
-      : 'http://localhost:7000';
-
-    window.location.href = `${backendURL}/api/auth/google`;
-  }}
+  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:7000';
+  window.location.href = `${backendURL}/api/auth/google`;
+}}
   className="google-auth-btn"
   style={{
     display: "flex",
