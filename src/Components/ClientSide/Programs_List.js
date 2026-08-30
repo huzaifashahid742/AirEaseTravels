@@ -187,12 +187,12 @@ const Programs_List = ({ onContactClick }) => {
     setPage(1);
   };
 
-  // const handleShowMore = () => {
-  //   if (page < pagination.totalPages) {
-  //     pendingScrollRef.current = true;
-  //     setPage((p) => p + 1);
-  //   }
-  // };
+  const handleShowMore = () => {
+    if (page < pagination.totalPages) {
+      pendingScrollRef.current = true;
+      setPage((p) => p + 1);
+    }
+  };
 
   const handlePreviousPage = () => {
     if (page > 1) {
