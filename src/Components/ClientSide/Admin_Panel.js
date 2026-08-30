@@ -138,10 +138,6 @@ const Admin_Panel = () => {
               <h3>Total Students</h3>
               <p>{stats.students}</p>
             </div>
-            <div className="admin-stat-card" style={{ borderLeftColor: '#22c55e' }}>
-              <h3>Approved Applications</h3>
-              <p>{stats.completed}</p>
-            </div>
           </>
         )}
         {canViewContent && (
@@ -177,7 +173,6 @@ const Admin_Panel = () => {
               <th>Phone</th>
               <th>Email</th>
               <th>Country</th>
-              <th>Status</th>
               <th className="text-end">Actions</th>
             </tr>
           </thead>
@@ -200,11 +195,6 @@ const Admin_Panel = () => {
                       app.countryOfResidence ||
                       app.programInterest?.fieldOfStudy ||
                       '—'}
-                  </td>
-                  <td>
-                    <span className={`status-pill ${applicationStatusClass(app.applicationStatus)}`}>
-                      {formatApplicationStatus(app.applicationStatus)}
-                    </span>
                   </td>
                   <td className="text-end">
                     <Link to={`/admin/Student_View_Form/${app._id}`}>
