@@ -80,6 +80,7 @@ function App() {
                   <Route path="/University_Comparisons" element={<Universities_Comparisons onContactClick={openModal} />} />
                   <Route path="/Search" element={<GlobalSearch />} />
                   <Route path="/Login_Page" element={<AuthPage />} />
+                  <Route path="/auth-success" element={<AuthSuccess />} />
                   <Route path="/ApplyViaUs/:programId" element={<LegacyApplyRedirect />} />
                   <Route path="/ApplyViaUs" element={<Navigate to="/Programs_List" replace />} />
 

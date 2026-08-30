@@ -230,6 +230,43 @@ const AuthPage = () => {
             <button type="submit" className="auth-primary-btn" disabled={submitting}>
               {submitting ? 'Processing...' : isLogin ? 'Sign In' : 'Complete Registration'}
             </button>
+            <div className="auth-divider" style={{ margin: "20px 0", textAlign: "center", borderBottom: "1px solid #ddd", lineHeight: "0.1px" }}>
+  <span style={{ background: "#fff", padding: "0 10px", color: "#777", fontSize: "14px" }}>OR</span>
+</div>
+
+<button 
+  type="button"
+  onClick={() => {
+    const backendURL = process.env.NODE_ENV === 'production' 
+      ? 'https://your-backend-app.railway.app' 
+      : 'http://localhost:5000';
+
+    window.location.href = `${backendURL}/api/auth/google`;
+  }}
+  className="google-auth-btn"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    padding: "10px 20px",
+    backgroundColor: "#fff",
+    color: "#444",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontWeight: "500",
+    width: "100%",
+    marginBottom: "15px"
+  }}
+>
+  <img 
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+    alt="Google logo" 
+    style={{ width: "18px", height: "18px" }}
+  />
+  Continue with Google
+</button>
           </form>
 
           <div className="auth-toggle-footer">
@@ -244,36 +281,7 @@ const AuthPage = () => {
             >
               {isLogin ? 'Create an account' : 'Sign in here'}
             </button>
-            <div className="google-auth-container">
-  <button 
-    onClick={() => {
-      // Points directly to your backend Google auth route
-      // Use localhost for local dev, or your live Railway backend URL in production
-      window.location.href = "http://localhost:5000/api/auth/google";
-    }}
-    style={{
-      display: "flex",
-      alignItem: "center",
-      justifyContent: "center",
-      gap: "10px",
-      padding: "10px 20px",
-      backgroundColor: "#fff",
-      color: "#444",
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-      cursor: "pointer",
-      fontWeight: "500",
-      width: "100%"
-    }}
-  >
-    <img 
-      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
-      alt="Google logo" 
-      style={{ width: "18px", height: "18px" }}
-    />
-    Continue with Google
-  </button>
-</div>
+            
           </div>
         </div>
       </div>
