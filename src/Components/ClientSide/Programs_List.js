@@ -187,12 +187,12 @@ const Programs_List = ({ onContactClick }) => {
     setPage(1);
   };
 
-  const handleShowMore = () => {
-    if (page < pagination.totalPages) {
-      pendingScrollRef.current = true;
-      setPage((p) => p + 1);
-    }
-  };
+  // const handleShowMore = () => {
+  //   if (page < pagination.totalPages) {
+  //     pendingScrollRef.current = true;
+  //     setPage((p) => p + 1);
+  //   }
+  // };
 
   const handlePreviousPage = () => {
     if (page > 1) {
@@ -451,18 +451,6 @@ const Programs_List = ({ onContactClick }) => {
                 >
                   Previous
                 </button>
-
-                {page < pagination.totalPages && (
-                  <button
-                    type="button"
-                    className="btn btn-primary Show-more-btn"
-                    onClick={handleShowMore}
-                    disabled={loading}
-                  >
-                    Show More
-                  </button>
-                )}
-
                 <button
                   type="button"
                   className="btn btn-outline-primary"
