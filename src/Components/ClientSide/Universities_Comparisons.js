@@ -100,7 +100,7 @@ const getFormattedFlagUrl = (flagImage) => {
 
   return (
     <div>
-      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2500}>
+      {/* <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2500}>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="/Images_Folder/Crousel_Study.jpg" className="d-block w-100" alt="Why Study in Europe" />
@@ -127,7 +127,7 @@ const getFormattedFlagUrl = (flagImage) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="Comparison_Section">
         {navbarFilter && !pageQuery.trim() && (
