@@ -320,33 +320,6 @@ const Programs_List = ({ onContactClick }) => {
               {' '} Any language
             </label>
           </span>
-
-          <hr />
-
-          <span className="Program_Level">
-            <h3>Location</h3>
-            {CITY_OPTIONS.map((city) => (
-              <label key={city}>
-                <input
-                  type="radio"
-                  name="location"
-                  checked={filters.city === city}
-                  onChange={() => handleFilterChange('city', city)}
-                />
-                {' '} {city}
-              </label>
-            ))}
-            <label>
-              <input
-                type="radio"
-                name="location"
-                checked={filters.city === ''}
-                onChange={() => handleFilterChange('city', '')}
-              />
-              {' '} All cities
-            </label>
-          </span>
-
           <hr />
 
           <span className="Program_Level filter-actions">
