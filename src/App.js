@@ -2,7 +2,7 @@ import './App.css';
 import { lazy, Suspense, useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
-import AuthProvider  from './Context/AuthContext';
+import {AuthProvider}  from './Context/AuthContext';
 import ErrorBoundary from './Components/ClientSide/ErrorBoundary';
 import PageLoader from './Components/ClientSide/PageLoader';
 import AdminRoute from './Components/ClientSide/AdminRoute';
