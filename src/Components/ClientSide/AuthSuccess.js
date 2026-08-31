@@ -22,7 +22,12 @@ export default function AuthSuccess() {
           login(userData, token); // Saves both token & user object to context/localStorage
           
           const timer = setTimeout(() => {
-            navigate('/user/dashboard', { replace: true });
+            // 🔴 Check if Google user has finished their profile setup
+            if (userData.isProfileComplete === false) {
+              navigate('/user/complete-profile', { replace: true });
+            } else {
+              navigate('/user/dashboard', { replace: true });
+            }
           }, 200);
 
           return () => clearTimeout(timer);

@@ -15,6 +15,7 @@ import ContactModal from './Components/ClientSide/Contact_Us';
 import AuthSuccess from './Components/ClientSide/AuthSuccess'; // Adjust path to where you saved AuthSuccess.jsx
 import StudentProfile from './Components/ClientSide/StudentProfile';
 
+
 const Home = lazy(() => import('./Components/ClientSide/Home'));
 const Programs_List = lazy(() => import('./Components/ClientSide/Programs_List'));
 const Programs_Detail = lazy(() => import('./Components/ClientSide/Programs_Detail'));
@@ -71,6 +72,7 @@ function App() {
                 <Route path="/add-university" element={<Navigate to="/admin/add-university" replace />} />
                 <Route path="/edit-university" element={<Navigate to="/admin/edit-university" replace />} />
                 <Route path="/UniversityProgramDetail" element={<Navigate to="/admin/UniversityProgramDetail" replace />} />
+                <Route path="complete-profile" element={<CompleteProfile />} />
 
                 <Route element={<UserLayout onContactClick={openModal} />}>
                   <Route path="/" element={<Home />} />
