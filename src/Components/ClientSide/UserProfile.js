@@ -160,7 +160,6 @@ const UserProfile = () => {
     onChange={(e) => handleChange('password', e.target.value)} 
     minLength={6} 
   />
-  <small className="text-muted">Fill this out if you want to enable logging in with email and password.</small>
 </div>
           <div className="apply-field">
             <label>Phone Number</label>
@@ -195,6 +194,12 @@ const UserProfile = () => {
             <label>Passport Number</label>
             <input className="form-control" value={profile.passportNumber || ''} onChange={(e) => handleChange('passportNumber', e.target.value)} />
           </div>
+          <div className="apply-grid-full">
+            <div className="apply-field">
+              <label>Current address</label>
+              <textarea className="form-control" value={profile.currentAddress || ''} onChange={(e) => handleChange('currentAddress', e.target.value)} />
+            </div>
+          </div>
 
           <div className="apply-grid-full">
             <div className="apply-field">
@@ -224,13 +229,6 @@ const UserProfile = () => {
             ) : (
               <small className="text-muted" style={{ display: 'block', marginTop: '5px' }}>No photo uploaded</small>
             )}
-          </div>
-
-          <div className="apply-grid-full">
-            <div className="apply-field">
-              <label>Current address</label>
-              <textarea className="form-control" rows={2} value={profile.currentAddress || ''} onChange={(e) => handleChange('currentAddress', e.target.value)} />
-            </div>
           </div>
         </div>
 
