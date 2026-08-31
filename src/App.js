@@ -72,7 +72,8 @@ function App() {
                 <Route path="/add-university" element={<Navigate to="/admin/add-university" replace />} />
                 <Route path="/edit-university" element={<Navigate to="/admin/edit-university" replace />} />
                 <Route path="/UniversityProgramDetail" element={<Navigate to="/admin/UniversityProgramDetail" replace />} />
-                <Route path="complete-profile" element={<CompleteProfile />} />
+                {/* <Route path="complete-profile" element={<CompleteProfile />} 
+                /> */}
 
                 <Route element={<UserLayout onContactClick={openModal} />}>
                   <Route path="/" element={<Home />} />
