@@ -194,12 +194,10 @@ const UserProfile = () => {
             <label>Passport Number</label>
             <input className="form-control" value={profile.passportNumber || ''} onChange={(e) => handleChange('passportNumber', e.target.value)} />
           </div>
-          <div className="apply-grid-full">
             <div className="apply-field">
               <label>Current address</label>
               <textarea className="form-control" value={profile.currentAddress || ''} onChange={(e) => handleChange('currentAddress', e.target.value)} />
             </div>
-          </div>
 
           <div className="apply-grid-full">
             <div className="apply-field">
