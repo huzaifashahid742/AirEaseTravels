@@ -30,6 +30,7 @@ const UserProfile = () => {
       dateOfBirth: p.dateOfBirth ? String(p.dateOfBirth).split('T')[0] : '',
       profilePhoto: p.profilePhoto || '',
       skills: Array.isArray(p.skills) ? p.skills.join(', ') : (p.skills || ''),
+      password: '',
     });
 
     if (!justSaved) {
@@ -91,6 +92,9 @@ const UserProfile = () => {
       formData.append('currentAddress', profile.currentAddress || '');
       formData.append('passportNumber', profile.passportNumber || '');
       formData.append('skills', profile.skills || '');
+      if (profile.password && profile.password.trim().length >= 6) {
+        formData.append('password', profile.password.trim());
+      }
 
       if (selectedFile) {
         formData.append('profilePhoto', selectedFile);
@@ -146,6 +150,18 @@ const UserProfile = () => {
             <label>Email</label>
             <input className="form-control" value={user.email || ''} disabled />
           </div>
+          <div className="apply-field">
+  <label>Create / Change Password (Optional)</label>
+  <input 
+    type="password" 
+    className="form-control" 
+    placeholder="At least 6 characters" 
+    value={profile.password || ''} 
+    onChange={(e) => handleChange('password', e.target.value)} 
+    minLength={6} 
+  />
+  <small className="text-muted">Fill this out if you want to enable logging in with email and password.</small>
+</div>
           <div className="apply-field">
             <label>Phone Number</label>
             <input className="form-control" value={profile.phone || ''} onChange={(e) => handleChange('phone', e.target.value)} />
