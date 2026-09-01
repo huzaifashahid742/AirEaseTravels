@@ -15,6 +15,11 @@ const UserProfile = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
+  // 🔴 New states for OTP verification workflow
+  const [otp, setOtp] = useState('');
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [otpSentMessage, setOtpSentMessage] = useState('');
+
   const [justSaved, setJustSaved] = useState(false);
 
   useEffect(() => {
@@ -51,22 +56,34 @@ const UserProfile = () => {
     }
   };
 
- const getProfilePhotoUrl = () => {
-    // 1. Prioritize local preview if a new file was just selected
+  const getProfilePhotoUrl = () => {
     if (localPreview) return localPreview;
     
-    // 2. Fall back to database URL stored in user context or profile state
     const dbPhoto = user?.profile?.profilePhoto || profile?.profilePhoto;
     if (dbPhoto) {
       if (dbPhoto.startsWith('http')) return dbPhoto;
       
-      // Extract base server URL from REACT_APP_API_URL (removes trailing '/api')
       const apiEnvUrl = process.env.REACT_APP_API_URL || 'http://localhost:7000/api';
       const serverRootUrl = apiEnvUrl.replace(/\/api\/?$/, '');
       
       return `${serverRootUrl}${dbPhoto}`;
     }
     return '';
+  };
+
+  // 🔴 Function to trigger the backend endpoint to send the OTP email
+  const handleRequestOtp = async () => {
+    setSendingOtp(true);
+    setError('');
+    setOtpSentMessage('');
+    try {
+      const res = await authAPI.requestPasswordOtp();
+      setOtpSentMessage(res.message || 'Verification code sent to your email!');
+    } catch (err) {
+      setError(err.message || 'Failed to send verification code.');
+    } finally {
+      setSendingOtp(false);
+    }
   };
 
   const handleSave = async (e) => {
@@ -92,8 +109,11 @@ const UserProfile = () => {
       formData.append('currentAddress', profile.currentAddress || '');
       formData.append('passportNumber', profile.passportNumber || '');
       formData.append('skills', profile.skills || '');
+      
+      // Include password and otp code if user is trying to change/create password
       if (profile.password && profile.password.trim().length >= 6) {
         formData.append('password', profile.password.trim());
+        formData.append('otp', otp.trim());
       }
 
       if (selectedFile) {
@@ -106,6 +126,9 @@ const UserProfile = () => {
       setJustSaved(true);
       login(res.data, token);
       setSelectedFile(null); 
+      setProfile((prev) => ({ ...prev, password: '' }));
+      setOtp('');
+      setOtpSentMessage('');
       setMessage('Profile saved successfully. Changes will pre-fill your applications.');
       
       setTimeout(() => setJustSaved(false), 2000);
@@ -150,17 +173,49 @@ const UserProfile = () => {
             <label>Email</label>
             <input className="form-control" value={user.email || ''} disabled />
           </div>
+
+          {/* 🔴 Password & Secure Verification OTP Section */}
           <div className="apply-field">
-  <label>Create / Change Password (Optional)</label>
-  <input 
-    type="password" 
-    className="form-control" 
-    placeholder="At least 6 characters" 
-    value={profile.password || ''} 
-    onChange={(e) => handleChange('password', e.target.value)} 
-    minLength={6} 
-  />
-</div>
+            <label>Create / Change Password (Optional)</label>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input 
+                type="password" 
+                className="form-control" 
+                placeholder="At least 6 characters" 
+                value={profile.password || ''} 
+                onChange={(e) => handleChange('password', e.target.value)} 
+                minLength={6} 
+              />
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                style={{ whiteSpace: 'nowrap', fontSize: '13px' }}
+                onClick={handleRequestOtp}
+                disabled={sendingOtp || !profile.password || profile.password.length < 6}
+                title={!profile.password || profile.password.length < 6 ? "Enter a valid password first" : "Click to send security code to email"}
+              >
+                {sendingOtp ? 'Sending...' : 'Send Code'}
+              </button>
+            </div>
+            <small className="text-muted">Changing password requires a verification code sent to your email.</small>
+          </div>
+
+          {/* 🔴 OTP Code Input Box */}
+          {profile.password && profile.password.length >= 6 && (
+            <div className="apply-field">
+              <label>Email Verification Code (OTP)</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Enter 6-digit code sent to email" 
+                value={otp} 
+                onChange={(e) => setOtp(e.target.value)} 
+                maxLength={6}
+              />
+              {otpSentMessage && <small className="text-success" style={{ display: 'block', marginTop: '4px' }}>{otpSentMessage}</small>}
+            </div>
+          )}
+
           <div className="apply-field">
             <label>Phone Number</label>
             <input className="form-control" value={profile.phone || ''} onChange={(e) => handleChange('phone', e.target.value)} />
@@ -194,10 +249,10 @@ const UserProfile = () => {
             <label>Passport Number</label>
             <input className="form-control" value={profile.passportNumber || ''} onChange={(e) => handleChange('passportNumber', e.target.value)} />
           </div>
-            <div className="apply-field">
-              <label>Current address</label>
-              <textarea className="form-control" value={profile.currentAddress || ''} onChange={(e) => handleChange('currentAddress', e.target.value)} />
-            </div>
+          <div className="apply-field">
+            <label>Current address</label>
+            <textarea className="form-control" value={profile.currentAddress || ''} onChange={(e) => handleChange('currentAddress', e.target.value)} />
+          </div>
 
           <div className="apply-grid-full">
             <div className="apply-field">
