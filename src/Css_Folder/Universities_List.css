@@ -141,27 +141,31 @@
   margin-bottom: 1.25rem;
 }
 
+/* Grid & Card Enhancements */
 .airease-user .uni-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .airease-user .uni-card {
   background: #fff;
   border: 1px solid #e8edf2;
   border-radius: 16px;
-  padding: 1.35rem;
-  box-shadow: 0 6px 24px rgba(31, 58, 95, 0.06);
-  transition: box-shadow 0.2s, border-color 0.2s;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(31, 58, 95, 0.04);
+  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .airease-user .uni-card:hover {
-  box-shadow: 0 10px 32px rgba(31, 58, 95, 0.1);
+  box-shadow: 0 10px 30px rgba(31, 58, 95, 0.08);
   border-color: #cbd5e1;
+  transform: translateY(-2px);
 }
 
 .airease-user .uni-card--expanded {
@@ -173,55 +177,69 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .airease-user .uni-card__logo {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  padding: 6px;
+  padding: 4px;
   flex-shrink: 0;
+}
+
+.airease-user .uni-card__info {
+  flex: 1;
+  min-width: 0;
 }
 
 .airease-user .uni-card__info h2 {
   font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #1F3A5F;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.25rem;
   line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .airease-user .uni-card__location {
   font-family: "Poppins", sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: #64748b;
   margin: 0 0 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .airease-user .uni-card__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .airease-user .uni-badge {
   font-family: "Poppins", sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  padding: 0.2rem 0.55rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 999px;
+  letter-spacing: 0.3px;
 }
 
 .airease-user .uni-badge--type {
-  background: #e8edf2;
-  color: #1F3A5F;
+  background: #f1f5f9;
+  color: #475569;
 }
 
 .airease-user .uni-badge--status {
@@ -243,13 +261,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
   font-family: "Poppins", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #475569;
-  padding-top: 0.25rem;
+  padding: 0.75rem 0;
   border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 1rem;
 }
 
 .airease-user .uni-card__stats strong {
@@ -260,10 +278,10 @@
   color: #1F3A5F;
   font-weight: 600;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .airease-user .uni-card__website:hover {
@@ -271,20 +289,31 @@
 }
 
 .airease-user .uni-card__actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+  margin-top: auto;
+}
+
+.airease-user .uni-btn-primary,
+.airease-user .uni-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
 
 .airease-user .uni-btn-primary {
   background: #1F3A5F;
-  border-color: #1F3A5F;
+  border: 1px solid #1F3A5F;
   color: #fff;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 0.88rem;
-  border-radius: 8px;
-  padding: 0.45rem 1rem;
 }
 
 .airease-user .uni-btn-primary:hover {
@@ -295,24 +324,22 @@
 
 .airease-user .uni-btn-outline {
   background: #fff;
-  border: 1px solid #1F3A5F;
+  border: 1px solid #cbd5e1;
   color: #1F3A5F;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 0.88rem;
-  border-radius: 8px;
-  padding: 0.45rem 1rem;
 }
 
 .airease-user .uni-btn-outline:hover {
-  background: #f1f5f9;
+  background: #f8fafc;
+  border-color: #1F3A5F;
   color: #1F3A5F;
 }
 
 .airease-user .uni-card__programs {
   border-top: 1px solid #e8edf2;
+  margin-top: 1rem;
   padding-top: 1rem;
   animation: uniSlideDown 0.25s ease;
+  grid-column: 1 / -1;
 }
 
 @keyframes uniSlideDown {
@@ -350,7 +377,7 @@
   display: block;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #1F3A5F;
 }
 
@@ -390,6 +417,10 @@
 
 @media (max-width: 640px) {
   .airease-user .uni-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .airease-user .uni-card__actions {
     grid-template-columns: 1fr;
   }
 
