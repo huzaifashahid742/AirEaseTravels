@@ -96,17 +96,17 @@
   height: 0;
 }
 
-/* --- Grid Alignment for Cards --- */
+/* --- Exactly 3 Cards Per Row on Large Screens --- */
 .Programs_Cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 equal columns */
   gap: 24px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   padding: 20px 0;
   align-items: stretch; /* Forces equal heights across rows */
 }
-
 /* --- Flex Card Layout to Keep Buttons Aligned at the Bottom --- */
 .Card {
   background: #ffffff;
