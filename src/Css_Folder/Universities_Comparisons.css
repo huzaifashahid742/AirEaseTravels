@@ -217,7 +217,120 @@
   color: #2d3748;
   margin: 0;
 }
+/* --- 1. Grid Alignment for Cards --- */
+.Programs_Cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  /* Ensures all grid tracks stretch to match the tallest card in the row */
+  align-items: stretch; 
+}
 
+/* --- 2. Flex Card Layout to Keep Buttons Aligned at the Bottom --- */
+.Card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes content top and button bottom */
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%; /* Fills the grid row height */
+}
+
+.Card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* --- 3. Country Header Layout & Name Styling --- */
+.country-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.country-icon img {
+  width: 50px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 8px;
+}
+
+.country-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* --- 4. Uniform Info Area & Items --- */
+.country-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1; /* Takes up available middle space so buttons align */
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.info-item .value {
+  color: #212529;
+  font-weight: 500;
+  line-height: 1.3;
+  /* Optional: If you want very long text fields like PR to scroll inside the box 
+     instead of stretching the card indefinitely, uncomment below: */
+  /* max-height: 70px; */
+  /* overflow-y: auto; */
+}
+
+/* --- 5. Advisor Button Alignment --- */
+.advisor-btn {
+  margin-top: auto; /* Locks button cleanly to the bottom of every card */
+  width: 100%;
+}
+
+/* --- 6. Pagination Styling --- */
+.comparisons-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.comparisons-pagination .page-link {
+  color: #0d6efd;
+  border-radius: 8px;
+  margin: 0 4px;
+  padding: 8px 16px;
+}
+
+.comparisons-pagination .page-item.disabled .page-link {
+  color: #6c757d;
+}
 /* Base Search Bar Styles (Centered) */
 .comparisons-search-bar {
   display: flex;
