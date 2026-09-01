@@ -220,8 +220,8 @@ const Universities_Comparisons = ({ onContactClick }) => {
                   </div>
 
                   <div className="info-item">
-                    <span className="label">Work Rights</span>
-                    <span className="value">{country.workRight}</span>
+                    <span className="label">Salary</span>
+                    <span className="value">{country.studentSalary}</span>
                   </div>
 
                   <div className="info-item">
@@ -243,9 +243,9 @@ const Universities_Comparisons = ({ onContactClick }) => {
                     <span className="value">{country.prSettlement}</span>
                   </div>
 
-                  <div className="info-item">
-                    <span className="label">Salary</span>
-                    <span className="value">{country.studentSalary}</span>
+                   <div className="info-item">
+                    <span className="label">Work Rights</span>
+                    <span className="value">{country.workRight}</span>
                   </div>
 
                   <div className="info-item">
