@@ -21,10 +21,14 @@ const Universities_Comparisons = ({ onContactClick }) => {
   const [error, setError] = useState('');
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
 
+  // --- Pagination States ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
   const resultsRef = useRef(null);
   const pendingScrollRef = useRef(false);
 
-  // --- ADDED: Force initialize Bootstrap Carousel via JS ---
+  // Force initialize Bootstrap Carousel via JS
   useEffect(() => {
     const carouselElement = document.getElementById('carouselExampleSlidesOnly');
     if (carouselElement) {
@@ -44,6 +48,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
       if (searchTerm) params.search = searchTerm;
       const res = await countryDetailsAPI.getAll(params);
       setCountries(res.data || []);
+      setCurrentPage(1); // Reset to first page on new fetch/search
     } catch (err) {
       setError(err.message || 'Failed to load country comparisons');
       setCountries([]);
@@ -84,30 +89,35 @@ const Universities_Comparisons = ({ onContactClick }) => {
     }
   }, [loading, countries]);
 
+  // Pagination calculations
+  const totalPages = Math.ceil(countries.length / itemsPerPage);
+  const currentCountries = countries.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   // Helper function to format flag URLs safely
   const getFormattedFlagUrl = (flagImage) => {
     if (!flagImage) return '/images/flags/default-flag.png';
 
     let url = flagImage.trim();
 
-    // Fix nested Cloudinary URLs (e.g. "http://localhost:7000/https://res.cloudinary...")
     if (url.includes('https://res.cloudinary.com')) {
       const cloudinaryIdx = url.indexOf('https://res.cloudinary.com');
       return url.substring(cloudinaryIdx);
     }
 
-    // Replace hardcoded localhost base URLs with production backend
     const PRODUCTION_BACKEND_URL = 'https://aireasetravels-backend-production.up.railway.app';
     if (url.startsWith('http://localhost:7000')) {
       return url.replace('http://localhost:7000', PRODUCTION_BACKEND_URL);
     }
 
-    // Handle absolute HTTP/HTTPS links
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
 
-    // Handle relative paths from Railway backend
     const cleanPath = url.startsWith('/') ? url : `/${url}`;
     return `${FILE_BASE_URL || PRODUCTION_BACKEND_URL}${cleanPath}`;
   };
@@ -153,21 +163,21 @@ const Universities_Comparisons = ({ onContactClick }) => {
           </p>
         )}
 
-    <div className="comparisons-search-bar">
-  <input
-    type="search"
-    className="form-control"
-    placeholder="Type to filter..."
-    value={pageQuery}
-    onChange={(e) => setPageQuery(e.target.value)}
-    aria-label="Filter countries"
-  />
-  {pageQuery.trim() && (
-    <button type="button" className="btn btn-outline-secondary" onClick={() => setPageQuery('')}>
-      Clear
-    </button>
-  )}
-</div>
+        <div className="comparisons-search-bar">
+          <input
+            type="search"
+            className="form-control"
+            placeholder="Type to filter..."
+            value={pageQuery}
+            onChange={(e) => setPageQuery(e.target.value)}
+            aria-label="Filter countries"
+          />
+          {pageQuery.trim() && (
+            <button type="button" className="btn btn-outline-secondary" onClick={() => setPageQuery('')}>
+              Clear
+            </button>
+          )}
+        </div>
 
         <div ref={resultsRef} className="comparisons-results-anchor" aria-hidden="true" />
 
@@ -185,9 +195,9 @@ const Universities_Comparisons = ({ onContactClick }) => {
           </p>
         )}
 
-       <div className="Programs_Cards">
+        <div className="Programs_Cards">
           {!loading &&
-            countries.map((country) => (
+            currentCountries.map((country) => (
               <div className="Card" key={country._id}>
                 <div className="country-card-header">
                   <div className="country-icon">
@@ -197,6 +207,8 @@ const Universities_Comparisons = ({ onContactClick }) => {
                       onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
                     />
                   </div>
+                  {/* Added Country Name Header */}
+                  <h3 className="country-name">{country.countryName}</h3>
                 </div>
 
                 <div className="country-info">
@@ -243,7 +255,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
                     <span className="value">{country.prSettlement}</span>
                   </div>
 
-                   <div className="info-item">
+                  <div className="info-item">
                     <span className="label">Work Rights</span>
                     <span className="value">{country.workRight}</span>
                   </div>
@@ -269,6 +281,39 @@ const Universities_Comparisons = ({ onContactClick }) => {
               </div>
             ))}
         </div>
+
+        {/* --- Pagination Controls UI --- */}
+        {!loading && totalPages > 1 && (
+          <nav aria-label="Country comparisons pagination" className="comparisons-pagination mt-4">
+            <ul className="pagination justify-content-center">
+              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+              </li>
+
+              <li className="page-item disabled">
+                <span className="page-link bg-transparent border-0 text-dark fw-bold">
+                  Page {currentPage} of {totalPages}
+                </span>
+              </li>
+
+              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
       </div>
       <br /><br />
     </div>
