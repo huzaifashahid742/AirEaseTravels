@@ -437,3 +437,45 @@
     align-items: center;
   }
 }
+.airease-user .uni-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.airease-user .uni-pagination-btn {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  color: #1F3A5F;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.airease-user .uni-pagination-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #1F3A5F;
+}
+
+.airease-user .uni-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.airease-user .uni-pagination-info {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.airease-user .uni-pagination-info strong {
+  color: #1F3A5F;
+}
