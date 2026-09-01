@@ -34,7 +34,7 @@ const Universities_List = () => {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
- const fetchData = useCallback(async (searchTerm, pageNum) => {
+  const fetchData = useCallback(async (searchTerm, pageNum) => {
     setLoading(true);
     setError('');
     try {
@@ -46,9 +46,9 @@ const Universities_List = () => {
         programsAPI.getAll({ limit: 200, ...(searchTerm ? { search: searchTerm } : {}) }),
       ]);
       
-      // Correctly extract items from uniRes.data.data and total from pagination
-      const uniData = uniRes.data?.data || uniRes.data?.universities || [];
-      const totalCount = uniRes.data?.pagination?.total ?? uniRes.data?.totalCount ?? uniRes.data?.total ?? uniData.length;
+      // Handle response structure depending on whether backend returns metadata or just an array
+      const uniData = uniRes.data?.universities || uniRes.data || [];
+      const totalCount = uniRes.data?.totalCount || uniRes.data?.total || uniData.length;
 
       setUniversities(uniData);
       setTotalResults(totalCount);
