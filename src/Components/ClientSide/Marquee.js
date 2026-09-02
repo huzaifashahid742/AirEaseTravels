@@ -23,23 +23,6 @@ const Marquee = () => {
           <span>{message1}</span>
         </div>
       </div>
-
-      <div className="marquee-content">
-        {/* Track 1 */}
-        <div className="marquee-track">
-          <span>{message}</span>
-          <span>{message}</span>
-          <span>{message}</span>
-          <span>{message}</span>
-        </div>
-        {/* Track 2 (Chaser) */}
-        <div className="marquee-track" aria-hidden="true">
-          <span>{message}</span>
-          <span>{message}</span>
-          <span>{message}</span>
-          <span>{message}</span>
-        </div>
-      </div>
     </div>
   );
 };
