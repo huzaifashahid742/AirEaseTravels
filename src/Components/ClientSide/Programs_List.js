@@ -387,9 +387,6 @@ const Programs_List = ({ onContactClick }) => {
               e.currentTarget.src = '/Images_Folder/Crousel_Study.jpg';
             }}
           />
-          {program.degree && (
-            <span className="program-list-card__degree">{program.degree}</span>
-          )}
         </div>
         
         <div className="program-list-card__body">
