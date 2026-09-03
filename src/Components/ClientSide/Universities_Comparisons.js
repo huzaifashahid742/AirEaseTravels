@@ -289,14 +289,16 @@ const Universities_Comparisons = ({ onContactClick }) => {
 
                   <div className="info-item">
                     <span className="label">PR</span>
-                    <span className="value">{country.prSettlement}</span>
+                    <span className="value">
+                      <ExpandableText text={country.prSettlement} maxLength={30}></ExpandableText>
+                    </span>
                   </div>
 
                   {/* Compact Expandable View for Work Rights */}
                   <div className="info-item">
                     <span className="label">Work Rights</span>
                     <span className="value">
-                      <ExpandableText text={country.workRight} maxLength={45} />
+                      <ExpandableText text={country.workRight} maxLength={30} />
                     </span>
                   </div>
                 </div>
