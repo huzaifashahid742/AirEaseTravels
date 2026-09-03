@@ -158,7 +158,6 @@
   transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
 }
 
@@ -213,7 +212,7 @@
   font-family: "Poppins", sans-serif;
   font-size: 0.82rem;
   color: #64748b;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -268,6 +267,7 @@
   border-top: 1px solid #f1f5f9;
   border-bottom: 1px solid #f1f5f9;
   margin-bottom: 1rem;
+  margin-top: auto; /* Keeps stats bar pushed to the bottom baseline */
 }
 
 .airease-user .uni-card__stats strong {
@@ -292,7 +292,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-  margin-top: auto;
 }
 
 .airease-user .uni-btn-primary,
@@ -437,6 +436,7 @@
     align-items: center;
   }
 }
+
 .airease-user .uni-pagination {
   display: flex;
   justify-content: center;
@@ -478,23 +478,4 @@
 
 .airease-user .uni-pagination-info strong {
   color: #1F3A5F;
-}
-/* 1. Added min-height to reserve space for up to 2 lines */
-.airease-user .uni-card__info h2 {
-  /* ... existing styles ... */
-  min-height: 2.7em; /* Reserves uniform height for 1 and 2-line titles */
-}
-
-/* 2. Added margin-top: auto to pin stats & actions to the bottom */
-.airease-user .uni-card__stats {
-  /* ... existing styles ... */
-  margin-top: auto; /* Pushes the stats row down to match adjacent cards */
-}
-
-/* 3. Removed margin-top: auto from actions so it stays connected to stats */
-.airease-user .uni-card__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  /* margin-top: auto removed from here */
 }
