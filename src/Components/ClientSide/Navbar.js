@@ -101,7 +101,7 @@ const Navbar = ({ onContactClick }) => {
                 </li>
                 <li>
                   <Link to="/University_Comparisons" onClick={closeMenu}>
-                    University Comparisons
+                    Country Comparisons
                   </Link>
                 </li>
                 <li>
