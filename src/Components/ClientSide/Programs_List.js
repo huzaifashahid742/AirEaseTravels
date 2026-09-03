@@ -23,8 +23,6 @@ const FIELD_OPTIONS = [
   { label: 'Arts', value: 'Arts & Humanities' },
 ];
 
-const CITY_OPTIONS = ['Rome', 'Milan', 'Florence', 'Bologna'];
-
 const emptyFilters = {
   degree: '',
   field: '',
@@ -89,7 +87,6 @@ const Programs_List = ({ onContactClick }) => {
       if (filters.field) params.field = filters.field;
       if (filters.language) params.language = filters.language;
       if (filters.intake) params.intake = filters.intake;
-      if (filters.city) params.city = filters.city;
       if (filters.status) params.status = filters.status;
 
       const response = await programsAPI.getAll(params);
@@ -374,73 +371,61 @@ const Programs_List = ({ onContactClick }) => {
               </p>
 
               <div className="programs-card-grid">
-                {programs.map((program) => {
-                  const uniName = program.universityId?.universityName || program.university || '';
-                  const uniLogo = program.universityId?.logo;
-                  const logoUrl = resolveStoredImage(uniLogo);
+  {programs.map((program) => {
+    const uniName = program.universityId?.universityName || program.university || '';
+    const uniLogo = program.universityId?.logo;
+    const logoUrl = resolveStoredImage(uniLogo);
 
-                  return (
-                    <article className="program-list-card" key={program._id}> 
-                      <div 
-                        className="program-list-card__media" 
-                        style={{ 
-                          backgroundColor: '#ffffff', 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center', 
-                          overflow: 'hidden',
-                          width: '100%',
-                          aspectRatio: '16 / 10', /* Restricts frame to a standardized clean dimension */
-                          position: 'relative'
-                        }}
-                      >
-                        <img
-                          src={logoUrl || '/Images_Folder/Crousel_Study.jpg'}
-                          alt={`${uniName} Logo`}
-                          style={{ 
-                            width: '100%', 
-                            height: '100%', 
-                            objectFit: uniLogo ? 'contain' : 'cover', 
-                            padding: uniLogo ? '16px' : '0' 
-                          }}
-                        />
-                        <span className="program-list-card__degree">{program.degree}</span>
-                      </div>
-                      
-                      <div className="program-list-card__body">
-                        <h3>{program.programName}</h3>
-                        <ul className="program-list-card__meta">
-                          <li><i className="fa fa-book" /> {program.field}</li>
-                          <li><i className="fa fa-language" /> {program.language}</li>
-                          <li><i className="fa fa-clock" /> {program.duration || '—'}</li>
-                          <li><i className="fa fa-euro-sign" /> €{program.tuitionFee?.toLocaleString?.() ?? program.tuitionFee}/yr</li>
-                        </ul>
-                        <p className="program-list-card__deadline">
-                          Deadline: {formatDeadline(program.applicationDeadline)}
-                        </p>
-                        <div className="program-list-card__actions">
-                          <Link to={`/Programs_Detail/${program._id}`} className="btn program-btn-outline">
-                            View details
-                          </Link>
-                          <button
-                            type="button"
-                            className="btn program-btn-primary"
-                            onClick={() => {
-                              if (!user) {
-                                navigate('/Login_Page');
-                                return;
-                              }
-                              navigate(`/user/apply/${program._id}`);
-                            }}
-                          >
-                            Apply via us
-                          </button>
-                        </div>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
+    return (
+      <article className="program-list-card" key={program._id}> 
+        <div className="program-list-card__media">
+          <img
+            src={logoUrl || '/Images_Folder/Crousel_Study.jpg'}
+            alt={`${uniName} Logo`}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = '/Images_Folder/Crousel_Study.jpg';
+            }}
+          />
+          {program.degree && (
+            <span className="program-list-card__degree">{program.degree}</span>
+          )}
+        </div>
+        
+        <div className="program-list-card__body">
+          <span className="program-list-card__uni">{uniName}</span>
+          <h3 className="program-list-card__title" title={program.programName}>
+            {program.programName}
+          </h3>
+
+          <div className="program-list-card__field">
+            <i className="fa-solid fa-graduation-cap" />
+            <span>{program.field}</span>
+          </div>
+
+          <div className="program-list-card__actions">
+            <Link to={`/Programs_Detail/${program._id}`} className="btn program-btn-outline">
+              View details
+            </Link>
+            <button
+              type="button"
+              className="btn program-btn-primary"
+              onClick={() => {
+                if (!user) {
+                  navigate('/Login_Page');
+                  return;
+                }
+                navigate(`/user/apply/${program._id}`);
+              }}
+            >
+              Apply via us
+            </button>
+          </div>
+        </div>
+      </article>
+    );
+  })}
+</div>
 
               <div className="programs-pagination">
                 <button
