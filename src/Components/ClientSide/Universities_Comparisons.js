@@ -251,16 +251,6 @@ const Universities_Comparisons = ({ onContactClick }) => {
                   </div>
 
                   <div className="info-item">
-                    <span className="label">PR</span>
-                    <span className="value">{country.prSettlement}</span>
-                  </div>
-
-                  <div className="info-item">
-                    <span className="label">Work Rights</span>
-                    <span className="value">{country.workRight}</span>
-                  </div>
-
-                  <div className="info-item">
                     <span className="label">Rating</span>
                     <span className="value">⭐ {country.rating}</span>
                   </div>
@@ -268,6 +258,16 @@ const Universities_Comparisons = ({ onContactClick }) => {
                   <div className="info-item">
                     <span className="label">Acceptance</span>
                     <span className="value">{country.acceptanceRate}</span>
+                  </div>
+
+                  <div className="info-item">
+                    <span className="label">PR</span>
+                    <span className="value">{country.prSettlement}</span>
+                  </div>
+
+                  <div className="info-item">
+                    <span className="label">Work Rights</span>
+                    <span className="value">{country.workRight}</span>
                   </div>
                 </div>
 
