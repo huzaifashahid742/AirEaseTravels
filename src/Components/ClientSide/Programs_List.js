@@ -394,12 +394,6 @@ const Programs_List = ({ onContactClick }) => {
           <h3 className="program-list-card__title" title={program.programName}>
             {program.programName}
           </h3>
-
-          <div className="program-list-card__field">
-            <i className="fa-solid fa-graduation-cap" />
-            <span>{program.field}</span>
-          </div>
-
           <div className="program-list-card__actions">
             <Link to={`/Programs_Detail/${program._id}`} className="btn program-btn-outline">
               View details
