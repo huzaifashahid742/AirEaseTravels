@@ -1,10 +1,35 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../Css_Folder/Universities_Comparisons.css';
-import { countryDetailsAPI , FILE_BASE_URL } from '../../services/api';
+import { countryDetailsAPI, FILE_BASE_URL } from '../../services/api';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import PageLoader from './PageLoader';
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+// Helper component for uniform card heights with collapsible long text
+const ExpandableText = ({ text, maxLength = 50 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!text) return <span>N/A</span>;
+  if (text.length <= maxLength) return <span>{text}</span>;
+
+  return (
+    <span className="expandable-text">
+      {isExpanded ? text : `${text.slice(0, maxLength)}... `}
+      <button
+        type="button"
+        className="btn btn-link btn-sm p-0 ms-1 border-0 text-decoration-underline align-baseline"
+        style={{ fontSize: '0.8em' }}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsExpanded(!isExpanded);
+        }}
+      >
+        {isExpanded ? 'Read Less' : 'Read More'}
+      </button>
+    </span>
+  );
+};
 
 const Universities_Comparisons = ({ onContactClick }) => {
   const location = useLocation();
@@ -12,7 +37,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
   const [pageQuery, setPageQuery] = useState('');
   const [navbarFilter, setNavbarFilter] = useState('');
   const appliedPageSearch = useDebouncedValue(pageQuery, 350);
-  
+
   // Base activeSearch evaluation cleanly off the actual debounced value
   const activeSearch = appliedPageSearch.trim() ? appliedPageSearch : navbarFilter;
 
@@ -207,7 +232,6 @@ const Universities_Comparisons = ({ onContactClick }) => {
                       onError={(e) => { e.target.src = '/images/flags/default-flag.png'; }}
                     />
                   </div>
-                  {/* Added Country Name Header */}
                   <h3 className="country-name">{country.countryName}</h3>
                 </div>
 
@@ -236,9 +260,12 @@ const Universities_Comparisons = ({ onContactClick }) => {
                     <span className="value">{country.studentSalary}</span>
                   </div>
 
+                  {/* Compact Expandable View for Visa Difficulty */}
                   <div className="info-item">
                     <span className="label">Visa</span>
-                    <span className="value">{country.visaDifficulty}</span>
+                    <span className="value">
+                      <ExpandableText text={country.visaDifficulty} maxLength={45} />
+                    </span>
                   </div>
 
                   <div className="info-item">
@@ -265,9 +292,12 @@ const Universities_Comparisons = ({ onContactClick }) => {
                     <span className="value">{country.prSettlement}</span>
                   </div>
 
+                  {/* Compact Expandable View for Work Rights */}
                   <div className="info-item">
                     <span className="label">Work Rights</span>
-                    <span className="value">{country.workRight}</span>
+                    <span className="value">
+                      <ExpandableText text={country.workRight} maxLength={45} />
+                    </span>
                   </div>
                 </div>
 
