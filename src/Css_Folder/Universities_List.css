@@ -479,3 +479,22 @@
 .airease-user .uni-pagination-info strong {
   color: #1F3A5F;
 }
+/* 1. Added min-height to reserve space for up to 2 lines */
+.airease-user .uni-card__info h2 {
+  /* ... existing styles ... */
+  min-height: 2.7em; /* Reserves uniform height for 1 and 2-line titles */
+}
+
+/* 2. Added margin-top: auto to pin stats & actions to the bottom */
+.airease-user .uni-card__stats {
+  /* ... existing styles ... */
+  margin-top: auto; /* Pushes the stats row down to match adjacent cards */
+}
+
+/* 3. Removed margin-top: auto from actions so it stays connected to stats */
+.airease-user .uni-card__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  /* margin-top: auto removed from here */
+}
