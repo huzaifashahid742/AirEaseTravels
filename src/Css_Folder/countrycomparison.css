@@ -1,0 +1,328 @@
+/* ==========================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #1d4ed8;
+  --primary-dark: #1e40af;
+  --bg-page: #f4f6f9;
+  --bg-card: #ffffff;
+  --border-color: #cbd5e0;
+  --border-light: #e2e8f0;
+  --text-dark: #1a365d;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+}
+
+body {
+  background-color: var(--bg-page);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent horizontal scroll issues on mobile */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   2. BASE MOBILE STYLES (0px - 639px)
+   ========================================== */
+.admin-page-container {
+  padding: 1rem 0.75rem;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Header (Stacked on mobile) */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.header-title h1 {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.header-title p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  line-height: 1.3;
+}
+
+.page-header .btn {
+  align-self: flex-start;
+}
+
+/* Card Container */
+.form-card {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--border-light);
+}
+
+/* Alerts */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.125rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.alert-success {
+  color: #2f855a;
+  background-color: #f0fff4;
+}
+
+.alert-error {
+  color: #c53030;
+  background-color: #fff5f5;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.125rem;
+}
+
+.form-group.group-spaced {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-body);
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 0.875rem;
+  color: var(--text-body);
+  line-height: 1.4;
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
+}
+
+/* Grids stack vertically by default on mobile */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.125rem;
+}
+
+/* Dropzone (File Upload) */
+.dropzone {
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  background-color: #fafbfc;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropzone-help {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.file-picker-display {
+  display: flex;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  background-color: #fff;
+}
+
+.file-picker-btn {
+  background-color: #f7fafc;
+  padding: 0.4rem 0.75rem;
+  border-right: 1px solid var(--border-light);
+  color: #4a5568;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.file-picker-text {
+  padding: 0.4rem 0.75rem;
+  color: #a0aec0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-input-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Checkboxes */
+.checkbox-group {
+  display: flex;
+  gap: 0.85rem;
+  padding-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  font-size: 0.85rem;
+  color: #4a5568;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Buttons & Footer Actions */
+.form-actions {
+  display: flex;
+  flex-direction: column-reverse; /* Primary button on top for mobile accessibility */
+  gap: 0.65rem;
+  border-top: 1px solid #edf2f7;
+  padding-top: 1.25rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  color: #4a5568;
+}
+
+.btn-secondary:hover {
+  background-color: #f7fafc;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ==========================================
+   3. TABLETS & SMALL SCREENS (min-width: 640px)
+   ========================================== */
+@media (min-width: 640px) {
+  .admin-page-container {
+    padding: 1.5rem;
+  }
+
+  .form-card {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .page-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .page-header .btn {
+    align-self: auto;
+    width: auto;
+  }
+
+  .form-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    width: auto;
+  }
+
+  /* 2-Column layout for tablets */
+  .grid-col-3,
+  .grid-col-3-unequal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================
+   4. LAPTOPS & SMALL DESKTOPS (min-width: 1024px)
+   ========================================== */
+@media (min-width: 1024px) {
+  .admin-page-container {
+    padding: 2rem 3rem;
+  }
+
+  .header-title h1 {
+    font-size: 1.75rem;
+  }
+
+  .form-card {
+    padding: 2rem 2.25rem;
+  }
+
+  /* Full 3-Column layout restoration */
+  .grid-col-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-col-3-unequal {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+/* ==========================================
+   5. LARGE DESKTOPS & WIDESCREEN (min-width: 1280px)
+   ========================================== */
+@media (min-width: 1280px) {
+  .admin-page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
