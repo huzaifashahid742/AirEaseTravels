@@ -1,299 +1,334 @@
-/* =========================
-   TOPBAR
-========================= */
-.airease-admin .admin-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(135deg, #1f3a5f 0%, #2a4a73 55%, #345a87 100%);
-  box-shadow: 0 4px 24px rgba(15, 39, 68, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.airease-admin .admin-topbar__inner {
+/* ==========================================================================
+   GLOBAL LAYOUT & CONTAINERS
+   ========================================================================== */
+.admin-programs-page {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  color: #1e293b;
 }
 
-/* =========================
-   BRAND
-========================= */
-.airease-admin .admin-brand-text {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.35rem;
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.admin-page-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  background: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.admin-hero-title h1 {
+  font-size: 1.65rem;
   font-weight: 700;
-  color: #fff;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-
-.airease-admin .admin-brand-text span {
-  font-weight: 500;
-  color: #93c5fd;
-  margin-left: 0.15rem;
-}
-
-/* =========================
-   NAV
-========================= */
-.airease-admin .admin-topbar__nav {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  flex: 1;
-}
-
-.airease-admin .admin-nav-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.82);
-  text-decoration: none;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.airease-admin .admin-nav-link:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.airease-admin .admin-nav-link--active {
   color: #1f3a5f;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  margin: 0 0 0.25rem 0;
 }
 
-/* =========================
-   ACTIONS
-========================= */
-.airease-admin .admin-topbar__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.airease-admin .admin-search-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.airease-admin .admin-search-icon {
-  position: absolute;
-  left: 14px;
+.admin-hero-title p {
   color: #64748b;
-  font-size: 0.9rem;
-  pointer-events: none;
+  margin: 0;
+  font-size: 0.92rem;
 }
 
-.airease-admin .admin-search-input {
-  width: min(320px, 42vw);
-  height: 42px;
-  padding: 0 1rem 0 2.5rem;
-  border: none;
-  border-radius: 10px;
-  background: #fff;
-  color: #0f2744;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.airease-admin .admin-search-input:focus {
-  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.45);
-}
-
-/* =========================
-   BUTTONS
-========================= */
-.airease-admin .admin-logout-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  height: 42px;
-  padding: 0 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 10px;
-  background: transparent;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: 0.2s;
-}
-
-.airease-admin .admin-logout-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: #fca5a5;
-  color: #fecaca;
-}
-
-/* =========================
-   MOBILE MENU
-========================= */
-.airease-admin .admin-hamburger {
-  display: none;
-  margin-left: auto;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: transparent;
-  color: #fff;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-}
-
-.airease-admin .admin-nav-backdrop {
-  display: none;
-}
-
-/* =========================
-   DASHBOARD LAYOUT
-========================= */
-.airease-admin .main {
-  flex: 1;
-  padding: 20px;
-}
-
-/* =========================
-   CARDS (FIXED)
-========================= */
-.airease-admin .cards {
+.admin-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
-  margin: 20px 40px;
+  gap: 0.75rem;
+  align-items: center;
 }
 
-.airease-admin .card {
-  flex: 1 1 250px;
-  width: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* =========================
-   CHARTS
-========================= */
-.airease-admin .charts {
-  display: flex;
-}
-
-.airease-admin .chart-box {
-  flex: 1;
-  margin: 20px 40px;
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* =========================
-   TABLE FIX
-========================= */
-.airease-admin .admin-card-panel {
-  overflow-x: auto;
-}
-
-.airease-admin .table th,
-.airease-admin .table td {
+/* ==========================================================================
+   BUTTON STYLES
+   ========================================================================== */
+.admin-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #1f3a5f;
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
   white-space: nowrap;
 }
 
-/* =========================
-   TABLET
-========================= */
-@media (max-width: 768px) {
-  .airease-admin .admin-topbar__inner {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 0.75rem 1rem;
-  }
+.admin-btn-primary:hover {
+  background-color: #162a45;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(31, 58, 95, 0.2);
+}
 
-  .airease-admin .admin-hamburger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+.admin-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #1f3a5f;
+  border: 1px solid #1f3a5f;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
 
-  .airease-admin .admin-topbar__nav {
-    display: none;
-    position: fixed;
-    top: 72px;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background: #1f3a5f;
-    padding: 1rem;
-    z-index: 1100;
-  }
+.admin-btn-outline:hover {
+  background-color: #1f3a5f;
+  color: #ffffff;
+}
 
-  .airease-admin .admin-topbar__nav--open {
-    display: flex;
-  }
+.admin-btn-danger-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
 
-  .airease-admin .admin-topbar__actions {
-    flex-direction: column;
-    width: 100%;
-  }
+.admin-btn-danger-outline:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+}
 
-  .airease-admin .admin-search-input {
-    width: 100%;
-  }
+/* ==========================================================================
+   STAT CARDS (GRID)
+   ========================================================================== */
+.admin-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
 
-  .airease-admin .cards {
-    margin: 20px;
-  }
+.admin-stat-card {
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  .airease-admin .card {
-    flex: 1 1 100%;
-  }
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
 
-  .airease-admin .charts {
-    flex-direction: column;
-  }
+.admin-stat-card h3 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0 0 0.35rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
 
-  .airease-admin .chart-box {
-    width: 100%;
-    margin: 10px 0;
+.admin-stat-card p {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1f3a5f;
+  margin: 0;
+  line-height: 1;
+}
+
+.admin-stat-card .stat-icon {
+  font-size: 2rem;
+  color: #93c5fd;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   PANEL & TABLE STYLES
+   ========================================================================== */
+.admin-card-panel {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-panel-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f3a5f;
+  margin: 0;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.admin-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.admin-data-table th,
+.admin-data-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
+}
+
+.admin-data-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.admin-data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.admin-data-table .cell-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.admin-table-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Laptop / Medium Desktops (<= 1200px) */
+@media (max-width: 1200px) {
+  .admin-programs-page {
+    padding: 1.25rem;
   }
 }
 
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 480px) {
-  .airease-admin .admin-brand-text {
-    font-size: 1rem;
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .admin-page-hero {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .airease-admin .admin-search-input,
-  .airease-admin .admin-logout-btn {
-    height: 40px;
+  .admin-hero-actions {
+    width: 100%;
+  }
+
+  .admin-hero-actions .admin-btn-primary {
+    flex: 1 1 auto;
+  }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  .admin-programs-page {
+    padding: 1rem;
+  }
+
+  .admin-page-hero {
+    padding: 1.25rem;
+  }
+
+  .admin-hero-title h1 {
+    font-size: 1.35rem;
+  }
+
+  .admin-card-panel {
+    padding: 1rem;
+  }
+
+  .admin-panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-panel-header .admin-btn-outline {
+    width: 100%;
+  }
+
+  .admin-stat-card p {
+    font-size: 1.5rem;
+  }
+
+  .admin-data-table th,
+  .admin-data-table td {
+    padding: 0.75rem 0.6rem;
     font-size: 0.85rem;
   }
 }
 
-/* =========================
-   VERY SMALL
-========================= */
-@media (max-width: 360px) {
-  .airease-admin .admin-brand-text {
-    font-size: 0.9rem;
+/* Mobile Small (<= 576px) */
+@media (max-width: 576px) {
+  .admin-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-hero-actions {
+    flex-direction: column;
+  }
+
+  .admin-hero-actions .btn {
+    width: 100%;
+  }
+
+  .admin-btn-primary span {
+    display: inline;
+  }
+}
+
+/* Extra Small Devices (<= 380px) */
+@media (max-width: 380px) {
+  .admin-hero-title h1 {
+    font-size: 1.2rem;
+  }
+
+  .admin-stat-card {
+    padding: 1rem;
   }
 }
