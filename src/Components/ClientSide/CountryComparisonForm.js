@@ -311,7 +311,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { countryDetailsAPI } from '../../services/api';
-import '../../Css_Folder/CountryComparison.css';
+import '../../Css_Folder/countrycomparison.css';
+import '../../Css_Folder/AdminPrograms.css';
 
 const CountryComparisonForm = () => {
   const { user } = useAuth();
