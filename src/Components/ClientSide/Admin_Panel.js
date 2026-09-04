@@ -103,127 +103,287 @@ const Admin_Panel = () => {
   if (error) return <div className="alert alert-danger m-4">{error}</div>;
 
   return (
+    // <div className="admin-programs-page">
+    //   <div className="admin-page-hero">
+    //     <div>
+    //       <h1>Admin Dashboard</h1>
+    //       <p>Overview of students, programs, and partner universities.</p>
+    //     </div>
+    //     <div className="d-flex flex-wrap gap-2">
+    //       {canViewContent && (
+    //         <Link to="/admin/UniversityAdmin" className="btn admin-btn-primary">
+    //           <i className="fa-solid fa-building-columns me-2" />
+    //           Manage Universities
+    //         </Link>
+    //       )}
+    //       {canViewApplications && (
+    //         <Link to="/admin/StudentAdmin" className="btn admin-btn-primary">
+    //           <i className="fa-solid fa-user-graduate me-2" />
+    //           Registered students
+    //         </Link>
+    //       )}
+    //       {hasPermission(user, 'manageTeam') && (
+    //         <Link to="/admin/team" className="btn admin-btn-primary">
+    //           <i className="fa-solid fa-users-gear me-2" />
+    //           Team &amp; roles
+    //         </Link>
+    //       )}
+    //     </div>
+    //   </div>
+
+    //   <div className="admin-stat-grid">
+    //     {canViewApplications && (
+    //       <>
+    //         <div className="admin-stat-card">
+    //           <h3>Total Students</h3>
+    //           <p>{stats.students}</p>
+    //         </div>
+    //       </>
+    //     )}
+    //     {canViewContent && (
+    //       <>
+    //         <div className="admin-stat-card">
+    //           <h3>Registered Programs</h3>
+    //           <p>{stats.programs}</p>
+    //         </div>
+    //         <div className="admin-stat-card">
+    //           <h3>Partner Universities</h3>
+    //           <p>{stats.universities}</p>
+    //         </div>
+    //       </>
+    //     )}
+    //   </div>
+
+    //   {canViewApplications && (
+    //   <div className="admin-card-panel">
+    //     <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    //       <h2 className="h5 mb-0" style={{ color: '#1f3a5f', fontWeight: 700 }}>
+    //         Recent Student Applications
+    //       </h2>
+    //       <Link to="/admin/StudentAdmin" className="btn btn-sm admin-btn-outline">
+    //         View registered students
+    //       </Link>
+    //     </div>
+    //     <div className="admin-table-wrapper">
+    //     <table className="admin-data-table">
+    //       <thead>
+    //         <tr>
+    //           <th>#</th>
+    //           <th>Student</th>
+    //           <th>Phone</th>
+    //           <th>Email</th>
+    //           <th>Country</th>
+    //           <th className="text-end">Actions</th>
+    //         </tr>
+    //       </thead>
+    //       <tbody>
+    //         {filteredApplications.length === 0 ? (
+    //           <tr>
+    //             <td colSpan={7} className="text-center text-muted py-4">
+    //               {query.trim() ? 'No students match your search.' : 'No student applications yet.'}
+    //             </td>
+    //           </tr>
+    //         ) : (
+    //           filteredApplications.slice(0, 10).map((app, index) => (
+    //             <tr key={app._id}>
+    //               <td>{index + 1}</td>
+    //               <td className="cell-name">{app.personalInfo?.fullName || '—'}</td>
+    //               <td>{app.personalInfo?.contactNumber || app.phone || app.contactNumber || '—'}</td>
+    //               <td>{app.personalInfo?.emailAddress || app.email || '—'}</td>
+    //               <td>
+    //                 {app.personalInfo?.countryOfResidence ||
+    //                   app.countryOfResidence ||
+    //                   app.programInterest?.fieldOfStudy ||
+    //                   '—'}
+    //               </td>
+    //               <td className="text-end">
+    //                 <Link to={`/admin/Student_View_Form/${app._id}`}>
+    //                   <button type="button" className="btn btn-sm admin-btn-primary me-2">
+    //                     View Application
+    //                   </button>
+    //                 </Link>
+    //                 <button
+    //                   type="button"
+    //                   className="btn btn-sm admin-btn-danger-outline"
+    //                   onClick={() =>
+    //                     handleDeleteStudent(app._id, app.personalInfo?.fullName || 'student')
+    //                   }
+    //                 >
+    //                   Delete
+    //                 </button>
+    //               </td>
+    //             </tr>
+    //           ))
+    //         )}
+    //       </tbody>
+    //     </table>
+    //     </div>
+    //   </div>
+    //   )}
+
+    //   {!canViewApplications && !canViewContent && (
+    //     <div className="admin-card-panel text-muted">
+    //       Your role has limited dashboard access. Use the navigation above for permitted areas.
+    //     </div>
+    //   )}
+    // </div>
     <div className="admin-programs-page">
+      {/* HERO SECTION */}
       <div className="admin-page-hero">
-        <div>
+        <div className="admin-hero-title">
           <h1>Admin Dashboard</h1>
           <p>Overview of students, programs, and partner universities.</p>
         </div>
-        <div className="d-flex flex-wrap gap-2">
+
+        <div className="admin-hero-actions d-flex flex-wrap gap-2">
           {canViewContent && (
             <Link to="/admin/UniversityAdmin" className="btn admin-btn-primary">
               <i className="fa-solid fa-building-columns me-2" />
-              Manage Universities
+              <span>Manage Universities</span>
             </Link>
           )}
+
           {canViewApplications && (
             <Link to="/admin/StudentAdmin" className="btn admin-btn-primary">
               <i className="fa-solid fa-user-graduate me-2" />
-              Registered students
+              <span>Registered Students</span>
             </Link>
           )}
+
           {hasPermission(user, 'manageTeam') && (
             <Link to="/admin/team" className="btn admin-btn-primary">
               <i className="fa-solid fa-users-gear me-2" />
-              Team &amp; roles
+              <span>Team &amp; Roles</span>
             </Link>
           )}
         </div>
       </div>
 
+      {/* STAT CARDS GRID */}
       <div className="admin-stat-grid">
         {canViewApplications && (
-          <>
-            <div className="admin-stat-card">
+          <div className="admin-stat-card">
+            <div className="stat-info">
               <h3>Total Students</h3>
               <p>{stats.students}</p>
             </div>
-          </>
+            <i className="fa-solid fa-users stat-icon" />
+          </div>
         )}
+
         {canViewContent && (
           <>
             <div className="admin-stat-card">
-              <h3>Registered Programs</h3>
-              <p>{stats.programs}</p>
+              <div className="stat-info">
+                <h3>Registered Programs</h3>
+                <p>{stats.programs}</p>
+              </div>
+              <i className="fa-solid fa-graduation-cap stat-icon" />
             </div>
+
             <div className="admin-stat-card">
-              <h3>Partner Universities</h3>
-              <p>{stats.universities}</p>
+              <div className="stat-info">
+                <h3>Partner Universities</h3>
+                <p>{stats.universities}</p>
+              </div>
+              <i className="fa-solid fa-building-columns stat-icon" />
             </div>
           </>
         )}
       </div>
 
+      {/* RECENT APPLICATIONS TABLE PANEL */}
       {canViewApplications && (
-      <div className="admin-card-panel">
-        <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-          <h2 className="h5 mb-0" style={{ color: '#1f3a5f', fontWeight: 700 }}>
-            Recent Student Applications
-          </h2>
-          <Link to="/admin/StudentAdmin" className="btn btn-sm admin-btn-outline">
-            View registered students
-          </Link>
-        </div>
-        <div className="admin-table-wrapper">
-        <table className="admin-data-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Student</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Country</th>
-              <th className="text-end">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredApplications.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="text-center text-muted py-4">
-                  {query.trim() ? 'No students match your search.' : 'No student applications yet.'}
-                </td>
-              </tr>
-            ) : (
-              filteredApplications.slice(0, 10).map((app, index) => (
-                <tr key={app._id}>
-                  <td>{index + 1}</td>
-                  <td className="cell-name">{app.personalInfo?.fullName || '—'}</td>
-                  <td>{app.personalInfo?.contactNumber || app.phone || app.contactNumber || '—'}</td>
-                  <td>{app.personalInfo?.emailAddress || app.email || '—'}</td>
-                  <td>
-                    {app.personalInfo?.countryOfResidence ||
-                      app.countryOfResidence ||
-                      app.programInterest?.fieldOfStudy ||
-                      '—'}
-                  </td>
-                  <td className="text-end">
-                    <Link to={`/admin/Student_View_Form/${app._id}`}>
-                      <button type="button" className="btn btn-sm admin-btn-primary me-2">
-                        View Application
-                      </button>
-                    </Link>
-                    <button
-                      type="button"
-                      className="btn btn-sm admin-btn-danger-outline"
-                      onClick={() =>
-                        handleDeleteStudent(app._id, app.personalInfo?.fullName || 'student')
-                      }
-                    >
-                      Delete
-                    </button>
-                  </td>
+        <div className="admin-card-panel">
+          <div className="admin-panel-header d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <h2 className="h5 mb-0" style={{ color: '#1f3a5f', fontWeight: 700 }}>
+              Recent Student Applications
+            </h2>
+            <Link to="/admin/StudentAdmin" className="btn btn-sm admin-btn-outline">
+              View registered students
+            </Link>
+          </div>
+
+          <div className="admin-table-wrapper">
+            <table className="admin-data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Student</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Country</th>
+                  <th className="text-end">Actions</th>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {filteredApplications.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="text-center text-muted py-4">
+                      {query.trim()
+                        ? 'No students match your search.'
+                        : 'No student applications yet.'}
+                    </td>
+                  </tr>
+                ) : (
+                  filteredApplications.slice(0, 10).map((app, index) => (
+                    <tr key={app._id}>
+                      <td>{index + 1}</td>
+                      <td className="cell-name">
+                        {app.personalInfo?.fullName || '—'}
+                      </td>
+                      <td>
+                        {app.personalInfo?.contactNumber ||
+                          app.phone ||
+                          app.contactNumber ||
+                          '—'}
+                      </td>
+                      <td>
+                        {app.personalInfo?.emailAddress || app.email || '—'}
+                      </td>
+                      <td>
+                        {app.personalInfo?.countryOfResidence ||
+                          app.countryOfResidence ||
+                          app.programInterest?.fieldOfStudy ||
+                          '—'}
+                      </td>
+                      <td className="text-end">
+                        <div className="admin-table-actions">
+                          <Link to={`/admin/Student_View_Form/${app._id}`}>
+                            <button
+                              type="button"
+                              className="btn btn-sm admin-btn-primary me-2"
+                            >
+                              View
+                            </button>
+                          </Link>
+                          <button
+                            type="button"
+                            className="btn btn-sm admin-btn-danger-outline"
+                            onClick={() =>
+                              handleDeleteStudent(
+                                app._id,
+                                app.personalInfo?.fullName || 'student'
+                              )
+                            }
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
       )}
 
+      {/* LIMITED ACCESS FALLBACK BANNER */}
       {!canViewApplications && !canViewContent && (
-        <div className="admin-card-panel text-muted">
-          Your role has limited dashboard access. Use the navigation above for permitted areas.
+        <div className="admin-card-panel text-muted text-center py-4">
+          Your role has limited dashboard access. Use the navigation bar above to access permitted areas.
         </div>
       )}
     </div>
