@@ -62,7 +62,6 @@
   margin-bottom: 25px;
 }
 
-/* Dynamic Option Flex layouts */
 .contact-options {
   display: flex;
   flex-direction: column;
@@ -87,7 +86,7 @@
 
 .contact-options a:hover {
   background-color: #1F3A5F;
-  color: #ffffff;
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(31, 58, 95, 0.15);
 }
@@ -117,4 +116,4 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}
+} 
