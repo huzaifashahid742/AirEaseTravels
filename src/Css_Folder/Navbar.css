@@ -56,7 +56,7 @@
 .airease-user .nav-contact-btn-desktop:hover {
   color: #1f3a5f;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 20px;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .airease-user .open-Login:hover {
-  background-color: #15803d;
+  background-color: #1f3a5f;
   transform: translateY(-1px);
 }
 
