@@ -95,7 +95,9 @@
   top: 0;
   right: -320px;
   width: 290px;
-  height: 80vh;
+  /* height: 95vh; */
+  height: 100dvh;
+  max-height: 100dvh;
   background-color: #ffffff;
   box-shadow: -6px 0 25px rgba(0, 0, 0, 0.15);
   display: flex;
