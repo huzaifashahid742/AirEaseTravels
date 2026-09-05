@@ -36,7 +36,7 @@
 }
 
 /* Unified navigation typography and hover states */
-.airease-user .Unordered_List a,
+.airease-user .Unordered_List,
 .airease-user .nav-contact-btn-desktop {
   text-decoration: none;
   color: #1f3a5f;
