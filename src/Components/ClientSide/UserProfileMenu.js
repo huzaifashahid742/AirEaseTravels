@@ -42,7 +42,7 @@ const UserProfileMenu = () => {
     if (dbPhoto) {
       if (dbPhoto.startsWith('http')) return dbPhoto;
       
-      const apiEnvUrl = process.env.REACT_APP_API_URL || 'http://localhost:7000/api';
+      const apiEnvUrl = process.env.REACT_APP_API_URL;
       const serverRootUrl = apiEnvUrl.replace(/\/api\/?$/, '');
       
       return `${serverRootUrl}${dbPhoto}`;
