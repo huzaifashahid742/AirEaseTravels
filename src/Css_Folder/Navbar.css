@@ -54,15 +54,17 @@
 /* Desktop Links & Contact Button Hover Effect */
 .airease-user .Unordered_List a:hover,
 .airease-user .nav-contact-btn-desktop:hover {
-  color: #16a34a;
+  color: #1f3a5f;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 /* Desktop Login Button */
 .airease-user .open-Login {
   display: inline-block;
   padding: 8px 20px;
-  background-color: #16a34a;
+  background-color: #1f3a5f;
   color: #ffffff;
   border-radius: 20px;
   text-decoration: none;
