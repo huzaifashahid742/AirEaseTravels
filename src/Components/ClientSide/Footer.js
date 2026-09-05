@@ -124,7 +124,7 @@ const Footer = ({ oncontactclick, onContactClick }) => {
               Support
             </button>
           </li>
-          <li><span>© {new Date().getFullYear()} AirEase Travels &amp; Tours. All rights reserved.</span></li>
+          <li><span>© {new Date().getFullYear()} AirEase Travels & Tours. All rights reserved.</span></li>
         </ul>
       </div>
     </footer>

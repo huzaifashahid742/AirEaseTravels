@@ -5,11 +5,9 @@ import { programsAPI } from '../../services/api';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import { useAuth } from '../../Context/AuthContext';
 import PageLoader from './PageLoader';
-// 1. IMPORT YOUR IMAGE RESOLVER UTILITY HERE
 import { resolveStoredImage } from '../../utils/imageUpload'; 
 
 const PAGE_SIZE = 6;
-
 const DEGREE_OPTIONS = [
   { label: 'Undergraduate', value: 'Bachelor' },
   { label: 'Master', value: 'Master' },
@@ -28,7 +26,6 @@ const emptyFilters = {
   field: '',
   language: '',
   intake: '',
-  city: '',
   status: '',
 };
 
@@ -334,6 +331,16 @@ const Programs_List = ({ onContactClick }) => {
         <div className="Programs_Card">
           <div className="Title">
             <h2>Programs Available</h2>
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Search programs..."
+              value={pageQuery}
+              onChange={(e) => {
+                setPageQuery(e.target.value);
+                setPage(1);
+              }}
+            />
           </div>
           {navbarFilter && !pageQuery.trim() && (
             <p className="programs-active-search">
@@ -378,6 +385,7 @@ const Programs_List = ({ onContactClick }) => {
 
     return (
       <article className="program-list-card" key={program._id}> 
+        {/* Header Logo */}
         <div className="program-list-card__media">
           <img
             src={logoUrl || '/Images_Folder/Crousel_Study.jpg'}
@@ -390,14 +398,59 @@ const Programs_List = ({ onContactClick }) => {
         </div>
         
         <div className="program-list-card__body">
+          {/* University Name & Program Title Link */}
           <span className="program-list-card__uni">{uniName}</span>
           <h3 className="program-list-card__title" title={program.programName}>
-            {program.programName}
+            <Link to={`/Programs_Detail/${program._id}`}>{program.programName}</Link>
           </h3>
+          <hr className="program-card-divider" />
+          {/* Program Details List */}
+          <div className="program-card-details">
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-calendar-event"></i> Tution Fee
+              </span>
+              <span className="detail-value">{program.tuitionFee ? `€${program.tuitionFee.toLocaleString()}` : '€1,700'} /Year</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-calendar3"></i> Intake Season
+              </span>
+              <span className="detail-value">{program.intake || 'Fall'}</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-geo-alt"></i> Study Mode
+              </span>
+              <span className="detail-value">{program.studyMode || 'Full-Time On-Campus'}</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-mortarboard"></i> Degree Level
+              </span>
+              <span className="detail-value">{program.degree || 'Master'}</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-clock"></i> Duration
+              </span>
+              <span className="detail-value">{program.duration ? `${program.duration} Years` : '2 Years'}</span>
+            </div>
+
+            <div className="detail-item">
+              <span className="detail-label">
+                <i className="bi bi-translate"></i> Language
+              </span>
+              <span className="detail-value">{program.language || 'English'}</span>
+            </div>
+          </div>
+
+          {/* Bottom Action */}
           <div className="program-list-card__actions">
-            <Link to={`/Programs_Detail/${program._id}`} className="btn program-btn-outline">
-              View details
-            </Link>
             <button
               type="button"
               className="btn program-btn-primary"

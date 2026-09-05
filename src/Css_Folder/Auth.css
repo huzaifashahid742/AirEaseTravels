@@ -39,7 +39,7 @@
   );
   display: flex;
   align-items: flex-end;
-  padding: clamp(1.5rem, 5vw, 3.75rem);
+  padding: 60px;
 }
 
 .visual-panel-content {
@@ -48,7 +48,7 @@
 }
 
 .visual-panel-content h2 {
-  font-size: clamp(1.6rem, 3vw, 2.375rem);
+  font-size: 38px;
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -80,7 +80,7 @@
   width: 100%;
   max-width: 460px;
   background: #fff;
-  padding: clamp(1.25rem, 4vw, 2.5rem);
+  padding: 40px;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
@@ -266,31 +266,25 @@
    RESPONSIVE BREAKPOINT
 ========================= */
 @media (max-width: 968px) {
+  .auth-page-container {
+    min-height: 10vh;
+    align-items: center;
+    justify-content: center;
+  }
+
   .auth-visual-panel {
     display: none;
   }
 
   .auth-form-panel {
-    padding: 20px;
     width: 100%;
-    min-height: 100vh;
+    min-height: auto; /* Allow height to fit the content naturally */
+    padding: 30px 16px; /* Gentle vertical and horizontal padding */
+    align-items: center; /* Keeps card cleanly aligned without forced huge gaps */
   }
 
-  .auth-page-container {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-form-panel {
-    padding: 12px;
-  }
-
-  .auth-header h1 {
-    font-size: 1.35rem;
-  }
-
-  .registration-grid-container {
-    grid-template-columns: 1fr;
+  .auth-card-box {
+    padding: 28px 20px; /* Reduces inner card padding on mobile screens */
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08); /* Lighter shadow for mobile */
   }
 }

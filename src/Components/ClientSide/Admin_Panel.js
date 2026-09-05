@@ -126,7 +126,7 @@ const Admin_Panel = () => {
           {hasPermission(user, 'manageTeam') && (
             <Link to="/admin/team" className="btn admin-btn-primary">
               <i className="fa-solid fa-users-gear me-2" />
-              Team &amp; roles
+              Team & roles
             </Link>
           )}
         </div>

@@ -1,31 +1,25 @@
 .carousel-item img {
-  height: min(70vh, 618px);
-  min-height: 220px;
+  height: 618px;
   width: 100%;
   object-fit: cover;
   filter: brightness(55%);
 }
-
 .carousel-caption-custom {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 5%;
-  right: 5%;
-  transform: translateY(-50%);
   color: #fff;
-  max-width: 720px;
-  padding: 12px 0;
+  max-width: auto;
+  padding: 20px;
 }
-
 .carousel-caption-custom h1 {
-  font-size: clamp(1.5rem, 4vw, 3.1rem);
+  font-size: 50px;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   line-height: 1.2;
-  height: auto;
+  height: 65px;
   margin: 0;
 }
-
 .carousel-caption-custom p {
   font-size: 20px;
   font-family: "Poppins", sans-serif;
@@ -34,62 +28,49 @@
   margin: 0px 0;
   text-align: left;
 }
-
 .carousel-caption-custom button {
+  display: block;
   background-color: #1F3A5F;
-  border: solid 2px #17304A;
-  font-size: clamp(0.9rem, 2vw, 1.25rem);
+  width: 45%;
+  height: 45px;
+  color: #FFFFFF;
+  border-radius: 25px;
+  font-size: 18px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  line-height: 1.3;
-  color: #FFFFFF;
-  justify-content: center;
-  width: auto;
-  max-width: 100%;
-  margin: 10px 0;
-  height: 45px;
-  border-radius: 50px;
-  padding: 0 1.25rem;
-  display: inline-flex;
-  align-items: center;
+  line-height: 1.5;
 }
-
-/* --- Section Width & Spacing Fixes --- */
 .Comparison_Section {
   background-color: #f9f9f9;
   width: 100%;
-  max-width: 1400px; /* Expanded max-width to remove excess side margins */
+  max-width: 1400px; 
   margin: -50px auto 40px auto; 
   height: auto;
   position: relative;    
   z-index: 10;    
   border-radius: 12px;  
-  padding: 0 20px 40px 20px; /* Safe padding wrapper */
+  padding: 0 20px 40px 20px;
 }
-
 .Comparison_Title {
   margin-top: 60px;
   margin-bottom: 0;
   width: auto;
-  height: auto;
+  height: 60px;
 }
-
 .Comparison_Title h1 {
   padding-top: 20px;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: 40px;
   font-family: "Poppins", sans-serif;
   text-align: center;
   width: auto;
   color: #1F3A5F;
   line-height: 1.5;
-  height: auto;
+  height: 60px;
   font-weight: bold;
 }
-
 .open-contact {
   cursor: pointer;
 }
-
 .comparisons-active-search {
   font-family: "Poppins", sans-serif;
   margin-bottom: 12px;
@@ -103,7 +84,7 @@
 /* --- Exactly 3 Cards Per Row on Large Screens --- */
 .Programs_Cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 equal columns */
   gap: 24px;
   max-width: 1200px;
   width: 100%;
@@ -254,12 +235,6 @@
 }
 
 /* Responsive Media Queries */
-@media (min-width: 1100px) {
-  .Programs_Cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 @media (max-width: 1024px) {
   .Programs_Cards {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -278,7 +253,7 @@
     font-size: 16px;
   }
   .carousel-caption-custom button {
-    width: auto;
+    width: 70%;
     font-size: 16px;
   }
 }
@@ -316,12 +291,12 @@
     height: 300px;
   }
   .carousel-caption-custom {
-    top: 50%;
+    top: 30%;
     left: 5%;
-    right: 5%;
-    padding: 8px 0;
+    padding: 12px;
   }
   .carousel-caption-custom h1 {
+    font-size: 24px;
     height: auto;
   }
   .carousel-caption-custom p {

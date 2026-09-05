@@ -1,9 +1,7 @@
 .Hero_Section{
     position: relative;
     width: 100%;
-    height: min(70vh, 617px);
-    min-height: 280px;
-    overflow: hidden;
+    height: 617px;
     filter: brightness(98%);
     background-image: url("/public/Images_Folder/Program_Hero.jpg");
     background-size: cover;      
@@ -21,20 +19,17 @@
   position: absolute;
   z-index: 2;
   top: 50%;
-  left: 8%;
-  right: 8%;
-  transform: translateY(-50%);
-  max-width: 760px;
+  left: 10%;
   color: #FFFFFF;
 }
 .hero-content h1{
     width: 100%;
     margin: 0 0;
     padding-top: 0px;
-    font-size: clamp(1.6rem, 4.5vw, 3.4rem);
+    font-size: 55px;
     font-family: sans-serif;
     font-weight: 600;
-    line-height: 1.15;
+    line-height: 1;
     color: #FFFFFF;
 }
 .hero-content p{
@@ -46,11 +41,10 @@
     color: #FFFFFF;
 }
 .hero-content button{
+  display: block;
     background-color: #1F3A5F;
-    width: auto;
-    max-width: 100%;
+    width: 60%;
     height: 45px;
-    padding: 0 1.25rem;
     color: #FFFFFF;
     border-radius: 25px;
     font-size: 18px;
@@ -65,7 +59,7 @@
 
 .airease-user .programs-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     padding: 0 1rem 2rem;
 }
@@ -112,7 +106,7 @@
 /* Card Container */
 .airease-user .programs-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
   gap: 1.75rem;
   padding: 0 1rem 2.5rem;
 }
@@ -380,8 +374,8 @@
 .Filter_Section .Filter h2{
     display: block;
     width: 100%;
-    height: auto;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    height: 50px;
+    font-size: 38px;
     font-family: "Poppins", sans-serif;
     line-height: 1.4;
     text-align: center;
@@ -426,11 +420,11 @@
 }
 .Title h2{
     width: 100%;
-    height: auto;
+    height: 60px;
     margin:0 0;
     margin-top: 20px;
     margin-bottom: 0;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: 40px;
     font-weight: bold;
     font-family: "Poppins", sans-serif;
     text-align: center;
@@ -507,6 +501,9 @@
     min-width: 140px;
     font-weight: 600;
 }
+ .Title input{
+    display: none;
+  }
 
 .Filter_Section .filter-actions {
     display: block;
@@ -554,13 +551,17 @@
   .Programs_Card {
     width: 100%;
   }
+   .Title input{
+    display: flex;
+  }
 
   .hero-content h1 {
-    width: 100%;
+    font-size: 40px;
+    width: 80%;
   }
 
   .hero-content button {
-    width: auto;
+    width: 40%;
   }
 }
 
@@ -577,11 +578,11 @@
 
   .hero-content {
     left: 5%;
-    right: 5%;
-    top: 50%;
+    top: 45%;
   }
 
   .hero-content h1 {
+    font-size: 28px;
     width: 100%;
   }
 
@@ -590,8 +591,7 @@
   }
 
   .hero-content button {
-    width: auto;
-    max-width: 100%;
+    width: 70%;
     font-size: 14px;
   }
 
@@ -610,7 +610,6 @@
   .Programs_Card {
     width: 100%;
   }
-
   /* FILTER TEXT */
   .Filter_Section .Filter h2 {
     font-size: 26px;
@@ -648,8 +647,12 @@
 ========================= */
 @media (max-width: 480px) {
 
+  .hero-content h1 {
+    font-size: 22px;
+  }
+
   .hero-content button {
-    width: 100%;
+    width: 90%;
   }
 
   .Filter_Section {
@@ -693,4 +696,183 @@
   .Container {
     flex-direction: column;
   }
+}
+/* Card Container */
+.airease-user .programs-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.75rem;
+  padding: 0 1rem 2.5rem;
+}
+
+.airease-user .program-list-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.airease-user .program-list-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12);
+  border-color: #cbd5e1;
+}
+
+/* Header & Image */
+.airease-user .program-list-card__media {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.airease-user .program-list-card__media img {
+  max-width: 85%;
+  max-height: 80%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.airease-user .program-list-card:hover .program-list-card__media img {
+  transform: scale(1.05);
+}
+
+/* Body Content */
+.airease-user .program-list-card__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.airease-user .program-list-card__uni {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.airease-user .program-list-card__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.35;
+}
+
+.airease-user .program-list-card__title a {
+  color: #0f172a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.airease-user .program-list-card__title a:hover {
+  color: #1F3A5F;
+}
+
+/* Tuition Block */
+.program-card-tuition {
+  margin-bottom: 0.75rem;
+}
+
+.program-card-tuition .tuition-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #64748b;
+  text-transform: uppercase;
+  display: block;
+}
+
+.program-card-tuition .tuition-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-top: 0.25rem;
+}
+
+.program-card-tuition .tuition-period {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.program-card-divider {
+  border: none;
+  border-top: 1px dashed #e2e8f0;
+  margin: 1rem 0;
+}
+
+/* Details List Layout */
+.program-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.program-card-details .detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+}
+
+.program-card-details .detail-label {
+  color: #64748b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.program-card-details .detail-label i {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.program-card-details .detail-value {
+  color: #0f172a;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Action Buttons */
+.airease-user .program-list-card__actions {
+  margin-top: auto;
+  width: 100%;
+}
+
+.airease-user .program-btn-primary {
+  width: 100%;
+  background: #1F3A5F;
+  border: 1.5px solid #1F3A5F;
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(31, 58, 95, 0.15);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.airease-user .program-btn-primary:hover {
+  background: #17304a;
+  border-color: #17304a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(31, 58, 95, 0.25);
 }

@@ -15,29 +15,25 @@ const Universities_List = () => {
   const [navbarFilter, setNavbarFilter] = useState('');
   const appliedPageSearch = useDebouncedValue(pageQuery, 350);
   const activeSearch = pageQuery.trim() ? appliedPageSearch : navbarFilter;
-
   const [universities, setUniversities] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
-  
-  // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-
   const resultsRef = useRef(null);
   const pendingScrollRef = useRef(false);
-
+  
   const scrollToResults = useCallback(() => {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
-
+  
   const fetchData = useCallback(async (searchTerm) => {
     setLoading(true);
     setError('');
     try {
-      const uniParams = { limit: 500 }; // Fetch enough items so pagination works locally
+      const uniParams = { limit: 500 }; 
       if (searchTerm) uniParams.search = searchTerm;
 
       const [uniRes, progRes] = await Promise.all([
@@ -46,7 +42,7 @@ const Universities_List = () => {
       ]);
       setUniversities(uniRes.data || []);
       setPrograms(progRes.data || []);
-      setCurrentPage(1); // Reset to page 1 on new search/filter
+      setCurrentPage(1); 
     } catch (err) {
       setError(err.message || 'Failed to load universities');
       setUniversities([]);
@@ -215,7 +211,7 @@ const Universities_List = () => {
                             className="uni-card__website"
                             target="_blank"
                             rel="noopener noreferrer"
-                          >
+                          > 
                             Official website
                             <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden />
                           </a>
@@ -223,45 +219,10 @@ const Universities_List = () => {
                       </div>
 
                       <div className="uni-card__actions">
-                        <button
-                          type="button"
-                          className="btn uni-btn-outline"
-                          onClick={() => togglePrograms(uni._id)}
-                          aria-expanded={isOpen}
-                        >
-                          {isOpen ? 'Hide programs' : `View programs (${uniPrograms.length})`}
-                        </button>
                         <Link to="/Programs_List" className="btn uni-btn-primary">
                           Explore programs
                         </Link>
                       </div>
-
-                      {isOpen && (
-                        <div className="uni-card__programs">
-                          {uniPrograms.length === 0 ? (
-                            <p className="text-muted small mb-0">No programs listed yet.</p>
-                          ) : (
-                            <ul className="uni-program-list">
-                              {uniPrograms.map((program) => (
-                                <li key={program._id}>
-                                  <div className="uni-program-list__main">
-                                    <span className="uni-program-list__name">{program.programName}</span>
-                                    <span className="uni-program-list__meta">
-                                      {program.degree} · {program.language} · {program.duration}
-                                    </span>
-                                  </div>
-                                  <div className="uni-program-list__side">
-                                    <span className="uni-program-list__fee">€{program.tuitionFee?.toLocaleString?.() ?? program.tuitionFee}</span>
-                                    <Link to={`/Programs_Detail/${program._id}`} className="uni-program-link">
-                                      Details
-                                    </Link>
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      )}
                     </article>
                   );
                 })}

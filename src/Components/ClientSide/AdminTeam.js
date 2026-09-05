@@ -152,10 +152,9 @@ const AdminTeam = () => {
     <div className="admin-programs-page team-page">
       <div className="admin-page-hero">
         <div>
-          <h1>Team &amp; roles</h1>
+          <h1>Team & roles</h1>
           <p>
-            Manage company staff, assign access levels, and control who can reach each admin area.
-            Only administrators can access this page.
+            Manage company staff, assign access levels.
           </p>
         </div>
         <Link to="/admin/AdminPanel" className="btn admin-btn-outline">

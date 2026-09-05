@@ -1,434 +1,552 @@
+/* ==========================================================================
+   HEADER & DESKTOP STYLES
+   ========================================================================== */
+
 .airease-user .Header_Section {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 55px;
-    background-color: #FFFFFF;
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+  z-index: 100;
 }
+
 .airease-user .Header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 55px;
-    gap: 0.5rem;
-    padding: 0 0.75rem;
-    min-width: 0;
+  height: 100%;
+  display: flex;
+  padding-right: 5px;
+  align-items: center;
+  justify-content: space-between;
 }
-.airease-user .Left_Nav {
-    width: 100px;
-    height: 55px;
-}
+
 .airease-user .Left_Nav img {
-    width: 95px;
-    height: auto;
-    max-height: 52px;
-    object-fit: contain;
+  height: 62px;
+  width: auto;
+  padding-top: 5px;
+  object-fit: contain;
 }
-.airease-user .Middle_Nav {
-    flex: 1;
-    min-width: 0;
-    height: 55px;
-    margin: 0;
-    padding: 0 0.5rem;
-}
+
 .airease-user .Unordered_List {
-    width: 100%;
-    height: 55px;
-    display: flex;
-    justify-content: center; 
-    gap: 2rem; 
-    align-items: center;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.airease-user .Middle_Nav ul a {
-    text-decoration: none;
-    color: #1F3A5F;
+
+/* Unified navigation typography and hover states */
+.airease-user .Unordered_List a,
+.airease-user .nav-contact-btn-desktop {
+  text-decoration: none;
+  color: #1f3a5f;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
-.airease-user .Unordered_List li {
-    list-style: none;
-    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    line-height: 3;
-    white-space: nowrap;
+
+.airease-user .Unordered_List a:hover,
+.airease-user .nav-contact-btn-desktop:hover {
+  color: #1e293b;
 }
-.airease-user .Right_Nav {
-    display: flex;
-    width: auto;
-    height: 55px;
-    margin-left: 0;
-    align-items: center;
-    gap: 15px;
-}
-.airease-user .contact-options a:hover {
-    color: #1F3A5F;
-}
-.airease-user .btn,
-.airease-user .open-contact {
-    cursor: pointer;
-}
-.airease-user .nav-contact-btn {
-    width: 100%;
-    height: 55px;
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: #1F3A5F;
-    border: none;
-    background-color: white;
-}
-.airease-user .Unordered_List li:hover {
-    color: #1F3A5F;
-    font-weight: 600;
-    cursor: pointer;
-}
-.airease-user .Unordered_List li a {
-    color: #1F3A5F;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-.airease-user .nav-contact-btn:hover {
-    color: #17304A;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-.airease-user .Unordered_List li a:hover {
-    color: #17304A;
-}
-.airease-user .Right_Nav .btn {
-    width: 90px;
-    height: 38px;
-    border: none;
-    margin: 5px 3px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    line-height: 1.5;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: white;
-}
+
 .airease-user .open-Login {
-    background-color: green;
-}
-.airease-user .search {
-    width: 180px;
-    height: 36px;
-    padding: 0 14px;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 20px;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-.airease-user .search:focus {
-    border-color: #1F3A5F;
-}
-.airease-user .open-Login:focus,
-.airease-user .open-Login:active,
-.airease-user .open-Login:visited {
-    background-color: green !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-.airease-user .open-Login:hover {
-    background-color: green !important;
-    color: #ffffff !important;
-}
-
-.airease-user .navbar-right-cluster {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.airease-user .navbar-search-form {
-    display: flex;
-    align-items: center;
-    margin: 0;
-}
-
-.airease-user .user-profile-menu {
-    position: relative;
-}
-
-.airease-user .user-avatar-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid #1f3a5f;
-    padding: 0;
-    overflow: hidden;
-    background: #e8f0fa;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.airease-user .user-avatar-btn:hover {
-    box-shadow: 0 4px 12px rgba(31, 58, 95, 0.25);
-    transform: translateY(-1px);
-}
-
-.airease-user .user-avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.airease-user .user-avatar-initials {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    color: #1f3a5f;
-}
-
-.airease-user .user-avatar-initials-lg {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #dbeafe;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.airease-user .user-profile-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    min-width: 240px;
-    background: #ffffff;
-    border: 1px solid #dbe4ef;
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(31, 58, 95, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-.airease-user .user-profile-dropdown.is-open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.airease-user .user-profile-dropdown-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left;
-}
-
-.airease-user .user-profile-dropdown-header strong {
-    display: block;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    color: #1f3a5f;
-}
-
-.airease-user .user-profile-dropdown-header small {
-    display: block;
-    font-size: 12px;
-    color: #64748b;
-    word-break: break-all;
-}
-
-.airease-user .user-profile-dropdown-list {
-    list-style: none;
-    margin: 0;
-    padding: 8px 0;
-}
-
-.airease-user .user-profile-dropdown-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    color: #1f3a5f;
-    text-decoration: none;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    transition: background-color 0.15s ease;
-}
-
-.airease-user .user-profile-dropdown-link:hover {
-    background-color: #f1f5f9;
-    color: #17304a;
-}
-
-.airease-user .user-profile-dropdown-link i {
-    width: 18px;
-    text-align: center;
-    color: #3b82f6;
-}
-
-.airease-user .user-profile-logout-btn {
-    width: 100%;
-    border: none;
-    border-top: 1px solid #e2e8f0;
-    background: #fff5f5;
-    color: #b91c1c;
-    padding: 12px 16px;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.airease-user .user-profile-logout-btn:hover {
-    background: #fee2e2;
+  padding: 8px 20px;
+  background-color: #16a34a;
+  color: #ffffff;
+  border-radius: 20px;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .airease-user .navbar-hamburger {
-    display: none;
-    border: none;
-    background: transparent;
-    color: #1f3a5f;
-    font-size: 1.35rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    z-index: 1102;
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #1f3a5f;
+  cursor: pointer;
 }
 
+/* ==========================================================================
+   MOBILE BACKDROP & SIDE DRAWER
+   ========================================================================== */
+
 .airease-user .navbar-backdrop {
-    display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  border: none;
+  z-index: 9998;
+  cursor: pointer;
 }
 
 .airease-user .navbar-mobile-panel {
-    display: contents;
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 290px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px;
+  z-index: 9999;
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-@media (max-width: 1100px) {
-    .airease-user .Header {
-        flex-wrap: wrap;
-        align-items: center;
-        position: relative;
-        min-height: 55px;
-        padding: 0 0.5rem;
-    }
-
-    .airease-user .navbar-hamburger {
-        display: inline-flex;
-        margin-left: auto;
-    }
-
-    .airease-user .navbar-backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(15, 23, 42, 0.45);
-        border: none;
-        z-index: 1098;
-        cursor: pointer;
-    }
-
-    .airease-user .navbar-mobile-panel {
-        display: none;
-        position: fixed;
-        top: 55px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1100;
-        background: #fff;
-        flex-direction: column;
-        overflow-y: auto;
-        padding: 1rem;
-        box-shadow: 0 12px 40px rgba(31, 58, 95, 0.15);
-    }
-
-    .airease-user .navbar-mobile-panel.is-open {
-        display: flex;
-    }
-
-    .airease-user .Middle_Nav {
-        width: 100%;
-        height: auto;
-    }
-
-    .airease-user .Unordered_List {
-        flex-direction: column;
-        height: auto;
-        gap: 0.25rem;
-    }
-
-    .airease-user .Unordered_List li {
-        width: 100%;
-        padding: 0.35rem 0;
-        white-space: normal;
-        font-size: 1.05rem;
-        line-height: 1.5;
-    }
-
-    .airease-user .Right_Nav {
-        width: 100%;
-        flex-direction: column;
-        align-items: stretch;
-        margin-top: 1rem;
-    }
-
-    .airease-user .navbar-search-form {
-        width: 100%;
-    }
-
-    .airease-user .search {
-        width: 100% !important;
-        min-width: 0;
-    }
-
-    .airease-user .Right_Nav .btn,
-    .airease-user .nav-contact-btn {
-        width: 100%;
-        height: 42px;
-        margin: 0;
-        justify-content: flex-start;
-        padding-left: 0.25rem;
-    }
-
-    .airease-user .user-profile-menu {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-    }
+.airease-user .navbar-mobile-panel.is-open {
+  right: 0;
 }
 
-@media (max-width: 480px) {
-    .airease-user .Header,
-    .airease-user .Header_Section {
-        padding: 0 0.4rem;
-    }
+.airease-user .mobile-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
 
-    .airease-user .Left_Nav {
-        width: 82px;
-    }
+.airease-user .mobile-logo-img {
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+}
 
-    .airease-user .Left_Nav img {
-        width: 78px;
-    }
+.airease-user .mobile-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+}
 
-    .airease-user .navbar-mobile-panel {
-        top: 52px;
-        padding: 0.85rem;
-    }
+.airease-user .mobile-social-links {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.airease-user .social-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.airease-user .social-badge.facebook { background-color: #1877f2; }
+.airease-user .social-badge.linkedin { background-color: #0a66c2; }
+.airease-user .social-badge.instagram { background-color: #e4405f; }
+
+.airease-user .mobile-search-form {
+  margin-bottom: 16px;
+}
+
+.airease-user .mobile-search-input {
+  width: 100%;
+  height: 36px;
+  font-size: 13px;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.airease-user .mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.airease-user .mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 6px;
+  color: #3b4252;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.airease-user .mobile-nav-link:hover {
+  background-color: #f1f5f9;
+  color: #3b2a68;
+}
+
+.airease-user .link-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.airease-user .nav-icon {
+  font-size: 17px;
+  color: #64748b;
+  width: 20px;
+  text-align: center;
+}
+
+.airease-user .nav-arrow {
+  font-size: 11px;
+  color: #1f3a5f;
+}
+
+.airease-user .mobile-nav-divider {
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  margin: 14px 0;
+}
+
+.airease-user .mobile-drawer-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  /* display: flex; */
+  flex-direction: column;
+  gap: 10px;
+}
+
+.airease-user .mobile-contact-btn {
+  width: 100px;
+  height: 38px;
+  background-color: #1f3a5f;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.airease-user .mobile-phone-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  /* background-color: #fef9c3; */
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.airease-user .phone-icon-box {
+  color: #854d0e;
+  font-size: 14px;
+}
+
+.airease-user .phone-number-text {
+  color: #1e293b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .airease-user .desktop-only,
+  .airease-user .desktop-search {
+    display: none !important;
+  }
+
+  .airease-user .navbar-hamburger {
+    display: block;
+  }
+}
+
+
+/* ==========================================================================
+   USER PROFILE MENU & DROPDOWN STYLES
+   ========================================================================== */
+
+/* Outer wrapper container */
+.user-profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* Avatar trigger button */
+.user-avatar-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #e2e8f0;
+  background-color: #1f3a5f;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.user-avatar-btn:hover {
+  border-color: #16a34a;
+  transform: scale(1.03);
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.user-avatar-initials {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Floating Dropdown Card */
+.user-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* Open state controlled by component state */
+.user-profile-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown Header Section */
+.user-profile-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.user-avatar-initials-lg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #1f3a5f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.user-profile-dropdown-header div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.user-profile-dropdown-header strong {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-profile-dropdown-header small {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-profile-dropdown-header .d-block.text-muted {
+  display: block;
+  color: #16a34a;
+  font-weight: 600;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* List and Links */
+.user-profile-dropdown-list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-profile-dropdown-list li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.user-profile-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.user-profile-dropdown-link i {
+  font-size: 14px;
+  color: #64748b;
+  width: 18px;
+  text-align: center;
+}
+
+.user-profile-dropdown-link:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.user-profile-dropdown-link:hover i {
+  color: #1f3a5f;
+}
+
+/* Logout Button */
+.user-profile-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 10px 8px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #dc2626;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  cursor: pointer;
+  margin-top: 4px;
+  border-radius: 0 0 8px 8px;
+  transition: background-color 0.15s ease;
+}
+
+.user-profile-logout-btn i {
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+}
+
+.user-profile-logout-btn:hover {
+  background-color: #fef2f2;
+}
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE STYLES FOR USER PROFILE MENU
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. Header Dropdown on Mobile Screens */
+  .user-profile-dropdown {
+    position: fixed;
+    top: 65px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: 340px;
+    margin-left: auto;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* 2. Inline Card Display when placed inside Mobile Side Drawer (.navbar-mobile-panel) */
+  .navbar-mobile-panel .user-profile-menu {
+    width: 100%;
+    display: block;
+  }
+
+  /* Hide the round avatar toggle button inside the mobile drawer */
+  .navbar-mobile-panel .user-avatar-btn {
+    display: none;
+  }
+
+  /* Force the dropdown to display inline as an expanded card inside the drawer */
+  .navbar-mobile-panel .user-profile-dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    padding: 12px;
+    margin: 0;
+  }
+
+  .navbar-mobile-panel .user-profile-dropdown-header {
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+
+  .navbar-mobile-panel .user-profile-dropdown-link {
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+
+  .navbar-mobile-panel .user-profile-logout-btn {
+    background-color: #ffffff;
+    border: 1px solid #fee2e2;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 6px;
+  }
 }

@@ -101,7 +101,7 @@ const UserDashboard = () => {
           {applications.length === 0 ? (
             <p className="text-muted mb-3">
               You have not started an application yet.{' '}
-              <Link to="/Programs_List"><b style={{color : "Black"}}><u>Browse programs</u></b></Link> and click Apply via us.
+              <Link to="/Programs_List"><b style={{color : "Black"}}><button type='btn' className='btn btn-primary'>Browse Programs</button></b></Link>
             </p>
           ) : (
             applications.slice(0, 5).map((app) => (

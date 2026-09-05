@@ -49,8 +49,8 @@ const UserApplications = () => {
       <div className="sd-main-panel mt-3">
         {applications.length === 0 ? (
           <p className="text-muted">
-            No applications yet.{' '}
-            <Link to="/Programs_List"><b style={{color : "black"}}><u>Browse programs</u></b></Link> and click Apply via us.
+            No applications yet.{' '}<br/>
+            <Link to="/Programs_List"><b style={{color : "black"}}><button type='btn' className='btn btn-primary'>Browse programs</button></b></Link>
           </p>
         ) : (
           applications.map((app) => (
@@ -58,11 +58,7 @@ const UserApplications = () => {
               <div>
                 <h3>{app.programName || 'Application'}</h3>
                 <p>
-                  {app.universityName || 'University TBD'} ·{' '}
-                  {app.isDraft
-                    ? `Draft · Step ${app.currentStep || 1} of 8`
-                    : formatApplicationStatus(app.applicationStatus)}{' '}
-                  · Updated {new Date(app.updatedAt).toLocaleDateString()}
+               Updated on {new Date(app.updatedAt).toLocaleDateString()}
                 </p>
               </div>
               <div className="sd-app-actions">

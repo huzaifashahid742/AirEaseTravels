@@ -6,13 +6,11 @@ import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import PageLoader from './PageLoader';
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// Helper component for uniform card heights with collapsible long text
 const ExpandableText = ({ text, maxLength = 50 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text) return <span>N/A</span>;
   if (text.length <= maxLength) return <span>{text}</span>;
-
   return (
     <span className="expandable-text">
       {isExpanded ? text : `${text.slice(0, maxLength)}... `}
@@ -37,28 +35,21 @@ const Universities_Comparisons = ({ onContactClick }) => {
   const [pageQuery, setPageQuery] = useState('');
   const [navbarFilter, setNavbarFilter] = useState('');
   const appliedPageSearch = useDebouncedValue(pageQuery, 350);
-
-  // Base activeSearch evaluation cleanly off the actual debounced value
   const activeSearch = appliedPageSearch.trim() ? appliedPageSearch : navbarFilter;
-
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
-
-  // --- Pagination States ---
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
   const resultsRef = useRef(null);
   const pendingScrollRef = useRef(false);
 
-  // Force initialize Bootstrap Carousel via JS
   useEffect(() => {
     const carouselElement = document.getElementById('carouselExampleSlidesOnly');
     if (carouselElement) {
       new bootstrap.Carousel(carouselElement, {
-        interval: 2500,
+        interval: 3000,
         ride: 'carousel',
         pause: 'hover'
       });
@@ -73,15 +64,14 @@ const Universities_Comparisons = ({ onContactClick }) => {
       if (searchTerm) params.search = searchTerm;
       const res = await countryDetailsAPI.getAll(params);
       setCountries(res.data || []);
-      setCurrentPage(1); // Reset to first page on new fetch/search
+      setCurrentPage(1); 
     } catch (err) {
       setError(err.message || 'Failed to load country comparisons');
       setCountries([]);
     } finally {
       setLoading(false);
       setHasLoadedOnce(true);
-    }
-  }, []);
+    }}, []);
 
   useEffect(() => {
     const incoming = location.state?.searchQuery?.trim();
@@ -89,16 +79,13 @@ const Universities_Comparisons = ({ onContactClick }) => {
       setNavbarFilter(incoming);
       setPageQuery('');
       pendingScrollRef.current = true;
-      navigate('/University_Comparisons', { replace: true, state: {} });
-    }
-  }, [location.state, navigate]);
+      navigate('/University_Comparisons', { replace: true, state: {} });}},
+      [location.state, navigate]);
 
-  // Check pageQuery directly to clear out previous navbar filters on keydown entry
   useEffect(() => {
     if (pageQuery.trim()) {
-      setNavbarFilter('');
-    }
-  }, [pageQuery]);
+      setNavbarFilter('');}
+    },[pageQuery]);
 
   useEffect(() => {
     fetchCountries(activeSearch);
@@ -114,26 +101,21 @@ const Universities_Comparisons = ({ onContactClick }) => {
     }
   }, [loading, countries]);
 
-  // Pagination calculations
   const totalPages = Math.ceil(countries.length / itemsPerPage);
   const currentCountries = countries.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Helper function to format flag URLs safely
   const getFormattedFlagUrl = (flagImage) => {
     if (!flagImage) return '/images/flags/default-flag.png';
 
     let url = flagImage.trim();
-
     if (url.includes('https://res.cloudinary.com')) {
       const cloudinaryIdx = url.indexOf('https://res.cloudinary.com');
       return url.substring(cloudinaryIdx);
     }
-
     const PRODUCTION_BACKEND_URL = 'https://aireasetravels-backend-production.up.railway.app';
     if (url.startsWith('http://localhost:7000')) {
       return url.replace('http://localhost:7000', PRODUCTION_BACKEND_URL);
@@ -149,14 +131,14 @@ const Universities_Comparisons = ({ onContactClick }) => {
 
   return (
     <div>
-      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={2000}>
+      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" data-bs-interval={3000}>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="/Images_Folder/Crousel_Study.jpg" className="d-block w-100" alt="Why Study in Europe" />
             <div className="carousel-caption-custom">
               <h1>Why Choose International Studies?</h1>
               <p>Affordable education. World-class universities.</p>
-              <button type="button" className="open-contact" onClick={onContactClick}>Talk to an Advisor</button>
+              <button type="button" className="open-contact" onClick={onContactClick} style={{"width" : "300px"}}>Talk to an Advisor</button>
             </div>
           </div>
           <div className="carousel-item">
@@ -164,7 +146,7 @@ const Universities_Comparisons = ({ onContactClick }) => {
             <div className="carousel-caption-custom">
               <h1>Live & Learn</h1>
               <p>Scholarships, work rights & rich culture.</p>
-              <button type="button" className="open-contact" onClick={onContactClick}>Talk to an Advisor</button>
+              <button type="button" className="open-contact" onClick={onContactClick} style={{"width" : "300px"}}>Talk to an Advisor</button>
             </div>
           </div>
           <div className="carousel-item">
@@ -172,12 +154,12 @@ const Universities_Comparisons = ({ onContactClick }) => {
             <div className="carousel-caption-custom">
               <h1>Study in English</h1>
               <p>Public universities with global recognition.</p>
-              <button type="button" className="open-contact" onClick={onContactClick}>Talk to an Advisor</button>
+              <button type="button" className="open-contact" onClick={onContactClick} style={{"width" : "300px"}}>Talk to an Advisor</button>
             </div>
           </div>
         </div>
       </div>
-
+      
       <div className="Comparison_Section">
         {navbarFilter && !pageQuery.trim() && (
           <p className="comparisons-active-search text-center">

@@ -2,8 +2,7 @@ import React from 'react';
 import "../../Css_Folder/Marquee.css";
 
 const Marquee = () => {
-  const message = "Welcome to AirEase Travels & Tours • Premium Travel Deals • Expert Student Consultation Facility • ";
-  const message1 = "---- Right now this webiste is in testing phase ----• ";
+  const message1 = "Welcome to AirEase Travels & Tours • Premium Travel Deals • Expert Student Consultation Facility • ";
   return (
     
     <div className="marquee-container">

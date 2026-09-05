@@ -1,7 +1,7 @@
 .airease-user .student-dashboard {
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(1rem, 3vw, 2rem) clamp(0.75rem, 3vw, 1.5rem) 4rem;
+  padding: 2rem 1.5rem 4rem;
 }
 
 /* Student account shell — shared nav for dashboard, profile, applications, apply */
@@ -92,7 +92,7 @@
   border-radius: 16px;
   padding: 1.25rem 1.5rem;
   box-shadow: 0 6px 24px rgba(31, 58, 95, 0.06);
-  min-width: 0;
+  min-width: 260px;
 }
 
 .airease-user .sd-progress-label {
@@ -377,26 +377,5 @@
   }
   .airease-user .sd-account-nav-link {
     width: 100%;
-  }
-  .airease-user .sd-app-row,
-  .airease-user .sd-view-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .airease-user .sd-app-actions {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-}
-
-@media (max-width: 576px) {
-  .airease-user .sd-stats-grid,
-  .airease-user .sd-detail-grid,
-  .airease-user .sd-doc-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .airease-user .sd-welcome-row h1 {
-    font-size: 1.35rem;
   }
 }
