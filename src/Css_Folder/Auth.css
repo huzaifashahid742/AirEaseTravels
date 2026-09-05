@@ -39,7 +39,7 @@
   );
   display: flex;
   align-items: flex-end;
-  padding: 60px;
+  padding: clamp(1.5rem, 5vw, 3.75rem);
 }
 
 .visual-panel-content {
@@ -48,7 +48,7 @@
 }
 
 .visual-panel-content h2 {
-  font-size: 38px;
+  font-size: clamp(1.6rem, 3vw, 2.375rem);
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -80,7 +80,7 @@
   width: 100%;
   max-width: 460px;
   background: #fff;
-  padding: 40px;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
   border-radius: 16px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
@@ -273,5 +273,24 @@
   .auth-form-panel {
     padding: 20px;
     width: 100%;
+    min-height: 100vh;
+  }
+
+  .auth-page-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-form-panel {
+    padding: 12px;
+  }
+
+  .auth-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .registration-grid-container {
+    grid-template-columns: 1fr;
   }
 }

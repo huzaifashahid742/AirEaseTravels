@@ -1,5 +1,6 @@
 .carousel-item img {
-  height: 618px;
+  height: min(70vh, 618px);
+  min-height: 220px;
   width: 100%;
   object-fit: cover;
   filter: brightness(55%);
@@ -7,19 +8,21 @@
 
 .carousel-caption-custom {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 5%;
+  right: 5%;
+  transform: translateY(-50%);
   color: #fff;
-  max-width: auto;
-  padding: 20px;
+  max-width: 720px;
+  padding: 12px 0;
 }
 
 .carousel-caption-custom h1 {
-  font-size: 50px;
+  font-size: clamp(1.5rem, 4vw, 3.1rem);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   line-height: 1.2;
-  height: 65px;
+  height: auto;
   margin: 0;
 }
 
@@ -35,19 +38,20 @@
 .carousel-caption-custom button {
   background-color: #1F3A5F;
   border: solid 2px #17304A;
-  font-size: 20px;
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 1.3;
   color: #FFFFFF;
-  justify-content: flex-start;
-  width: 50%;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
   margin: 10px 0;
   height: 45px;
   border-radius: 50px;
-  padding-top: 8px;
-  display: flex;
-  flex-direction: column;
+  padding: 0 1.25rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* --- Section Width & Spacing Fixes --- */
@@ -67,18 +71,18 @@
   margin-top: 60px;
   margin-bottom: 0;
   width: auto;
-  height: 60px;
+  height: auto;
 }
 
 .Comparison_Title h1 {
   padding-top: 20px;
-  font-size: 40px;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-family: "Poppins", sans-serif;
   text-align: center;
   width: auto;
   color: #1F3A5F;
   line-height: 1.5;
-  height: 60px;
+  height: auto;
   font-weight: bold;
 }
 
@@ -99,7 +103,7 @@
 /* --- Exactly 3 Cards Per Row on Large Screens --- */
 .Programs_Cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 equal columns */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 24px;
   max-width: 1200px;
   width: 100%;
@@ -250,6 +254,12 @@
 }
 
 /* Responsive Media Queries */
+@media (min-width: 1100px) {
+  .Programs_Cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1024px) {
   .Programs_Cards {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -268,7 +278,7 @@
     font-size: 16px;
   }
   .carousel-caption-custom button {
-    width: 70%;
+    width: auto;
     font-size: 16px;
   }
 }
@@ -306,12 +316,12 @@
     height: 300px;
   }
   .carousel-caption-custom {
-    top: 30%;
+    top: 50%;
     left: 5%;
-    padding: 12px;
+    right: 5%;
+    padding: 8px 0;
   }
   .carousel-caption-custom h1 {
-    font-size: 24px;
     height: auto;
   }
   .carousel-caption-custom p {

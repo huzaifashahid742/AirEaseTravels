@@ -144,7 +144,7 @@
 /* Grid & Card Enhancements */
 .airease-user .uni-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
   align-items: stretch;
 }
@@ -412,6 +412,23 @@
 
 .airease-user .uni-program-link:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .airease-user .uni-list-page {
+    padding: 2rem 1.25rem 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .airease-user .uni-list-page {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .airease-user .uni-pagination {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
 }
 
 @media (max-width: 640px) {
