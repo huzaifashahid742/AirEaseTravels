@@ -1167,9 +1167,6 @@ const ApplyViaUsWizard = () => {
                 onChange={(e) => patch('languageProficiency', 'score', e.target.value)}
                 disabled={form.languageProficiency.examType === 'Not Required'}
               />
-              <small className="text-muted">
-                IELTS: 0–9; TOEFL: 0–120; PTE: 10–90.
-              </small>
             </Field>
 
             <Field label="Exam date / expiry">
