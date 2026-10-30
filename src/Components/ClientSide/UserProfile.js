@@ -50,9 +50,19 @@ const UserProfile = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Optional: Validate file size (e.g., max 5MB) and type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file for your profile photo.');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Profile photo must be less than 5MB.');
+        return;
+      }
       setSelectedFile(file);
       setLocalPreview(URL.createObjectURL(file));
       setJustSaved(false);
+      setError('');
     }
   };
 
@@ -63,7 +73,7 @@ const UserProfile = () => {
     if (dbPhoto) {
       if (dbPhoto.startsWith('http')) return dbPhoto;
       
-      const apiEnvUrl = process.env.REACT_APP_API_URL;
+      const apiEnvUrl = process.env.REACT_APP_API_URL || '';
       const serverRootUrl = apiEnvUrl.replace(/\/api\/?$/, '');
       
       return `${serverRootUrl}${dbPhoto}`;
@@ -71,8 +81,12 @@ const UserProfile = () => {
     return '';
   };
 
-  // 🔴 Function to trigger the backend endpoint to send the OTP email
+  // 🔴 Function to trigger backend endpoint to send OTP email with validation check
   const handleRequestOtp = async () => {
+    if (!profile.password || profile.password.trim().length < 6) {
+      setError('Please enter a valid password of at least 6 characters before requesting a verification code.');
+      return;
+    }
     setSendingOtp(true);
     setError('');
     setOtpSentMessage('');
@@ -86,16 +100,59 @@ const UserProfile = () => {
     }
   };
 
+  // 🔴 Comprehensive Client-side Validation before Submitting
+  const validateForm = () => {
+    if (!profile.firstName || !profile.firstName.trim()) {
+      setError('First name is required.');
+      return false;
+    }
+    if (!profile.lastName || !profile.lastName.trim()) {
+      setError('Last name is required.');
+      return false;
+    }
+
+    // Phone number validation (optional field, but if filled, validate basic formatting e.g., 7-15 digits/symbols)
+    if (profile.phone && !/^[0-9+\-\s()]{7,15}$/.test(profile.phone.trim())) {
+      setError('Please enter a valid phone number.');
+      return false;
+    }
+
+    // Age validation check if specified
+    if (profile.currentAge && (isNaN(profile.currentAge) || profile.currentAge < 1 || profile.currentAge > 120)) {
+      setError('Please enter a valid current age.');
+      return false;
+    }
+
+    // Password & OTP validation
+    if (profile.password && profile.password.trim().length > 0) {
+      if (profile.password.trim().length < 6) {
+        setError('Password must be at least 6 characters long.');
+        return false;
+      }
+      if (!otp || otp.trim().length !== 6) {
+        setError('Please enter the 6-digit email verification code (OTP) to update your password.');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
-    setSaving(true);
     setError('');
     setMessage('');
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setSaving(true);
     try {
       const formData = new FormData();
       
-      formData.append('firstName', profile.firstName || '');
-      formData.append('lastName', profile.lastName || '');
+      formData.append('firstName', profile.firstName.trim());
+      formData.append('lastName', profile.lastName.trim());
       formData.append('occupation', profile.occupation || '');
       formData.append('currentEducation', profile.currentEducation || '');
       formData.append('phone', profile.phone || '');
@@ -154,12 +211,22 @@ const UserProfile = () => {
       <form className="apply-form-card w-100" onSubmit={handleSave} encType="multipart/form-data">
         <div className="apply-grid">
           <div className="apply-field">
-            <label>First name</label>
-            <input className="form-control" value={profile.firstName || ''} onChange={(e) => handleChange('firstName', e.target.value)} />
+            <label>First name <span className="text-danger">*</span></label>
+            <input 
+              className="form-control" 
+              value={profile.firstName || ''} 
+              onChange={(e) => handleChange('firstName', e.target.value)} 
+              required 
+            />
           </div>
           <div className="apply-field">
-            <label>Last name</label>
-            <input className="form-control" value={profile.lastName || ''} onChange={(e) => handleChange('lastName', e.target.value)} />
+            <label>Last name <span className="text-danger">*</span></label>
+            <input 
+              className="form-control" 
+              value={profile.lastName || ''} 
+              onChange={(e) => handleChange('lastName', e.target.value)} 
+              required 
+            />
           </div>
           <div className="apply-field">
             <label>Occupation</label>
@@ -203,7 +270,7 @@ const UserProfile = () => {
           {/* 🔴 OTP Code Input Box */}
           {profile.password && profile.password.length >= 6 && (
             <div className="apply-field">
-              <label>Email Verification Code (OTP)</label>
+              <label>Email Verification Code (OTP) <span className="text-danger">*</span></label>
               <input 
                 type="text" 
                 className="form-control" 
@@ -218,7 +285,12 @@ const UserProfile = () => {
 
           <div className="apply-field">
             <label>Phone Number</label>
-            <input className="form-control" value={profile.phone || ''} onChange={(e) => handleChange('phone', e.target.value)} />
+            <input 
+              className="form-control" 
+              placeholder="e.g. +1234567890" 
+              value={profile.phone || ''} 
+              onChange={(e) => handleChange('phone', e.target.value)} 
+            />
           </div>
           <div className="apply-field">
             <label>Date of birth</label>
@@ -226,7 +298,7 @@ const UserProfile = () => {
           </div>
           <div className="apply-field">
             <label>Current Age</label>
-            <input className="form-control" value={profile.currentAge || ''} onChange={(e) => handleChange('currentAge', e.target.value)} />
+            <input type="number" min="1" max="120" className="form-control" value={profile.currentAge || ''} onChange={(e) => handleChange('currentAge', e.target.value)} />
           </div>
           <div className="apply-field">
             <label>Gender</label>

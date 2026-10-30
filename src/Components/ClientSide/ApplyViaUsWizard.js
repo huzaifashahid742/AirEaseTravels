@@ -1375,10 +1375,6 @@ const ApplyViaUsWizard = () => {
 
             <ul>
               <li>
-                <strong>Program:</strong> {form.programName || '—'} at{' '}
-                {form.universityName || '—'}
-              </li>
-              <li>
                 <strong>Name:</strong>{' '}
                 {[form.personalInfo.firstName, form.personalInfo.lastName]
                   .filter(Boolean)
