@@ -61,7 +61,6 @@ const UserApplicationView = () => {
   const lang = application.languageProficiency || {};
   const fin = application.financialAndVisa || {};
   const exp = application.experienceInfo || {};
-  const docs = application.attachments || {};
 
   const personalFields = [
     { label: 'Full name', value: p.fullName || [p.firstName, p.middleName, p.lastName].filter(Boolean).join(' ') },

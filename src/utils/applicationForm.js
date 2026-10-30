@@ -121,14 +121,7 @@ export const emptyApplicationForm = () => ({
     scholarshipIntended: '',
     currentVisaStatus: '',
     passportExpiryDate: '',
-  },
-  attachments: {
-    resumeCv: '',
-    statementOfPurpose: '',
-    lettersOfRecommendation: [],
-    passportCopyUpload: '',
-    nationalIdProof: '',
-  },
+  }
 });
 
 const toDateInput = (value) => {
@@ -247,11 +240,7 @@ export const applicationFromApi = (app) => {
       ...form.financialAndVisa,
       ...app.financialAndVisa,
       passportExpiryDate: toDateInput(app.financialAndVisa?.passportExpiryDate),
-    },
-    attachments: {
-      ...form.attachments,
-      ...app.attachments,
-    },
+    }
   };
 };
 
@@ -312,14 +301,7 @@ export const formToApiPayload = (form, step) => {
     financialAndVisa: {
       ...form.financialAndVisa,
       passportExpiryDate: form.financialAndVisa.passportExpiryDate || undefined,
-    },
-    attachments: {
-      resumeCv: filePathOnly(form.attachments.resumeCv),
-      statementOfPurpose: filePathOnly(form.attachments.statementOfPurpose),
-      passportCopyUpload: filePathOnly(form.attachments.passportCopyUpload),
-      nationalIdProof: filePathOnly(form.attachments.nationalIdProof),
-      lettersOfRecommendation: form.attachments.lettersOfRecommendation || [],
-    },
+    }
   };
 };
 

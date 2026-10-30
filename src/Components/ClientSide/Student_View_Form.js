@@ -129,7 +129,6 @@ const UnifiedApplicationView = () => {
   const lang = application.languageProficiency || {};
   const fin = application.financialAndVisa || {};
   const exp = application.experienceInfo || {};
-  const docs = application.attachments || {};
 
   const personalFields = [
     { label: 'Full Legal Name', value: p.fullName || [p.firstName, p.middleName, p.lastName].filter(Boolean).join(' ') },

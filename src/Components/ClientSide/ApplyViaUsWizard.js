@@ -546,8 +546,7 @@ const ApplyViaUsWizard = () => {
       'languageProficiency',
       'programInterest',
       'experienceInfo',
-      'financialAndVisa',
-      'attachments',
+      'financialAndVisa'
     ].forEach((key) => {
       data.append(key, JSON.stringify(rawPayload[key] || {}));
     });
@@ -618,26 +617,7 @@ const ApplyViaUsWizard = () => {
             parsed.programInterest?.interestedCountry ||
             prev.programInterest?.interestedCountry ||
             '',
-        },
-
-        attachments: {
-          ...prev.attachments,
-          ...parsed.attachments,
-          resumeCv:
-            parsed.attachments?.resumeCv || prev.attachments?.resumeCv || '',
-          statementOfPurpose:
-            parsed.attachments?.statementOfPurpose ||
-            prev.attachments?.statementOfPurpose ||
-            '',
-          passportCopyUpload:
-            parsed.attachments?.passportCopyUpload ||
-            prev.attachments?.passportCopyUpload ||
-            '',
-          nationalIdProof:
-            parsed.attachments?.nationalIdProof ||
-            prev.attachments?.nationalIdProof ||
-            '',
-        },
+        }
       }));
 
       setMessage('Progress saved. You can continue anytime from your dashboard.');
