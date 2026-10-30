@@ -135,32 +135,72 @@ export const countryDetailsAPI = {
     }),
 };
 
+// export const visaApplicationsAPI = {
+//   getAllAdmin: () => apiRequest('/visa-applications/admin/all'),
+//   getById: (id) => apiRequest(`/visa-applications/${id}`),
+//   getMine: () => apiRequest('/visa-applications/mine'),
+//   getDraftByProgram: (programId) => apiRequest(`/visa-applications/draft/program/${programId}`),
+//   saveDraft: (payload) =>
+//     apiRequest('/visa-applications/draft', {
+//       method: 'POST',
+//       body: payload, 
+//     }),
+//   submit: (payload) =>
+//     apiRequest('/visa-applications', {
+//       method: 'POST',
+//       body: payload,
+//     }),
+//   submitDraft: (id, payload) =>
+//     apiRequest(`/visa-applications/${id}/submit`, {
+//       method: 'POST',
+//       body: payload,
+//     }),
+//   update: (id, payload) =>
+//     apiRequest(`/visa-applications/${id}`, {
+//       method: 'PUT',
+//       body: JSON.stringify(payload),
+//     }),
+//   delete: (id) => apiRequest(`/visa-applications/${id}`, { method: 'DELETE' }),
+// };
+
 export const visaApplicationsAPI = {
   getAllAdmin: () => apiRequest('/visa-applications/admin/all'),
+
   getById: (id) => apiRequest(`/visa-applications/${id}`),
+
   getMine: () => apiRequest('/visa-applications/mine'),
-  getDraftByProgram: (programId) => apiRequest(`/visa-applications/draft/program/${programId}`),
+
+  getDraftByProgram: (programId) =>
+    apiRequest(`/visa-applications/draft/program/${programId}`),
+
   saveDraft: (payload) =>
     apiRequest('/visa-applications/draft', {
       method: 'POST',
-      body: payload, 
+      body: JSON.stringify(payload),
     }),
+
   submit: (payload) =>
     apiRequest('/visa-applications', {
       method: 'POST',
-      body: payload,
+      body: JSON.stringify(payload),
     }),
+
   submitDraft: (id, payload) =>
     apiRequest(`/visa-applications/${id}/submit`, {
       method: 'POST',
-      body: payload,
+      body: JSON.stringify(payload),
     }),
+
   update: (id, payload) =>
     apiRequest(`/visa-applications/${id}`, {
       method: 'PUT',
       body: JSON.stringify(payload),
     }),
-  delete: (id) => apiRequest(`/visa-applications/${id}`, { method: 'DELETE' }),
+
+  delete: (id) =>
+    apiRequest(`/visa-applications/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
 export const studentsAPI = {
