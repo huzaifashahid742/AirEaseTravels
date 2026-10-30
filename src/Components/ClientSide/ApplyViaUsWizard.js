@@ -24,14 +24,49 @@ import PageLoader from './PageLoader';
 // ============================================================
 
 const CURRENT_YEAR = new Date().getFullYear();
-const MAX_PASSPORT_EXPIRY_YEAR = CURRENT_YEAR + 20;
+const MAX_PASSPORT_EXPIRY_YEAR = 2100;
 const WHATSAPP_DOCS_URL = 'https://wa.me/message/Y2LJ2VUONSEOF1';
+
+const FIELD_OF_STUDY_OPTIONS = [
+  'Computer Science',
+  'Artificial Intelligence',
+  'Data Science',
+  'Software Engineering',
+  'Cybersecurity',
+  'Information Technology',
+  'Business Administration',
+  'Management',
+  'Economics',
+  'Finance',
+  'Accounting',
+  'Engineering',
+  'Mechanical Engineering',
+  'Electrical Engineering',
+  'Civil Engineering',
+  'Architecture',
+  'Medicine',
+  'Nursing',
+  'Pharmacy',
+  'Biotechnology',
+  'Law',
+  'Education',
+  'Social Sciences',
+  'Arts and Design',
+  'Hospitality and Tourism',
+  'Other',
+];
 
 const getLocalDateString = (date = new Date()) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+};
+
+const getTomorrowDateString = () => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return getLocalDateString(tomorrow);
 };
 
 const isValidYear = (value) => {
@@ -91,7 +126,6 @@ const isValidAcademicResult = (value) => {
 
   if (!result || result.includes('-')) return false;
 
-  // Percentage: 85%, 99.5%
   const percentage = result.match(/^(\d{1,3}(?:\.\d{1,2})?)\s*%$/);
 
   if (percentage) {
@@ -99,7 +133,6 @@ const isValidAcademicResult = (value) => {
     return number >= 0 && number <= 100;
   }
 
-  // Fraction: 850/1000, 3.8/4.0
   const fraction = result.match(
     /^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/
   );
@@ -111,7 +144,6 @@ const isValidAcademicResult = (value) => {
     return maximum > 0 && obtained >= 0 && obtained <= maximum;
   }
 
-  // Plain numeric GPA or percentage without a % sign
   if (!/^\d+(?:\.\d{1,2})?$/.test(result)) return false;
   const number = Number(result);
   return number >= 0 && number <= 100;
@@ -141,7 +173,9 @@ const isValidLanguageScore = (examType, value) => {
 
 const isValidPassportExpiry = (value) => {
   if (!isValidDate(value) || !isFutureDate(value)) return false;
+
   const year = Number(String(value).slice(0, 4));
+
   return year >= CURRENT_YEAR && year <= MAX_PASSPORT_EXPIRY_YEAR;
 };
 
@@ -172,6 +206,7 @@ const WhatsAppDocumentsNotice = () => (
       (passport copy, transcripts, CV, and English test results) to our team
       on WhatsApp.
     </p>
+
     <a href={WHATSAPP_DOCS_URL} target="_blank" rel="noopener noreferrer">
       <i className="fa-brands fa-whatsapp" /> Send documents on WhatsApp
     </a>
@@ -200,6 +235,24 @@ const ApplyViaUsWizard = () => {
 
   const programId = routeProgramId || form.programId;
   const today = getLocalDateString();
+  const tomorrow = getTomorrowDateString();
+
+  // Determine whether the saved field is a predefined option.
+  // If it is not, it is treated as a custom "Other" value.
+  const savedFieldOfStudy = form.programInterest.fieldOfStudy || '';
+
+  const isPredefinedField = FIELD_OF_STUDY_OPTIONS.some(
+    (option) => option !== 'Other' && option === savedFieldOfStudy
+  );
+
+  const fieldOfStudyDropdownValue = !savedFieldOfStudy
+    ? ''
+    : isPredefinedField
+      ? savedFieldOfStudy
+      : 'Other';
+
+  const isOtherFieldOfStudy =
+    fieldOfStudyDropdownValue === 'Other';
 
   // ----------------------------------------------------------
   // LOAD APPLICATION
@@ -216,6 +269,7 @@ const ApplyViaUsWizard = () => {
           const res = await visaApplicationsAPI.getById(applicationIdParam);
 
           base = mergeUserIntoForm(applicationFromApi(res.data), user);
+
           setStep(
             Math.min(
               Math.max(res.data.currentStep || 1, 1),
@@ -239,6 +293,7 @@ const ApplyViaUsWizard = () => {
               applicationFromApi(draftRes.data),
               user
             );
+
             setStep(
               Math.min(
                 Math.max(draftRes.data.currentStep || 1, 1),
@@ -255,7 +310,9 @@ const ApplyViaUsWizard = () => {
           base.academicBackground.schools = [];
         }
 
-        if (!cancelled) setForm(base);
+        if (!cancelled) {
+          setForm(base);
+        }
       } catch (err) {
         if (!cancelled) {
           setError(err.message || 'Failed to load application.');
@@ -304,7 +361,6 @@ const ApplyViaUsWizard = () => {
         graduationYear: '',
         boardOrUniversity: '',
         gpaOrPercentage: '',
-        // resultUpload: '',
       },
     ]);
   };
@@ -327,6 +383,19 @@ const ApplyViaUsWizard = () => {
       delete updated[`school_${index}`];
       return updated;
     });
+  };
+
+  const handleFieldOfStudyChange = (value) => {
+    if (value === 'Other') {
+      // Keep the field empty until the student enters a custom value.
+      patch('programInterest', 'fieldOfStudy', '');
+    } else {
+      patch('programInterest', 'fieldOfStudy', value);
+    }
+  };
+
+  const handleCustomFieldOfStudyChange = (value) => {
+    patch('programInterest', 'fieldOfStudy', value);
   };
 
   // ----------------------------------------------------------
@@ -363,6 +432,7 @@ const ApplyViaUsWizard = () => {
 
       if (!p.gender) errors.push('Select your gender.');
       if (!p.nationality?.trim()) errors.push('Nationality is required.');
+
       if (!p.countryOfResidence?.trim()) {
         errors.push('Country of residence is required.');
       }
@@ -403,7 +473,6 @@ const ApplyViaUsWizard = () => {
         );
       }
 
-      // Retain your existing academic validation utility.
       const academicErrors = validateAcademicStep(a) || [];
       errors.push(...academicErrors);
 
@@ -430,14 +499,14 @@ const ApplyViaUsWizard = () => {
       });
     }
 
+    // STEP 3: ENGLISH TEST
+
     if (stepNumber === 3) {
       if (!l.examType) {
         errors.push('Select an English test option.');
       } else if (l.examType !== 'Not Required') {
         if (!String(l.score ?? '').trim()) {
           errors.push('Score is required.');
-        } else if (Number(l.score) < 0) {
-          errors.push('Score cannot be negative.');
         } else if (!isValidLanguageScore(l.examType, l.score)) {
           errors.push(
             l.examType === 'IELTS'
@@ -448,42 +517,60 @@ const ApplyViaUsWizard = () => {
           );
         }
 
-        if (
-          l.examDateOrExpiry &&
-          !isValidDate(l.examDateOrExpiry)
-        ) {
-          errors.push('Enter a valid exam date or expiry date.');
+        // English test expiry must be a future date if provided.
+        if (l.examDateOrExpiry) {
+          if (!isValidDate(l.examDateOrExpiry)) {
+            errors.push('Enter a valid English test expiry date.');
+          } else if (!isFutureDate(l.examDateOrExpiry)) {
+            errors.push('English test expiry date must be in the future.');
+          }
         }
-      } else if (
-        l.examDateOrExpiry &&
-        !isValidDate(l.examDateOrExpiry)
-      ) {
-        errors.push('Enter a valid exam date or expiry date.');
       }
     }
 
+    // STEP 4: PROGRAM PREFERENCES
+
     if (stepNumber === 4) {
-      if (!i.programType) errors.push('Select a program type.');
-      if (!i.fieldOfStudy?.trim()) errors.push('Field of study is required.');
+      if (!i.programType) {
+        errors.push('Select a program type.');
+      }
+
+      if (!i.fieldOfStudy?.trim()) {
+        errors.push(
+          isOtherFieldOfStudy
+            ? 'Please enter your other field of study.'
+            : 'Field of study is required.'
+        );
+      }
+
       if (!i.interestedCountry?.trim()) {
         errors.push('Select your interested country.');
       }
+
       if (!i.intakeSeason) errors.push('Select an intake.');
       if (!i.modeOfStudy) errors.push('Select a mode of study.');
     }
 
-    // Step 5 contains optional experience fields.
+    // STEP 5 contains optional experience fields.
+
+    // STEP 6: FINANCIAL AND VISA
 
     if (stepNumber === 6) {
-      if (!f.fundingSource) errors.push('Select a funding source.');
+      if (!f.fundingSource) {
+        errors.push('Select a funding source.');
+      }
 
       if (!f.passportExpiryDate) {
         errors.push('Passport expiry date is required.');
       } else if (!isValidPassportExpiry(f.passportExpiryDate)) {
         const expiryYear = Number(String(f.passportExpiryDate).slice(0, 4));
+
         if (!isValidDate(f.passportExpiryDate)) {
           errors.push('Enter a valid passport expiry date.');
-        } else if (Number.isNaN(expiryYear) || String(expiryYear).length !== 4) {
+        } else if (
+          Number.isNaN(expiryYear) ||
+          String(expiryYear).length !== 4
+        ) {
           errors.push('Passport expiry year must be a valid 4-digit year.');
         } else if (expiryYear < CURRENT_YEAR) {
           errors.push(
@@ -530,10 +617,14 @@ const ApplyViaUsWizard = () => {
     const selectedProgramId =
       rawPayload.programId || form.programId || programId;
 
-    if (selectedProgramId) data.append('programId', selectedProgramId);
+    if (selectedProgramId) {
+      data.append('programId', selectedProgramId);
+    }
+
     if (rawPayload.programName) {
       data.append('programName', rawPayload.programName);
     }
+
     if (rawPayload.universityName) {
       data.append('universityName', rawPayload.universityName);
     }
@@ -546,7 +637,7 @@ const ApplyViaUsWizard = () => {
       'languageProficiency',
       'programInterest',
       'experienceInfo',
-      'financialAndVisa'
+      'financialAndVisa',
     ].forEach((key) => {
       data.append(key, JSON.stringify(rawPayload[key] || {}));
     });
@@ -609,10 +700,13 @@ const ApplyViaUsWizard = () => {
             parsed.programInterest?.interestedCountry ||
             prev.programInterest?.interestedCountry ||
             '',
-        }
+        },
       }));
 
-      setMessage('Progress saved. You can continue anytime from your dashboard.');
+      setMessage(
+        'Progress saved. You can continue anytime from your dashboard.'
+      );
+
       return res.data;
     } catch (err) {
       setError(err.message || 'Failed to save application.');
@@ -641,8 +735,6 @@ const ApplyViaUsWizard = () => {
   // ----------------------------------------------------------
 
   const handleSubmit = async () => {
-    // Validate every required step, even if the user navigated
-    // directly to the review screen.
     const allErrors = [];
 
     for (const stepNumber of [1, 2, 3, 4, 6]) {
@@ -656,7 +748,9 @@ const ApplyViaUsWizard = () => {
         (stepNumber) => validateStep(stepNumber).length > 0
       );
 
-      if (firstInvalidStep) setStep(firstInvalidStep);
+      if (firstInvalidStep) {
+        setStep(firstInvalidStep);
+      }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -746,7 +840,9 @@ const ApplyViaUsWizard = () => {
         </div>
       )}
 
-      {message && <div className="alert alert-success">{message}</div>}
+      {message && (
+        <div className="alert alert-success">{message}</div>
+      )}
 
       <div className="apply-form-card">
         <WhatsAppDocumentsNotice />
@@ -759,7 +855,9 @@ const ApplyViaUsWizard = () => {
               <input
                 className="form-control"
                 value={form.personalInfo.firstName}
-                onChange={(e) => patch('personalInfo', 'firstName', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'firstName', e.target.value)
+                }
                 required
               />
             </Field>
@@ -768,7 +866,9 @@ const ApplyViaUsWizard = () => {
               <input
                 className="form-control"
                 value={form.personalInfo.lastName}
-                onChange={(e) => patch('personalInfo', 'lastName', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'lastName', e.target.value)
+                }
                 required
               />
             </Field>
@@ -779,10 +879,14 @@ const ApplyViaUsWizard = () => {
                 placeholder="35202-1234567-1"
                 maxLength={15}
                 value={form.personalInfo.cnic || ''}
-                onChange={(e) => patch('personalInfo', 'cnic', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'cnic', e.target.value)
+                }
                 required
               />
-              <small className="text-muted">Enter 13 digits, with or without hyphens.</small>
+              <small className="text-muted">
+                Enter 13 digits, with or without hyphens.
+              </small>
             </Field>
 
             <Field label="Date of birth" required>
@@ -792,7 +896,9 @@ const ApplyViaUsWizard = () => {
                 min="1900-01-01"
                 max={today}
                 value={form.personalInfo.dateOfBirth}
-                onChange={(e) => patch('personalInfo', 'dateOfBirth', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'dateOfBirth', e.target.value)
+                }
                 required
               />
             </Field>
@@ -801,7 +907,9 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.personalInfo.gender}
-                onChange={(e) => patch('personalInfo', 'gender', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'gender', e.target.value)
+                }
                 required
               >
                 <option value="">Select</option>
@@ -815,7 +923,9 @@ const ApplyViaUsWizard = () => {
               <input
                 className="form-control"
                 value={form.personalInfo.nationality}
-                onChange={(e) => patch('personalInfo', 'nationality', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'nationality', e.target.value)
+                }
                 required
               />
             </Field>
@@ -824,7 +934,9 @@ const ApplyViaUsWizard = () => {
               <input
                 className="form-control"
                 value={form.personalInfo.countryOfResidence}
-                onChange={(e) => patch('personalInfo', 'countryOfResidence', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'countryOfResidence', e.target.value)
+                }
                 required
               />
             </Field>
@@ -836,7 +948,9 @@ const ApplyViaUsWizard = () => {
                 className="form-control"
                 placeholder="+92 300 1234567"
                 value={form.personalInfo.contactNumber}
-                onChange={(e) => patch('personalInfo', 'contactNumber', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'contactNumber', e.target.value)
+                }
                 required
               />
             </Field>
@@ -846,7 +960,9 @@ const ApplyViaUsWizard = () => {
                 type="email"
                 className="form-control"
                 value={form.personalInfo.emailAddress}
-                onChange={(e) => patch('personalInfo', 'emailAddress', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'emailAddress', e.target.value)
+                }
                 required
               />
             </Field>
@@ -857,7 +973,9 @@ const ApplyViaUsWizard = () => {
                 minLength={5}
                 maxLength={20}
                 value={form.personalInfo.passportNumber}
-                onChange={(e) => patch('personalInfo', 'passportNumber', e.target.value)}
+                onChange={(e) =>
+                  patch('personalInfo', 'passportNumber', e.target.value)
+                }
                 required
               />
             </Field>
@@ -868,7 +986,9 @@ const ApplyViaUsWizard = () => {
                   className="form-control"
                   rows={2}
                   value={form.personalInfo.currentAddress}
-                  onChange={(e) => patch('personalInfo', 'currentAddress', e.target.value)}
+                  onChange={(e) =>
+                    patch('personalInfo', 'currentAddress', e.target.value)
+                  }
                   required
                 />
               </Field>
@@ -881,7 +1001,9 @@ const ApplyViaUsWizard = () => {
         {step === 2 && (
           <div className="apply-academic-section">
             <div className="border-bottom pb-3 mb-4 w-100">
-              <h4 className="mb-1 text-dark fw-bold">Academic Background</h4>
+              <h4 className="mb-1 text-dark fw-bold">
+                Academic Background
+              </h4>
               <p className="text-muted small mb-0">
                 Enter your latest qualification first.
               </p>
@@ -902,18 +1024,33 @@ const ApplyViaUsWizard = () => {
                       <input
                         className="form-control w-100"
                         value={form.academicBackground.highSchoolName}
-                        onChange={(e) => patch('academicBackground', 'highSchoolName', e.target.value)}
+                        onChange={(e) =>
+                          patch(
+                            'academicBackground',
+                            'highSchoolName',
+                            e.target.value
+                          )
+                        }
                         required
                       />
                     </Field>
                   </div>
 
                   <div className="col-md-6 px-2">
-                    <Field label="Board / University / Awarding Body" required>
+                    <Field
+                      label="Board / University / Awarding Body"
+                      required
+                    >
                       <input
                         className="form-control w-100"
                         value={form.academicBackground.boardOrUniversity}
-                        onChange={(e) => patch('academicBackground', 'boardOrUniversity', e.target.value)}
+                        onChange={(e) =>
+                          patch(
+                            'academicBackground',
+                            'boardOrUniversity',
+                            e.target.value
+                          )
+                        }
                         required
                       />
                     </Field>
@@ -932,7 +1069,11 @@ const ApplyViaUsWizard = () => {
                           const value = e.target.value;
                           if (!/^\d{0,4}$/.test(value)) return;
 
-                          patch('academicBackground', 'yearOfGraduation', value);
+                          patch(
+                            'academicBackground',
+                            'yearOfGraduation',
+                            value
+                          );
 
                           setYearErrors((prev) => ({
                             ...prev,
@@ -945,7 +1086,9 @@ const ApplyViaUsWizard = () => {
                         required
                       />
                       {yearErrors.primary && (
-                        <small className="text-danger">{yearErrors.primary}</small>
+                        <small className="text-danger">
+                          {yearErrors.primary}
+                        </small>
                       )}
                     </Field>
                   </div>
@@ -959,7 +1102,12 @@ const ApplyViaUsWizard = () => {
                         value={form.academicBackground.gpaOrPercentage}
                         onChange={(e) => {
                           const value = e.target.value.replace(/-/g, '');
-                          patch('academicBackground', 'gpaOrPercentage', value);
+                          patch(
+                            'academicBackground',
+                            'gpaOrPercentage',
+                            value
+                          );
+
                           setYearErrors((prev) => ({
                             ...prev,
                             gpa:
@@ -971,7 +1119,9 @@ const ApplyViaUsWizard = () => {
                         required
                       />
                       {yearErrors.gpa && (
-                        <small className="text-danger">{yearErrors.gpa}</small>
+                        <small className="text-danger">
+                          {yearErrors.gpa}
+                        </small>
                       )}
                     </Field>
                   </div>
@@ -979,113 +1129,137 @@ const ApplyViaUsWizard = () => {
               </div>
             </div>
 
-            {(form.academicBackground.schools || []).map((school, index) => (
-              <div
-                key={index}
-                className="card shadow-sm border mb-4 w-100 animate-fade-in"
-              >
-                <div className="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                  <span className="text-secondary small fw-bold text-uppercase">
-                    Additional Academic Track #{index + 1}
-                  </span>
+            {(form.academicBackground.schools || []).map(
+              (school, index) => (
+                <div
+                  key={index}
+                  className="card shadow-sm border mb-4 w-100 animate-fade-in"
+                >
+                  <div className="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <span className="text-secondary small fw-bold text-uppercase">
+                      Additional Academic Track #{index + 1}
+                    </span>
 
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => removeSchoolRow(index)}
-                  >
-                    <i className="fa-solid fa-trash-can" /> Remove
-                  </button>
-                </div>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => removeSchoolRow(index)}
+                    >
+                      <i className="fa-solid fa-trash-can" /> Remove
+                    </button>
+                  </div>
 
-                <div className="card-body p-4 pt-2">
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <Field label="School / Institution Name" required>
-                        <input
-                          className="form-control"
-                          value={school.schoolName}
-                          onChange={(e) => updateSchoolRow(index, 'schoolName', e.target.value)}
-                          required
-                        />
-                      </Field>
-                    </div>
+                  <div className="card-body p-4 pt-2">
+                    <div className="row g-3">
+                      <div className="col-md-6">
+                        <Field label="School / Institution Name" required>
+                          <input
+                            className="form-control"
+                            value={school.schoolName}
+                            onChange={(e) =>
+                              updateSchoolRow(
+                                index,
+                                'schoolName',
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </Field>
+                      </div>
 
-                    <div className="col-md-6">
-                      <Field label="Board / University" required>
-                        <input
-                          className="form-control"
-                          value={school.boardOrUniversity}
-                          onChange={(e) => updateSchoolRow(index, 'boardOrUniversity', e.target.value)}
-                          required
-                        />
-                      </Field>
-                    </div>
+                      <div className="col-md-6">
+                        <Field label="Board / University" required>
+                          <input
+                            className="form-control"
+                            value={school.boardOrUniversity}
+                            onChange={(e) =>
+                              updateSchoolRow(
+                                index,
+                                'boardOrUniversity',
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </Field>
+                      </div>
 
-                    <div className="col-md-6">
-                      <Field label="Year of Completion" required>
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          maxLength={4}
-                          className="form-control"
-                          placeholder="YYYY"
-                          value={school.graduationYear}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (!/^\d{0,4}$/.test(value)) return;
+                      <div className="col-md-6">
+                        <Field label="Year of Completion" required>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            maxLength={4}
+                            className="form-control"
+                            placeholder="YYYY"
+                            value={school.graduationYear}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (!/^\d{0,4}$/.test(value)) return;
 
-                            updateSchoolRow(index, 'graduationYear', value);
+                              updateSchoolRow(
+                                index,
+                                'graduationYear',
+                                value
+                              );
 
-                            setYearErrors((prev) => ({
-                              ...prev,
-                              [`school_${index}`]:
-                                value.length === 4 && !isValidYear(value)
-                                  ? `Year must be between 1950 and ${CURRENT_YEAR}.`
-                                  : '',
-                            }));
-                          }}
-                          required
-                        />
-                        {yearErrors[`school_${index}`] && (
-                          <small className="text-danger">
-                            {yearErrors[`school_${index}`]}
-                          </small>
-                        )}
-                      </Field>
-                    </div>
+                              setYearErrors((prev) => ({
+                                ...prev,
+                                [`school_${index}`]:
+                                  value.length === 4 && !isValidYear(value)
+                                    ? `Year must be between 1950 and ${CURRENT_YEAR}.`
+                                    : '',
+                              }));
+                            }}
+                            required
+                          />
+                          {yearErrors[`school_${index}`] && (
+                            <small className="text-danger">
+                              {yearErrors[`school_${index}`]}
+                            </small>
+                          )}
+                        </Field>
+                      </div>
 
-                    <div className="col-md-6">
-                      <Field label="GPA / Percentage" required>
-                        <input
-                          className="form-control"
-                          placeholder="85% or 850/1000"
-                          min="0"
-                          value={school.gpaOrPercentage}
-                          onChange={(e) => {
-                            const value = e.target.value.replace(/-/g, '');
-                            updateSchoolRow(index, 'gpaOrPercentage', value);
-                            setYearErrors((prev) => ({
-                              ...prev,
-                              [`school_gpa_${index}`]:
-                                value && !isValidAcademicResult(value)
-                                  ? 'Percentage/score cannot be negative.'
-                                  : '',
-                            }));
-                          }}
-                          required
-                        />
-                        {yearErrors[`school_gpa_${index}`] && (
-                          <small className="text-danger">
-                            {yearErrors[`school_gpa_${index}`]}
-                          </small>
-                        )}
-                      </Field>
+                      <div className="col-md-6">
+                        <Field label="GPA / Percentage" required>
+                          <input
+                            className="form-control"
+                            placeholder="85% or 850/1000"
+                            min="0"
+                            value={school.gpaOrPercentage}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(/-/g, '');
+
+                              updateSchoolRow(
+                                index,
+                                'gpaOrPercentage',
+                                value
+                              );
+
+                              setYearErrors((prev) => ({
+                                ...prev,
+                                [`school_gpa_${index}`]:
+                                  value && !isValidAcademicResult(value)
+                                    ? 'Percentage/score cannot be negative.'
+                                    : '',
+                              }));
+                            }}
+                            required
+                          />
+                          {yearErrors[`school_gpa_${index}`] && (
+                            <small className="text-danger">
+                              {yearErrors[`school_gpa_${index}`]}
+                            </small>
+                          )}
+                        </Field>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
 
             <div className="text-center my-4 py-3 bg-light border rounded-3">
               <button
@@ -1096,6 +1270,7 @@ const ApplyViaUsWizard = () => {
                 <i className="fa-solid fa-plus-circle me-2" />
                 Add Prior Education / Qualification
               </button>
+
               <p className="text-muted small mt-2 mb-0">
                 Add secondary school or other historic qualifications.
               </p>
@@ -1111,7 +1286,18 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.languageProficiency.examType}
-                onChange={(e) => patch('languageProficiency', 'examType', e.target.value)}
+                onChange={(e) => {
+                  patch(
+                    'languageProficiency',
+                    'examType',
+                    e.target.value
+                  );
+
+                  setYearErrors((prev) => ({
+                    ...prev,
+                    score: '',
+                  }));
+                }}
               >
                 <option value="Not Required">Not Required</option>
                 <option value="IELTS">IELTS</option>
@@ -1134,17 +1320,26 @@ const ApplyViaUsWizard = () => {
                       ? 120
                       : 90
                 }
-                step={form.languageProficiency.examType === 'IELTS' ? '0.5' : '1'}
+                step={
+                  form.languageProficiency.examType === 'IELTS'
+                    ? '0.5'
+                    : '1'
+                }
                 className="form-control"
                 value={form.languageProficiency.score}
                 onKeyDown={blockNegativeKeys}
                 onChange={(e) => {
                   const value = e.target.value;
+
                   if (value === '') {
                     patch('languageProficiency', 'score', '');
-                    setYearErrors((prev) => ({ ...prev, score: '' }));
+                    setYearErrors((prev) => ({
+                      ...prev,
+                      score: '',
+                    }));
                     return;
                   }
+
                   if (Number(value) < 0) {
                     setYearErrors((prev) => ({
                       ...prev,
@@ -1152,7 +1347,9 @@ const ApplyViaUsWizard = () => {
                     }));
                     return;
                   }
+
                   patch('languageProficiency', 'score', value);
+
                   setYearErrors((prev) => ({
                     ...prev,
                     score:
@@ -1165,24 +1362,39 @@ const ApplyViaUsWizard = () => {
                         : '',
                   }));
                 }}
-                disabled={form.languageProficiency.examType === 'Not Required'}
+                disabled={
+                  form.languageProficiency.examType === 'Not Required'
+                }
               />
+
               {yearErrors.score && (
-                <small className="text-danger">{yearErrors.score}</small>
+                <small className="text-danger">
+                  {yearErrors.score}
+                </small>
               )}
             </Field>
 
-            <Field label="Exam date / expiry">
+            <Field label="English test expiry date">
               <input
                 type="date"
                 className="form-control"
-                min="1950-01-01"
-                max={today}
+                min={tomorrow}
                 value={form.languageProficiency.examDateOrExpiry}
-                onChange={(e) => patch('languageProficiency', 'examDateOrExpiry', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'languageProficiency',
+                    'examDateOrExpiry',
+                    e.target.value
+                  )
+                }
+                disabled={
+                  form.languageProficiency.examType === 'Not Required'
+                }
               />
+              <small className="text-muted">
+                Select the future expiry date of your English test result.
+              </small>
             </Field>
-
           </div>
         )}
 
@@ -1194,7 +1406,13 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.programInterest.programType}
-                onChange={(e) => patch('programInterest', 'programType', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'programInterest',
+                    'programType',
+                    e.target.value
+                  )
+                }
                 required
               >
                 <option value="">Select</option>
@@ -1205,23 +1423,70 @@ const ApplyViaUsWizard = () => {
               </select>
             </Field>
 
+            {/* FIELD OF STUDY DROPDOWN */}
+
             <Field label="Field of study" required>
-              <input
-                className="form-control"
-                value={form.programInterest.fieldOfStudy}
-                onChange={(e) => patch('programInterest', 'fieldOfStudy', e.target.value)}
+              <select
+                className="form-select"
+                value={fieldOfStudyDropdownValue}
+                onChange={(e) =>
+                  handleFieldOfStudyChange(e.target.value)
+                }
                 required
-              />
+              >
+                <option value="">Select field of study</option>
+
+                {FIELD_OF_STUDY_OPTIONS.map((field) => (
+                  <option key={field} value={field}>
+                    {field}
+                  </option>
+                ))}
+              </select>
             </Field>
+
+            {/* CUSTOM FIELD INPUT WHEN OTHER IS SELECTED */}
+
+            {isOtherFieldOfStudy && (
+              <div className="apply-grid-full">
+                <Field label="Enter your field of study" required>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="e.g. Environmental Science"
+                    value={
+                      isPredefinedField
+                        ? ''
+                        : form.programInterest.fieldOfStudy
+                    }
+                    onChange={(e) =>
+                      handleCustomFieldOfStudyChange(e.target.value)
+                    }
+                    required
+                    maxLength={100}
+                  />
+
+                  <small className="text-muted">
+                    Please enter the name of your preferred study field.
+                  </small>
+                </Field>
+              </div>
+            )}
 
             <Field label="Interested Country" required>
               <select
                 className="form-select"
                 value={form.programInterest.interestedCountry}
-                onChange={(e) => patch('programInterest', 'interestedCountry', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'programInterest',
+                    'interestedCountry',
+                    e.target.value
+                  )
+                }
                 required
               >
                 <option value="">Select country</option>
+
                 {countries.map((country) => (
                   <option key={country._id} value={country.countryName}>
                     {country.countryName}
@@ -1235,7 +1500,8 @@ const ApplyViaUsWizard = () => {
                 className="form-control"
                 value={
                   form.universityName ||
-                  form.programInterest.preferredUniversities?.[0]?.universityName ||
+                  form.programInterest.preferredUniversities?.[0]
+                    ?.universityName ||
                   ''
                 }
                 onChange={(e) =>
@@ -1250,7 +1516,13 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.programInterest.intakeSeason}
-                onChange={(e) => patch('programInterest', 'intakeSeason', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'programInterest',
+                    'intakeSeason',
+                    e.target.value
+                  )
+                }
                 required
               >
                 <option value="">Select</option>
@@ -1265,7 +1537,13 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.programInterest.modeOfStudy}
-                onChange={(e) => patch('programInterest', 'modeOfStudy', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'programInterest',
+                    'modeOfStudy',
+                    e.target.value
+                  )
+                }
                 required
               >
                 <option value="On-campus">On-campus</option>
@@ -1285,7 +1563,13 @@ const ApplyViaUsWizard = () => {
                 className="form-control"
                 rows={3}
                 value={form.experienceInfo.internshipsOrProjects}
-                onChange={(e) => patch('experienceInfo', 'internshipsOrProjects', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'experienceInfo',
+                    'internshipsOrProjects',
+                    e.target.value
+                  )
+                }
               />
             </Field>
 
@@ -1293,8 +1577,16 @@ const ApplyViaUsWizard = () => {
               <textarea
                 className="form-control"
                 rows={3}
-                value={form.experienceInfo.extracurricularAndLeadership}
-                onChange={(e) => patch('experienceInfo', 'extracurricularAndLeadership', e.target.value)}
+                value={
+                  form.experienceInfo.extracurricularAndLeadership
+                }
+                onChange={(e) =>
+                  patch(
+                    'experienceInfo',
+                    'extracurricularAndLeadership',
+                    e.target.value
+                  )
+                }
               />
             </Field>
 
@@ -1303,7 +1595,13 @@ const ApplyViaUsWizard = () => {
                 className="form-control"
                 rows={3}
                 value={form.experienceInfo.volunteerExperience}
-                onChange={(e) => patch('experienceInfo', 'volunteerExperience', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'experienceInfo',
+                    'volunteerExperience',
+                    e.target.value
+                  )
+                }
               />
             </Field>
           </div>
@@ -1317,7 +1615,13 @@ const ApplyViaUsWizard = () => {
               <select
                 className="form-select"
                 value={form.financialAndVisa.fundingSource}
-                onChange={(e) => patch('financialAndVisa', 'fundingSource', e.target.value)}
+                onChange={(e) =>
+                  patch(
+                    'financialAndVisa',
+                    'fundingSource',
+                    e.target.value
+                  )
+                }
                 required
               >
                 <option value="">Select</option>
@@ -1331,23 +1635,39 @@ const ApplyViaUsWizard = () => {
               <input
                 type="date"
                 className="form-control"
-                min={today}
+                min={tomorrow}
                 max={`${MAX_PASSPORT_EXPIRY_YEAR}-12-31`}
                 value={form.financialAndVisa.passportExpiryDate}
                 onChange={(e) => {
                   const value = e.target.value;
-                  patch('financialAndVisa', 'passportExpiryDate', value);
 
-                  const expiryYear = Number(String(value).slice(0, 4));
+                  patch(
+                    'financialAndVisa',
+                    'passportExpiryDate',
+                    value
+                  );
+
+                  const expiryYear = Number(
+                    String(value).slice(0, 4)
+                  );
+
                   let message = '';
 
                   if (value && !isValidDate(value)) {
                     message = 'Enter a valid passport expiry date.';
-                  } else if (value && (Number.isNaN(expiryYear) || String(expiryYear).length !== 4)) {
-                    message = 'Passport expiry year must be a valid 4-digit year.';
+                  } else if (
+                    value &&
+                    (Number.isNaN(expiryYear) ||
+                      String(expiryYear).length !== 4)
+                  ) {
+                    message =
+                      'Passport expiry year must be a valid 4-digit year.';
                   } else if (value && expiryYear < CURRENT_YEAR) {
                     message = `Passport expiry year cannot be before ${CURRENT_YEAR}.`;
-                  } else if (value && expiryYear > MAX_PASSPORT_EXPIRY_YEAR) {
+                  } else if (
+                    value &&
+                    expiryYear > MAX_PASSPORT_EXPIRY_YEAR
+                  ) {
                     message = `Passport expiry year cannot be after ${MAX_PASSPORT_EXPIRY_YEAR}.`;
                   } else if (value && !isFutureDate(value)) {
                     message = 'Passport expiry must be a future date.';
@@ -1360,8 +1680,15 @@ const ApplyViaUsWizard = () => {
                 }}
                 required
               />
+
+              <small className="text-muted">
+                Your passport expiry date must be in the future.
+              </small>
+
               {yearErrors.passportExpiry && (
-                <small className="text-danger">{yearErrors.passportExpiry}</small>
+                <small className="text-danger d-block">
+                  {yearErrors.passportExpiry}
+                </small>
               )}
             </Field>
           </div>
@@ -1376,35 +1703,49 @@ const ApplyViaUsWizard = () => {
             <ul>
               <li>
                 <strong>Name:</strong>{' '}
-                {[form.personalInfo.firstName, form.personalInfo.lastName]
+                {[
+                  form.personalInfo.firstName,
+                  form.personalInfo.lastName,
+                ]
                   .filter(Boolean)
                   .join(' ') || '—'}
               </li>
+
               <li>
-                <strong>CNIC:</strong> {form.personalInfo.cnic || '—'}
+                <strong>CNIC:</strong>{' '}
+                {form.personalInfo.cnic || '—'}
               </li>
+
               <li>
                 <strong>Date of birth:</strong>{' '}
                 {form.personalInfo.dateOfBirth || '—'}
               </li>
+
               <li>
-                <strong>Mobile:</strong> {form.personalInfo.contactNumber || '—'}
+                <strong>Mobile:</strong>{' '}
+                {form.personalInfo.contactNumber || '—'}
               </li>
+
               <li>
-                <strong>Email:</strong> {form.personalInfo.emailAddress || '—'}
+                <strong>Email:</strong>{' '}
+                {form.personalInfo.emailAddress || '—'}
               </li>
+
               <li>
                 <strong>Field:</strong>{' '}
                 {form.programInterest.fieldOfStudy || '—'}
               </li>
+
               <li>
                 <strong>Interested Country:</strong>{' '}
                 {form.programInterest.interestedCountry || '—'}
               </li>
+
               <li>
                 <strong>English Test:</strong>{' '}
                 {form.languageProficiency.examType || '—'}
               </li>
+
               <li>
                 <strong>Additional Academic Records:</strong>{' '}
                 {form.academicBackground.schools?.length || 0} track(s)
