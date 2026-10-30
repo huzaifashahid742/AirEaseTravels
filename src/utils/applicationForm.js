@@ -91,7 +91,6 @@ export const emptyApplicationForm = () => ({
     subjectsStudied: '',
     previousUniversity: '',
     degreeObtained: '',
-    transcriptUpload: '',
     schools: [],
   },
   languageProficiency: {
@@ -211,12 +210,10 @@ export const applicationFromApi = (app) => {
       ...form.academicBackground,
       ...app.academicBackground,
       yearOfGraduation: app.academicBackground?.yearOfGraduation ?? '',
-      transcriptUpload: app.academicBackground?.transcriptUpload || '',
       subjectsStudied: (app.academicBackground?.subjectsStudied || []).join(', '),
       schools: (app.academicBackground?.schools || []).map((s) => ({
         ...s,
         graduationYear: s.graduationYear ?? '',
-        resultUpload: s.resultUpload || '',
       })),
     },
     languageProficiency: {
@@ -244,7 +241,7 @@ export const applicationFromApi = (app) => {
   };
 };
 
-const filePathOnly = (value) => (typeof value === 'string' && value.trim() ? value.trim() : undefined);
+// const filePathOnly = (value) => (typeof value === 'string' && value.trim() ? value.trim() : undefined);
 
 export const formToApiPayload = (form, step) => {
   const subjects = form.academicBackground.subjectsStudied
@@ -277,15 +274,15 @@ export const formToApiPayload = (form, step) => {
       yearOfGraduation: form.academicBackground.yearOfGraduation
         ? Number(form.academicBackground.yearOfGraduation)
         : undefined,
-      transcriptUpload: typeof form.academicBackground.transcriptUpload === 'string'
-        ? form.academicBackground.transcriptUpload
-        : undefined,
+      // transcriptUpload: typeof form.academicBackground.transcriptUpload === 'string'
+        // ? form.academicBackground.transcriptUpload
+        // : undefined,
       schools: (form.academicBackground.schools || []).map((school) => ({
         schoolName: school.schoolName || '',
         boardOrUniversity: school.boardOrUniversity || '',
         gpaOrPercentage: school.gpaOrPercentage || '',
         graduationYear: school.graduationYear ? Number(school.graduationYear) : undefined,
-        resultUpload: typeof school.resultUpload === 'string' ? school.resultUpload : undefined,
+        // resultUpload: typeof school.resultUpload === 'string' ? school.resultUpload : undefined,
       })),
       subjectsStudied: subjects,
     },

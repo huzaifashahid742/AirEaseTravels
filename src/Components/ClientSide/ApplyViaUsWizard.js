@@ -304,7 +304,7 @@ const ApplyViaUsWizard = () => {
         graduationYear: '',
         boardOrUniversity: '',
         gpaOrPercentage: '',
-        resultUpload: '',
+        // resultUpload: '',
       },
     ]);
   };
@@ -582,10 +582,6 @@ const ApplyViaUsWizard = () => {
         academicBackground: {
           ...prev.academicBackground,
           ...parsed.academicBackground,
-          transcriptUpload:
-            parsed.academicBackground?.transcriptUpload ||
-            prev.academicBackground?.transcriptUpload ||
-            '',
 
           schools: (
             parsed.academicBackground?.schools ||
@@ -594,10 +590,6 @@ const ApplyViaUsWizard = () => {
           ).map((school, index) => ({
             ...(prev.academicBackground?.schools?.[index] || {}),
             ...school,
-            resultUpload:
-              school.resultUpload ||
-              prev.academicBackground?.schools?.[index]?.resultUpload ||
-              '',
           })),
         },
 
