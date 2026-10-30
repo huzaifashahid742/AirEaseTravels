@@ -24,6 +24,8 @@ import PageLoader from './PageLoader';
 // ============================================================
 
 const CURRENT_YEAR = new Date().getFullYear();
+const MAX_PASSPORT_EXPIRY_YEAR = CURRENT_YEAR + 20;
+const WHATSAPP_DOCS_URL = 'https://wa.me/message/Y2LJ2VUONSEOF1';
 
 const getLocalDateString = (date = new Date()) => {
   const year = date.getFullYear();
@@ -77,10 +79,17 @@ const isValidPassport = (value) =>
 const isValidEmail = (value) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value ?? '').trim());
 
+const isNonNegativeNumber = (value) => {
+  const text = String(value ?? '').trim();
+  if (!text || text.includes('-')) return false;
+  const number = Number(text);
+  return Number.isFinite(number) && number >= 0;
+};
+
 const isValidAcademicResult = (value) => {
   const result = String(value ?? '').trim();
 
-  if (!result) return false;
+  if (!result || result.includes('-')) return false;
 
   // Percentage: 85%, 99.5%
   const percentage = result.match(/^(\d{1,3}(?:\.\d{1,2})?)\s*%$/);
@@ -102,17 +111,21 @@ const isValidAcademicResult = (value) => {
     return maximum > 0 && obtained >= 0 && obtained <= maximum;
   }
 
-  // Plain numeric GPA, e.g. 3.8
-  return /^\d+(?:\.\d+)?$/.test(result);
+  // Plain numeric GPA or percentage without a % sign
+  if (!/^\d+(?:\.\d{1,2})?$/.test(result)) return false;
+  const number = Number(result);
+  return number >= 0 && number <= 100;
 };
 
 const isValidLanguageScore = (examType, value) => {
   if (examType === 'Not Required') return true;
+  if (!isNonNegativeNumber(value)) return false;
 
   const text = String(value ?? '').trim();
   if (!/^\d+(?:\.\d+)?$/.test(text)) return false;
 
   const score = Number(text);
+  if (score < 0) return false;
 
   switch (examType) {
     case 'IELTS':
@@ -123,6 +136,18 @@ const isValidLanguageScore = (examType, value) => {
       return score >= 10 && score <= 90 && Number.isInteger(score);
     default:
       return false;
+  }
+};
+
+const isValidPassportExpiry = (value) => {
+  if (!isValidDate(value) || !isFutureDate(value)) return false;
+  const year = Number(String(value).slice(0, 4));
+  return year >= CURRENT_YEAR && year <= MAX_PASSPORT_EXPIRY_YEAR;
+};
+
+const blockNegativeKeys = (event) => {
+  if (['-', 'e', 'E', '+'].includes(event.key)) {
+    event.preventDefault();
   }
 };
 
@@ -140,41 +165,17 @@ const Field = ({ label, required, children }) => (
   </div>
 );
 
-const FileField = ({ label, required, value, onChange }) => (
-  <Field label={label} required={required}>
-    <input
-      type="file"
-      accept=".pdf,application/pdf"
-      onChange={(e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        if (
-          file.type !== 'application/pdf' &&
-          !file.name.toLowerCase().endsWith('.pdf')
-        ) {
-          alert('Only PDF documents are allowed.');
-          e.target.value = '';
-          return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-          alert('File size must not exceed 5 MB.');
-          e.target.value = '';
-          return;
-        }
-
-        onChange(file);
-      }}
-    />
-
-    {value && (
-      <p className="apply-file-ok">
-        <i className="fa fa-check-circle" />{' '}
-        {typeof value === 'string' ? 'Saved Server File' : 'Document Ready'}
-      </p>
-    )}
-  </Field>
+const WhatsAppDocumentsNotice = () => (
+  <div className="apply-docs-whatsapp">
+    <p>
+      Please fill in your information here. Send all supporting documents
+      (passport copy, transcripts, CV, and English test results) to our team
+      on WhatsApp.
+    </p>
+    <a href={WHATSAPP_DOCS_URL} target="_blank" rel="noopener noreferrer">
+      <i className="fa-brands fa-whatsapp" /> Send documents on WhatsApp
+    </a>
+  </div>
 );
 
 // ============================================================
@@ -215,7 +216,12 @@ const ApplyViaUsWizard = () => {
           const res = await visaApplicationsAPI.getById(applicationIdParam);
 
           base = mergeUserIntoForm(applicationFromApi(res.data), user);
-          setStep(res.data.currentStep || 1);
+          setStep(
+            Math.min(
+              Math.max(res.data.currentStep || 1, 1),
+              APPLICATION_STEPS.length
+            )
+          );
 
           const loadedProgramId =
             res.data.programId?._id || res.data.programId;
@@ -233,7 +239,12 @@ const ApplyViaUsWizard = () => {
               applicationFromApi(draftRes.data),
               user
             );
-            setStep(draftRes.data.currentStep || 1);
+            setStep(
+              Math.min(
+                Math.max(draftRes.data.currentStep || 1, 1),
+                APPLICATION_STEPS.length
+              )
+            );
           }
 
           const progRes = await programsAPI.getById(routeProgramId);
@@ -328,7 +339,6 @@ const ApplyViaUsWizard = () => {
     const l = form.languageProficiency;
     const i = form.programInterest;
     const f = form.financialAndVisa;
-    const attachments = form.attachments;
 
     const errors = [];
 
@@ -388,11 +398,9 @@ const ApplyViaUsWizard = () => {
       }
 
       if (!isValidAcademicResult(a.gpaOrPercentage)) {
-        errors.push('Enter a valid GPA, percentage, or obtained/maximum score.');
-      }
-
-      if (!a.transcriptUpload) {
-        errors.push('Upload the latest education transcript or marksheet.');
+        errors.push(
+          'Enter a valid non-negative GPA, percentage (0–100%), or obtained/maximum score.'
+        );
       }
 
       // Retain your existing academic validation utility.
@@ -415,11 +423,9 @@ const ApplyViaUsWizard = () => {
         }
 
         if (!isValidAcademicResult(school.gpaOrPercentage)) {
-          errors.push(`${label}: enter a valid academic result.`);
-        }
-
-        if (!school.resultUpload) {
-          errors.push(`${label}: upload the result or transcript.`);
+          errors.push(
+            `${label}: enter a valid non-negative GPA, percentage, or score.`
+          );
         }
       });
     }
@@ -428,7 +434,11 @@ const ApplyViaUsWizard = () => {
       if (!l.examType) {
         errors.push('Select an English test option.');
       } else if (l.examType !== 'Not Required') {
-        if (!isValidLanguageScore(l.examType, l.score)) {
+        if (!String(l.score ?? '').trim()) {
+          errors.push('Score is required.');
+        } else if (Number(l.score) < 0) {
+          errors.push('Score cannot be negative.');
+        } else if (!isValidLanguageScore(l.examType, l.score)) {
           errors.push(
             l.examType === 'IELTS'
               ? 'IELTS score must be between 0 and 9.'
@@ -436,10 +446,6 @@ const ApplyViaUsWizard = () => {
                 ? 'TOEFL score must be a whole number between 0 and 120.'
                 : 'PTE score must be a whole number between 10 and 90.'
           );
-        }
-
-        if (!l.IELTSresult) {
-          errors.push('Upload your English test result certificate.');
         }
 
         if (
@@ -471,21 +477,25 @@ const ApplyViaUsWizard = () => {
     if (stepNumber === 6) {
       if (!f.fundingSource) errors.push('Select a funding source.');
 
-      if (
-        !isValidDate(f.passportExpiryDate) ||
-        !isFutureDate(f.passportExpiryDate)
-      ) {
-        errors.push('Passport expiry must be a valid future date.');
-      }
-    }
-
-    if (stepNumber === 7) {
-      if (!attachments.resumeCv) errors.push('Upload your CV.');
-      if (!attachments.passportCopyUpload) {
-        errors.push('Upload your passport copy.');
-      }
-      if (!attachments.nationalIdProof) {
-        errors.push('Upload your national ID proof.');
+      if (!f.passportExpiryDate) {
+        errors.push('Passport expiry date is required.');
+      } else if (!isValidPassportExpiry(f.passportExpiryDate)) {
+        const expiryYear = Number(String(f.passportExpiryDate).slice(0, 4));
+        if (!isValidDate(f.passportExpiryDate)) {
+          errors.push('Enter a valid passport expiry date.');
+        } else if (Number.isNaN(expiryYear) || String(expiryYear).length !== 4) {
+          errors.push('Passport expiry year must be a valid 4-digit year.');
+        } else if (expiryYear < CURRENT_YEAR) {
+          errors.push(
+            `Passport expiry year cannot be before ${CURRENT_YEAR}.`
+          );
+        } else if (expiryYear > MAX_PASSPORT_EXPIRY_YEAR) {
+          errors.push(
+            `Passport expiry year cannot be after ${MAX_PASSPORT_EXPIRY_YEAR}.`
+          );
+        } else {
+          errors.push('Passport expiry must be a future date.');
+        }
       }
     }
 
@@ -540,29 +550,6 @@ const ApplyViaUsWizard = () => {
       'attachments',
     ].forEach((key) => {
       data.append(key, JSON.stringify(rawPayload[key] || {}));
-    });
-
-    const appendFile = (key, value) => {
-      if (typeof File !== 'undefined' && value instanceof File) {
-        data.append(key, value);
-      }
-    };
-
-    appendFile('transcriptUpload', form.academicBackground.transcriptUpload);
-    appendFile('resumeCv', form.attachments.resumeCv);
-    appendFile(
-      'statementOfPurpose',
-      form.attachments.statementOfPurpose
-    );
-    appendFile(
-      'passportCopyUpload',
-      form.attachments.passportCopyUpload
-    );
-    appendFile('nationalIdProof', form.attachments.nationalIdProof);
-    appendFile('IELTSresult', form.languageProficiency.IELTSresult);
-
-    (form.academicBackground.schools || []).forEach((school, index) => {
-      appendFile(`schoolResultUpload_${index}`, school.resultUpload);
     });
 
     return data;
@@ -686,14 +673,14 @@ const ApplyViaUsWizard = () => {
     // directly to the review screen.
     const allErrors = [];
 
-    for (const stepNumber of [1, 2, 3, 4, 6, 7]) {
+    for (const stepNumber of [1, 2, 3, 4, 6]) {
       allErrors.push(...validateStep(stepNumber));
     }
 
     if (allErrors.length) {
       setError([...new Set(allErrors)].join('\n'));
 
-      const firstInvalidStep = [1, 2, 3, 4, 6, 7].find(
+      const firstInvalidStep = [1, 2, 3, 4, 6].find(
         (stepNumber) => validateStep(stepNumber).length > 0
       );
 
@@ -790,6 +777,8 @@ const ApplyViaUsWizard = () => {
       {message && <div className="alert alert-success">{message}</div>}
 
       <div className="apply-form-card">
+        <WhatsAppDocumentsNotice />
+
         {/* STEP 1: PERSONAL INFORMATION */}
 
         {step === 1 && (
@@ -994,20 +983,25 @@ const ApplyViaUsWizard = () => {
                       <input
                         className="form-control w-100"
                         placeholder="85% or 850/1000 or 3.8/4.0"
+                        min="0"
                         value={form.academicBackground.gpaOrPercentage}
-                        onChange={(e) => patch('academicBackground', 'gpaOrPercentage', e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/-/g, '');
+                          patch('academicBackground', 'gpaOrPercentage', value);
+                          setYearErrors((prev) => ({
+                            ...prev,
+                            gpa:
+                              value && !isValidAcademicResult(value)
+                                ? 'Percentage/score cannot be negative. Use 85%, 3.8/4.0, or 850/1000.'
+                                : '',
+                          }));
+                        }}
                         required
                       />
+                      {yearErrors.gpa && (
+                        <small className="text-danger">{yearErrors.gpa}</small>
+                      )}
                     </Field>
-                  </div>
-
-                  <div className="col-12 px-2 mt-4 pt-3 border-top w-100">
-                    <FileField
-                      label="Upload Transcript / Marksheet (Latest Education)"
-                      required
-                      value={form.academicBackground.transcriptUpload}
-                      onChange={(v) => patch('academicBackground', 'transcriptUpload', v)}
-                    />
                   </div>
                 </div>
               </div>
@@ -1094,20 +1088,27 @@ const ApplyViaUsWizard = () => {
                         <input
                           className="form-control"
                           placeholder="85% or 850/1000"
+                          min="0"
                           value={school.gpaOrPercentage}
-                          onChange={(e) => updateSchoolRow(index, 'gpaOrPercentage', e.target.value)}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/-/g, '');
+                            updateSchoolRow(index, 'gpaOrPercentage', value);
+                            setYearErrors((prev) => ({
+                              ...prev,
+                              [`school_gpa_${index}`]:
+                                value && !isValidAcademicResult(value)
+                                  ? 'Percentage/score cannot be negative.'
+                                  : '',
+                            }));
+                          }}
                           required
                         />
+                        {yearErrors[`school_gpa_${index}`] && (
+                          <small className="text-danger">
+                            {yearErrors[`school_gpa_${index}`]}
+                          </small>
+                        )}
                       </Field>
-                    </div>
-
-                    <div className="col-12 mt-3 pt-3 border-top">
-                      <FileField
-                        label="Upload Result / Transcript"
-                        required
-                        value={school.resultUpload}
-                        onChange={(v) => updateSchoolRow(index, 'resultUpload', v)}
-                      />
                     </div>
                   </div>
                 </div>
@@ -1164,9 +1165,39 @@ const ApplyViaUsWizard = () => {
                 step={form.languageProficiency.examType === 'IELTS' ? '0.5' : '1'}
                 className="form-control"
                 value={form.languageProficiency.score}
-                onChange={(e) => patch('languageProficiency', 'score', e.target.value)}
+                onKeyDown={blockNegativeKeys}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === '') {
+                    patch('languageProficiency', 'score', '');
+                    setYearErrors((prev) => ({ ...prev, score: '' }));
+                    return;
+                  }
+                  if (Number(value) < 0) {
+                    setYearErrors((prev) => ({
+                      ...prev,
+                      score: 'Score cannot be negative.',
+                    }));
+                    return;
+                  }
+                  patch('languageProficiency', 'score', value);
+                  setYearErrors((prev) => ({
+                    ...prev,
+                    score:
+                      form.languageProficiency.examType !== 'Not Required' &&
+                      !isValidLanguageScore(
+                        form.languageProficiency.examType,
+                        value
+                      )
+                        ? 'Enter a valid non-negative score for the selected test.'
+                        : '',
+                  }));
+                }}
                 disabled={form.languageProficiency.examType === 'Not Required'}
               />
+              {yearErrors.score && (
+                <small className="text-danger">{yearErrors.score}</small>
+              )}
             </Field>
 
             <Field label="Exam date / expiry">
@@ -1180,16 +1211,6 @@ const ApplyViaUsWizard = () => {
               />
             </Field>
 
-            {form.languageProficiency.examType !== 'Not Required' && (
-              <div className="apply-grid-full">
-                <FileField
-                  label={`Upload ${form.languageProficiency.examType} Result Certificate`}
-                  required
-                  value={form.languageProficiency.IELTSresult}
-                  onChange={(v) => patch('languageProficiency', 'IELTSresult', v)}
-                />
-              </div>
-            )}
           </div>
         )}
 
@@ -1339,10 +1360,37 @@ const ApplyViaUsWizard = () => {
                 type="date"
                 className="form-control"
                 min={today}
+                max={`${MAX_PASSPORT_EXPIRY_YEAR}-12-31`}
                 value={form.financialAndVisa.passportExpiryDate}
-                onChange={(e) => patch('financialAndVisa', 'passportExpiryDate', e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  patch('financialAndVisa', 'passportExpiryDate', value);
+
+                  const expiryYear = Number(String(value).slice(0, 4));
+                  let message = '';
+
+                  if (value && !isValidDate(value)) {
+                    message = 'Enter a valid passport expiry date.';
+                  } else if (value && (Number.isNaN(expiryYear) || String(expiryYear).length !== 4)) {
+                    message = 'Passport expiry year must be a valid 4-digit year.';
+                  } else if (value && expiryYear < CURRENT_YEAR) {
+                    message = `Passport expiry year cannot be before ${CURRENT_YEAR}.`;
+                  } else if (value && expiryYear > MAX_PASSPORT_EXPIRY_YEAR) {
+                    message = `Passport expiry year cannot be after ${MAX_PASSPORT_EXPIRY_YEAR}.`;
+                  } else if (value && !isFutureDate(value)) {
+                    message = 'Passport expiry must be a future date.';
+                  }
+
+                  setYearErrors((prev) => ({
+                    ...prev,
+                    passportExpiry: message,
+                  }));
+                }}
                 required
               />
+              {yearErrors.passportExpiry && (
+                <small className="text-danger">{yearErrors.passportExpiry}</small>
+              )}
             </Field>
           </div>
         )}

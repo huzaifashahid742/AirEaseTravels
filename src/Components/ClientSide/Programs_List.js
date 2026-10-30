@@ -464,6 +464,13 @@ const Programs_List = ({ onContactClick }) => {
             >
               Apply via us
             </button>
+            <button
+              type="button"
+              className="btn program-btn-outline"
+              onClick={onContactClick}
+            >
+              Contact our team
+            </button>
           </div>
         </div>
       </article>

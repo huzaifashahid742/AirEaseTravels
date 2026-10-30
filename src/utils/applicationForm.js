@@ -5,8 +5,7 @@ export const APPLICATION_STEPS = [
   { id: 4, key: 'program', title: 'Program Interest' },
   { id: 5, key: 'experience', title: 'Work & Activities' },
   { id: 6, key: 'financial', title: 'Financial & Visa' },
-  { id: 7, key: 'documents', title: 'Documents' },
-  { id: 8, key: 'review', title: 'Review & Submit' },
+  { id: 7, key: 'review', title: 'Review & Submit' },
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -41,7 +40,6 @@ export const validateAcademicStep = (academicBackground) => {
   if (primaryYearError) errors.push(primaryYearError);
   if (!a.boardOrUniversity?.trim()) errors.push('Board / university is required');
   if (!a.gpaOrPercentage?.trim()) errors.push('GPA / percentage is required');
-  if (!a.transcriptUpload) errors.push('Transcript / marksheet upload is required');
 
   (a.schools || []).forEach((school, index) => {
     const label = `Additional record ${index + 1}`;
@@ -50,7 +48,6 @@ export const validateAcademicStep = (academicBackground) => {
     if (yearError) errors.push(yearError);
     if (!school.boardOrUniversity?.trim()) errors.push(`${label}: board / university is required`);
     if (!school.gpaOrPercentage?.trim()) errors.push(`${label}: GPA / percentage is required`);
-    if (!school.resultUpload) errors.push(`${label}: result upload is required`);
   });
 
   return errors;
@@ -136,8 +133,16 @@ export const emptyApplicationForm = () => ({
 
 const toDateInput = (value) => {
   if (!value) return '';
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+    return value.slice(0, 10);
+  }
   try {
-    return new Date(value).toISOString().split('T')[0];
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   } catch {
     return '';
   }
@@ -352,12 +357,11 @@ export const getSectionCompletion = (form) => ({
   academic: Boolean(
     form.academicBackground.highSchoolName &&
     form.academicBackground.gpaOrPercentage &&
-    form.academicBackground.yearOfGraduation &&
-    form.academicBackground.transcriptUpload
+    form.academicBackground.yearOfGraduation
   ),
   language: Boolean(
     form.languageProficiency.examType === 'Not Required' ||
-    (form.languageProficiency.score && form.languageProficiency.IELTSresult)
+    form.languageProficiency.score
   ),
   program: Boolean(
     form.programInterest.programType &&
@@ -366,5 +370,4 @@ export const getSectionCompletion = (form) => ({
   ),
   experience: true,
   financial: Boolean(form.financialAndVisa.fundingSource),
-  documents: Boolean(form.attachments.resumeCv && form.attachments.statementOfPurpose),
 });

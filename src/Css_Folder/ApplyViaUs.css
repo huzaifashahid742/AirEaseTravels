@@ -127,12 +127,35 @@
 }
 
 /* =========================
-   FILE UPLOAD
+   WHATSAPP DOCUMENTS NOTICE
 ========================= */
-.airease-user .apply-file-ok {
-  font-size: 0.8rem;
-  color: #16a34a;
-  margin: 0.35rem 0 0;
+.airease-user .apply-docs-whatsapp {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.airease-user .apply-docs-whatsapp p {
+  margin: 0 0 0.5rem;
+  color: #166534;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.airease-user .apply-docs-whatsapp a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.airease-user .apply-docs-whatsapp a:hover {
+  color: #166534;
+  text-decoration: underline;
 }
 
 /* =========================

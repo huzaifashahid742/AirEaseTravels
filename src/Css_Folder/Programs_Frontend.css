@@ -318,6 +318,7 @@
 
 .airease-user .program-list-card__actions {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     margin-top: auto;
 }
@@ -851,8 +852,17 @@
 
 /* Action Buttons */
 .airease-user .program-list-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: auto;
   width: 100%;
+}
+
+.airease-user .program-list-card__actions .program-btn-outline {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
 }
 
 .airease-user .program-btn-primary {
