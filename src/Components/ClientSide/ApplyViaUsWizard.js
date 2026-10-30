@@ -1391,9 +1391,6 @@ const ApplyViaUsWizard = () => {
                   form.languageProficiency.examType === 'Not Required'
                 }
               />
-              <small className="text-muted">
-                Select the future expiry date of your English test result.
-              </small>
             </Field>
           </div>
         )}
@@ -1425,7 +1422,7 @@ const ApplyViaUsWizard = () => {
 
             {/* FIELD OF STUDY DROPDOWN */}
 
-            <Field label="Field of study" required>
+            <Field label="Interested Field of study" required>
               <select
                 className="form-select"
                 value={fieldOfStudyDropdownValue}
