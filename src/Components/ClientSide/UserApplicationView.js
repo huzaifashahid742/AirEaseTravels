@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FILE_BASE_URL, visaApplicationsAPI } from '../../services/api';
-import { formatApplicationStatus } from '../../utils/applicationStatus';
 import PageLoader from './PageLoader';
 import '../../Css_Folder/UserDashboard.css';
 
-const docLink = (url) => {
-  if (!url) return <span className="text-muted">Not uploaded</span>;
-  const href = url.startsWith('http') || url.startsWith('data:')
-    ? url
-    : `${FILE_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
-  return (
-    <a href={href} target="_blank" rel="noreferrer" className="sd-doc-link">
-      View document
-    </a>
-  );
-};
 
 const DetailGrid = ({ title, fields }) => (
   <div className="sd-detail-section">
@@ -72,7 +60,6 @@ const UserApplicationView = () => {
     { label: 'Gender', value: p.gender },
     { label: 'Date of birth', value: p.dateOfBirth ? new Date(p.dateOfBirth).toLocaleDateString() : null },
     { label: 'Passport number', value: p.passportNumber },
-    // { label: 'Permanent address', value: p.permanentAddress },
     { label: 'Current address', value: p.currentAddress },
   ];
 
@@ -119,7 +106,6 @@ const UserApplicationView = () => {
           </Link>
           <h1>{application.programName || 'Application details'}</h1>
           <p className="text-muted mb-0">
-            {application.universityName || 'University'} · Submitted{' '}
             {application.submittedAt
               ? new Date(application.submittedAt).toLocaleDateString()
               : new Date(application.updatedAt).toLocaleDateString()}
@@ -146,10 +132,6 @@ const UserApplicationView = () => {
       <DetailGrid title="Language proficiency" fields={languageFields} />
       <DetailGrid title="Financial & visa" fields={financialFields} />
       <DetailGrid title="Experience" fields={experienceFields} />
-
-      <div className="sd-detail-section">
-        <h2>Documents</h2>
-      </div>
     </div>
   );
 };
