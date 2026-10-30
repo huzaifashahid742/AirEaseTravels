@@ -55,7 +55,7 @@ export async function apiRequest(endpoint, options = {}) {
       throw error;
     }
     throw new Error(
-      'Cannot reach the server. Start the backend (port 7000) and check REACT_APP_API_URL in frontend/.env'
+      'Cannot reach the server.'
     );
   }
 }
