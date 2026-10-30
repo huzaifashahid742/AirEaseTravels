@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FILE_BASE_URL, visaApplicationsAPI, studentsAPI } from '../../services/api';
-import { formatApplicationStatus } from '../../utils/applicationStatus';
 import PageLoader from './PageLoader';
 import '../../Css_Folder/UserDashboard.css';
 import '../../Css_Folder/StudentProfile.css';
 
-const docLink = (url) => {
-  if (!url) return <span className="doc-missing">Missing</span>;
-  const href = url.startsWith('http') || url.startsWith('data:')
-    ? url
-    : `${FILE_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
-  return (
-    <a href={href} target="_blank" rel="noreferrer" className="doc-link-btn">
-      <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-      Open File
-    </a>
-  );
-};
 
 const EnterpriseDetailGrid = ({ title, tag, fields }) => (
   <div className="data-card">
@@ -255,14 +242,6 @@ const UnifiedApplicationView = () => {
           <EnterpriseDetailGrid title="Language Proficiency" tag="SEC-04" fields={languageFields} />
           <EnterpriseDetailGrid title="Financial & Visa Directives" tag="SEC-05" fields={financialFields} />
           <EnterpriseDetailGrid title="Experience & Leadership Profile" tag="SEC-06" fields={experienceFields} />
-        </div>
-
-        {/* Verified Documents Registry */}
-        <div className="data-card full-span mt-4">
-          <div className="card-header">
-            <h3>Verified Document Registry</h3>
-            <span className="header-tag">DOC-REPOSITORY</span>
-          </div>
         </div>
 
         {/* Candidate Competency Matrix */}
