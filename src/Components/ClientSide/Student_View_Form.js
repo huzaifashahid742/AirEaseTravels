@@ -177,21 +177,6 @@ const UnifiedApplicationView = () => {
     { label: 'Volunteer History', value: exp.volunteerExperience },
   ];
 
-  const documentItems = [
-    { title: 'Curriculum Vitae (CV)', value: docs.resumeCv },
-    { title: 'Statement of Purpose', value: docs.statementOfPurpose },
-    { title: 'Passport Bio Page', value: docs.passportCopyUpload },
-    { title: 'National Identity Proof', value: docs.nationalIdProof },
-    { title: 'Official Transcript', value: a.transcriptUpload },
-    ...(lang.examType && lang.examType !== 'Not Required'
-      ? [{ title: `${lang.examType} Result Certificate`, value: lang.IELTSresult }]
-      : []),
-    ...(a.schools || []).map((school, index) => ({
-      title: `Supplementary Record ${index + 1} Result`,
-      value: school.resultUpload,
-    })),
-  ];
-
   return (
     <div className="enterprise-layout">
       <div className="shell">
