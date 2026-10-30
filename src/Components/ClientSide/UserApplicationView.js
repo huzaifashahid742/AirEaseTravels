@@ -110,21 +110,6 @@ const UserApplicationView = () => {
     { label: 'Volunteer experience', value: exp.volunteerExperience },
   ];
 
-  const documentItems = [
-    { title: 'Resume / CV', value: docs.resumeCv },
-    { title: 'Recommendation Letter', value: docs.statementOfPurpose },
-    { title: 'Passport copy', value: docs.passportCopyUpload },
-    { title: 'National ID proof', value: docs.nationalIdProof },
-    { title: 'Academic transcript', value: a.transcriptUpload },
-    ...(lang.examType && lang.examType !== 'Not Required'
-      ? [{ title: `${lang.examType} result`, value: lang.IELTSresult }]
-      : []),
-    ...(a.schools || []).map((school, index) => ({
-      title: `Additional record ${index + 1} result`,
-      value: school.resultUpload,
-    })),
-  ];
-
   return (
     <div>
       <div className="sd-view-header">

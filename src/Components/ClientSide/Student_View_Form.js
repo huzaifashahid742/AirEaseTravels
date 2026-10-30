@@ -263,14 +263,6 @@ const UnifiedApplicationView = () => {
             <h3>Verified Document Registry</h3>
             <span className="header-tag">DOC-REPOSITORY</span>
           </div>
-          <div className="document-matrix">
-            {documentItems.map((item) => (
-              <div key={item.title} className="doc-row">
-                <span className="doc-title-label">{item.title}</span>
-                {docLink(item.value)}
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Candidate Competency Matrix */}
