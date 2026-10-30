@@ -149,14 +149,6 @@ const UserApplicationView = () => {
 
       <div className="sd-detail-section">
         <h2>Documents</h2>
-        <div className="sd-doc-grid">
-          {documentItems.map((item) => (
-            <div key={item.title} className="sd-doc-card">
-              <h3>{item.title}</h3>
-              {docLink(item.value)}
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
