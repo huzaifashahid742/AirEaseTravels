@@ -230,9 +230,6 @@ const UnifiedApplicationView = () => {
                   <div key={index} className="sub-item-ent">
                     <span className="index-pill">Record 0{index + 1}</span>
                     <p><strong>{school.schoolName}</strong> &bull; {school.boardOrUniversity} &bull; Class of {school.graduationYear} &bull; Score: {school.gpaOrPercentage}</p>
-                    {school.resultUpload && (
-                      <div className="mt-1">{docLink(school.resultUpload)}</div>
-                    )}
                   </div>
                 ))}
               </div>
