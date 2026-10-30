@@ -15,7 +15,7 @@ export const validateGraduationYear = (year, label = 'Year of completion') => {
   if (year === undefined || year === null || year === '') {
     return `${label} is required`;
   }
-  const y = Number(year);
+  const y = Number(year);     
   if (Number.isNaN(y) || !Number.isInteger(y)) {
     return `${label} must be a valid 4-digit year`;
   }
